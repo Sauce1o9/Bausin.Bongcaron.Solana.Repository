@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Order Phil</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, sans-serif; 
+            line-height: 1.6; 
+            color: #333; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            background-image: url("{% static 'img/login_signup.png' %}"); 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
+        }
+        .container { 
+            background-color: rgba(255, 255, 255, 0.9); /* Optional: semi-transparent white background */
+            padding: 40px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            width: 100%; 
+            max-width: 400px; 
+        }
+        h2 { font-size: 24px; font-weight: 700; color: #0f172a; margin-bottom: 20px; text-align: center; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; }
+        input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 20px; }
+        button { background-color: #ff8c00; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; width: 100%; }
+        .login-link { text-align: center; margin-top: 20px; font-size: 14px; }
+        .login-link a { color: #ff8c00; text-decoration: none; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Create an Account</h2>
+        <!-- Start of form -->
+        <form method="post" action="{% url 'signup' %}">
+            {% csrf_token %}
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password1" required>
+            </div>
+            <div>
+                <label for="password_confirm">Confirm Password:</label>
+                <input type="password" id="password_confirm" name="password2" required>
+            </div>
+            <div>
+                <button type="submit">Sign Up</button>
+                <p class="login-link">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
