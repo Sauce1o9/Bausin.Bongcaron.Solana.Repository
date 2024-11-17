@@ -1,0 +1,379 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Order Phil - Food Delivery</title>
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+                body { font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    color: #333;
+                    height: 100vh; /* Makes the body span the full viewport height */
+                    overflow-y: auto;}
+                .promo-banner { background-color: #f8f8f8; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; font-size: 14px; }
+                .promo-icon, .location-icon { margin-right: 10px; font-size: 18px; }
+                .change-location { color: #ff8c00; text-decoration: none; margin-left: 10px; font-weight: 600; }
+                nav { display: flex; justify-content: space-between; align-items: center; padding: 20px; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+                .logo { display: flex; align-items: center; font-size: 20px; font-weight: bold; line-height: 1.2; }
+                .logo img { height: 40px; margin-right: 10px; }
+                .nav-links { display: flex; list-style: none; }
+                .nav-links li { margin: 0 15px; }
+                .nav-links a { text-decoration: none; color: #333; font-weight: 600; }
+                .nav-links a.active { color: #ff8c00; }
+                .login-btn { background-color: #0f172a; color: #fff; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; display: flex; align-items: center; }
+                .login-icon { margin-right: 5px; }
+                .hero { background-color: #0f172a; color: #fff; padding: 40px; position: relative; overflow: hidden; display: flex; justify-content: space-between; align-items: center; border-radius: 20px;}
+                .hero-content { max-width: 50%; }
+                h1 { font-size: 48px; font-weight: 700; line-height: 1.2; margin-bottom: 20px; }
+                .highlight { color: #ff8c00; }
+                .delivery-info { display: flex; margin-top: 20px; }
+                .delivery-item { background: rgba(255,255,255,0.1); padding: 10px; margin-right: 10px; border-radius: 5px; }
+                .open-until { background: #ff8c00; color: white; padding: 10px 20px; display: inline-block; margin-top: 20px; border-radius: 5px; }
+                .rating { background: white; color: #333; margin-right: -80px; margin-bottom: -200px; padding: 15px; border-radius: 10px; text-align: center; }
+                .stars { color: #ff8c00; }
+                .burger-image { width: 650px; height: auto; border-radius: 10px; }
+
+                .offers-section {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .offers-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .offers-header h2 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .search-bar {
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            width: 250px;
+        }
+        .categories {
+            display: flex;
+            background-color: #ff8c00;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .category {
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .category.active {
+            background-color: #0f172a;
+        }
+        .burgers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .burger-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .burger-image2 {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .burger-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .burger-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .burger-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+            flex: 1;
+        }
+
+        .burger-price-add {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .burger-price {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .add-button2 {
+            background-color: #0f172a;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-button2:hover {
+            background-color: #1e293b;
+        }
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .offer-card {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .offer-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .offer-discount {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #0f172a;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .offer-details {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+        }
+        .offer-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .add-button {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: white;
+            color: #0f172a;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="promo-banner">
+                <div class="promo">
+                    <span class="promo-icon">🎉</span>
+                    <p>Get 5% Off your first order, <span class="highlight">Promo: UIPROJ</span></p>
+                </div>
+                <div class="location">
+                    <p><span class="location-icon">📍</span>Natalio B. Bacalso Ave, Cebu City</p>
+                    <a href="#" class="change-location">Change Location</a>
+                </div>
+            </div>
+            <nav>
+                <div class="logo">
+                    <img src="{% static 'img/Logo.png' %}" alt="Order Phil Logo" class="logo-img">
+                </div>
+                <ul class="nav-links">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'browse' %}">Browse Menu</a></li>
+                    <li><a href="#">Special Offers</a></li>
+                    <li><a href="#" class="active">Restaurants</a></li>
+                    <li><a href="#">Track Order</a></li>
+                </ul>
+                <a href="{% url 'login' %}" class="login-btn">
+                    <span class="login-icon">👤</span>
+                    Login/Signup
+                </a>
+            </nav>
+        </header>
+        <main>
+            <div class="hero">
+                <div class="hero-content">
+                    <p>I'm lovin' it!</p>
+                    <h1>McDonald's Cebu <span class="highlight">Southroad</span></h1>
+                    <div class="delivery-info">
+                        <div class="delivery-item">
+                            <span>🚚</span> Delivery Fee: 18 Php
+                        </div>
+                        <div class="delivery-item">
+                            <span>🕒</span> Delivery in 20-25 Minutes
+                        </div>
+                    </div>
+                    <div class="open-until">
+                        <span>🕒</span> Open until 3:00 AM
+                    </div>
+                </div>
+                <div class="rating">
+                    <h2>4.0</h2>
+                    <div class="stars">★★★★☆</div>
+                    <p>1,217 reviews</p>
+                </div>
+                <img src="{% static 'img/borger.png' %}" alt="McDonald's Burger Meal" class="burger-image">
+            </div>
+
+            <section class="offers-section">
+                <div class="offers-header">
+                    <h2>All Offers from McDonald's Cebu Southroad</h2>
+                    <input type="text" class="search-bar" placeholder="Search from menu...">
+                </div>
+                <div class="categories">
+                    <a href="#" class="category active">Offers</a>
+                    <a href="#" class="category">Burgers</a>
+                    <a href="#" class="category">Fries</a>
+                    <a href="#" class="category">Snacks</a>
+                    <a href="#" class="category">Salads</a>
+                    <a href="#" class="category">Cold drinks</a>
+                    <a href="#" class="category">Happy Meal®</a>
+                    <a href="#" class="category">Desserts</a>
+                    <a href="#" class="category">Hot drinks</a>
+                    <a href="#" class="category">Sauces</a>
+                    <a href="#" class="category">Orbit®</a>
+                </div>
+                <div class="offers-grid">
+                    <div class="offer-card">
+                        <img src="{% static 'img/first-order-discount.png' %}" alt="First Order Discount" class="offer-image">
+                        <span class="offer-discount">-20%</span>
+                        <div class="offer-details">
+                            <div class="offer-title">McDonald's Cebu Southroad</div>
+                            <div>First Order Discount</div>
+                        </div>
+                        <button class="add-button">+</button>
+                    </div>
+                    <div class="offer-card">
+                        <img src="{% static 'img/vegan-discount.png' %}" alt="Vegan Discount" class="offer-image">
+                        <span class="offer-discount">-20%</span>
+                        <div class="offer-details">
+                            <div class="offer-title">McDonald's Cebu Southroad</div>
+                            <div>Vegan Discount</div>
+                        </div>
+                        <button class="add-button">+</button>
+                    </div>
+                    <div class="offer-card">
+                        <img src="{% static 'img/free-ice-cream.png' %}" alt="Free Ice Cream Offer" class="offer-image">
+                        <span class="offer-discount">-100%</span>
+                        <div class="offer-details">
+                            <div class="offer-title">McDonald's Cebu Southroad</div>
+                            <div>Free Ice Cream Offer</div>
+                        </div>
+                        <button class="add-button">+</button>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="offers-header">
+                    <h1>Burgers</h1>
+                </div>
+
+                <div class="burgers-grid">
+                    <div class="burger-card">
+                        <img src="{% static 'img/burger1.png' %}" alt="Royal Cheese Burger with extra Fries" class="burger-image2">
+                        <div class="burger-details">
+                            <h3 class="burger-title">Royal Cheese Burger with extra Fries</h3>
+                            <p class="burger-description">1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium sized French Fries</p>
+                            <div class="burger-price-add">
+                                <span class="burger-price">Php 23.10</span>
+                                <button class="add-button2" aria-label="Add to order">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="burger-card">
+                        <img src="{% static 'img/burger2.png' %}" alt="The classics for 3" class="burger-image2">
+                        <div class="burger-details">
+                            <h3 class="burger-title">The classics for 3</h3>
+                            <p class="burger-description">1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium sized French Fries , 3 cold drinks</p>
+                            <div class="burger-price-add">
+                                <span class="burger-price">Php 23.10</span>
+                                <button class="add-button2" aria-label="Add to order">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="burger-card">
+                        <img src="{% static 'img/burger3.png' %}" alt="The classics for 3" class="burger-image2">
+                        <div class="burger-details">
+                            <h3 class="burger-title">The classics for 3</h3>
+                            <p class="burger-description">1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium sized French Fries , 3 cold drinks</p>
+                            <div class="burger-price-add">
+                                <span class="burger-price">Php 23.10</span>
+                                <button class="add-button2" aria-label="Add to order">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="burger-card">
+                        <img src="{% static 'img/burger4.png' %}" alt="The classics for 3" class="burger-image2">
+                        <div class="burger-details">
+                            <h3 class="burger-title">The classics for 3</h3>
+                            <p class="burger-description">1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium sized French Fries , 3 cold drinks</p>
+                            <div class="burger-price-add">
+                                <span class="burger-price">Php 23.10</span>
+                                <button class="add-button2" aria-label="Add to order">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="burger-card">
+                        <img src="{% static 'img/burger5.png' %}" alt="The classics for 3" class="burger-image2">
+                        <div class="burger-details">
+                            <h3 class="burger-title">The classics for 3</h3>
+                            <p class="burger-description">1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium sized French Fries , 3 cold drinks</p>
+                            <div class="burger-price-add">
+                                <span class="burger-price">Php 23.10</span>
+                                <button class="add-button2" aria-label="Add to order">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="burger-card">
+                        <img src="{% static 'img/burger6.png' %}" alt="The classics for 3" class="burger-image2">
+                        <div class="burger-details">
+                            <h3 class="burger-title">The classics for 3</h3>
+                            <p class="burger-description">1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium sized French Fries , 3 cold drinks</p>
+                            <div class="burger-price-add">
+                                <span class="burger-price">Php 23.10</span>
+                                <button class="add-button2" aria-label="Add to order">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <br>
+        </main>
+    </body>
+</html>

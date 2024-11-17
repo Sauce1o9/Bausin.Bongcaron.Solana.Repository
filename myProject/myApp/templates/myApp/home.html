@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Phil - Food Delivery</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .promo-banner { background-color: #f8f8f8; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; font-size: 14px; }
+        .promo-icon, .location-icon { margin-right: 10px; font-size: 18px; }
+        .change-location { color: #ff8c00; text-decoration: none; margin-left: 10px; font-weight: 600; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .logo { display: flex; align-items: center; font-size: 20px; font-weight: bold; line-height: 1.2; }
+        .logo img { height: 40px; margin-right: 10px; }
+        .nav-links { display: flex; list-style: none; }
+        .nav-links li { margin: 0 15px; }
+        .nav-links a { text-decoration: none; color: #333; font-weight: 600; transition: color 0.3s, transform 0.3s; }
+        .nav-links a.active { color: #ff8c00; }
+        .nav-links a:hover {
+            color: #ff8c00; /* Change text color on hover */
+            transform: scale(1.05); /* Slightly enlarge the link */
+        }
+        .login-btn { background-color: #0f172a; color: #fff; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; display: flex; align-items: center; }
+        .login-icon { margin-right: 5px; }
+        .hero { display: flex; background-color: #0f172a; color: #fff; padding: 50px; position: relative; overflow: hidden; border-radius: 20px; height: 79vh; }
+        .hero-content { margin-top: 130px; flex: 1; z-index: 1; max-width: 50%; }
+        h1 { font-size: 48px; font-weight: 700; line-height: 1.2; margin-bottom: 20px; }
+        .highlight { color: #ff8c00; }
+        .search-form { display: flex; margin-top: 30px; }
+        .search-form input { padding: 15px; width: 300px; border: none; border-radius: 25px 0 0 25px; font-family: 'Poppins', sans-serif; }
+        .search-form button { padding: 15px 30px; background-color: #ff8c00; color: #fff; border: none; border-radius: 0 25px 25px 0; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; }
+        .hero-image { flex: 1; position: relative; }
+        .hero-image::before { content: ''; position: absolute; top: -50%; right: -25%; width: 150%; height: 200%; background-color: #ff8c00; border-radius: 50%; z-index: 0; }
+        .order-status { position: absolute; right: 0; top: 50%; transform: translateY(-50%); z-index: 2; }
+        .status-card { background-color: #fff; border-radius: 10px; padding: 15px; margin-bottom: 15px; display: flex; align-items: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 300px; }
+        .status-icon { height: 30px; width: auto; margin-right: 10px; }
+        .status-content { color: #333; }
+        .status-title { font-weight: 600; font-size: 14px; }
+        .status-description { font-size: 12px; color: #666; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="promo-banner">
+            <div class="promo">
+                <span class="promo-icon">🎉</span>
+                <p>Get 5% Off your first order, <span class="highlight">Promo: UIPROJ</span></p>
+            </div>
+            <div class="location">
+                <p><span class="location-icon">📍</span>Natalio B. Bacalso Ave, Cebu City</p>
+                <a href="#" class="change-location">Change Location</a>
+            </div>
+        </div>
+        <nav>
+            <div class="logo">
+                <img src="{% static 'img/Logo.png' %}" alt="Order Phil Logo" class="logo-img">
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}" class="active">Home</a></li>
+                <li><a href="{% url 'browse' %}">Browse Menu</a></li>
+                <li><a href="#">Special Offers</a></li>
+                <li><a href="{% url 'restaurants' %}">Restaurants</a></li>
+                <li><a href="#">Track Order</a></li>
+            </ul>
+            <a href="{% url 'login' %}" class="login-btn">
+                <span class="login-icon">👤</span>
+                Login/Signup
+            </a>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <p class="subtitle">Order Restaurant food, takeaway and groceries.</p>
+                <h1>Feast Your Senses,<br><span class="highlight">Fast and Fresh</span></h1>
+                <p class="description">Enter a postcode to see what we deliver</p>
+                <form class="search-form">
+                    <input type="text" placeholder="e.g. Pizza" required>
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+            <div class="hero-image">
+                <div class="order-status">
+                    <div class="status-card">
+                        <img src="{% static 'img/Logo.png' %}" alt="Order icon" class="status-icon">
+                        <div class="status-content">
+                            <p class="status-title">We've Received your order!</p>
+                            <p class="status-description">Awaiting Restaurant acceptance</p>
+                        </div>
+                    </div>
+                    <div class="status-card">
+                        <img src="{% static 'img/Logo.png' %}" alt="Order icon" class="status-icon">
+                        <div class="status-content">
+                            <p class="status-title">Order Accepted! ✅</p>
+                            <p class="status-description">Your order will be delivered shortly</p>
+                        </div>
+                    </div>
+                    <div class="status-card">
+                        <img src="{% static 'img/Logo.png' %}" alt="Order icon" class="status-icon">
+                        <div class="status-content">
+                            <p class="status-title">Your rider's nearby 🛵</p>
+                            <p class="status-description">They're almost there - get ready!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
