@@ -298,17 +298,19 @@
 
                 <div class="burgers-grid">
                     {% for item in menu_items %}
-                    <div class="burger-card">
-                        <img src="{% static 'img/burger1.png' %}" alt="{{ item.item_name }}" class="burger-image2">
-                        <div class="burger-details">
-                            <h3 class="burger-title">{{ item.item_name }}</h3>
-                            <p class="burger-description">{{ item.item_description }}</p>
-                            <div class="burger-price-add">
-                                <span class="burger-price">Php {{ item.item_price }}</span>
-                                <button class="add-button2" aria-label="Add to order">+</button>
+                        <div class="burger-card">
+                            <img src="{% static 'img/burger1.png' %}" alt="{{ item.item_name }}" class="burger-image2">
+                            <div class="burger-details">
+                                <h3 class="burger-title">{{ item.item_name }}</h3>
+                                <p class="burger-description">{{ item.item_description }}</p>
+                                <div class="burger-price-add">
+                                    <span class="burger-price">Php {{ item.item_price }}</span>
+                                    <button class="add-button2" aria-label="Add to order">+</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    {% empty %}
+                        <p>No menu items available for McDonald's.</p>
                     {% endfor %}
                 </div>
             </section>

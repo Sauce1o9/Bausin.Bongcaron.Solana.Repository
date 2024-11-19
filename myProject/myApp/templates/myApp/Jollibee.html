@@ -229,7 +229,7 @@
             <div class="hero">
                 <div class="hero-content">
                     <p>I'm lovin' it!</p>
-                    <h1>Jollibee Cebu <span class="highlight">F.Llamas</span></h1>
+                    <h1>McDonald's Cebu <span class="highlight">Southroad</span></h1>
                     <div class="delivery-info">
                         <div class="delivery-item">
                             <span>🚚</span> Delivery Fee: 18 Php
@@ -255,8 +255,8 @@
                     <h2>All Offers from McDonald's Cebu Southroad</h2>
                 </div>
                 <div class="categories">
-                    <a href="#" class="category active">Other Restaurants</a>
-                    <a href="{% url 'restaurants' %}" class="category">McDonald's</a>
+                    <a class="category active">Browse Restaurants</a>
+                    <a href="{% url 'McDonalds' %}" class="category">McDonald's</a>
                     <a href="{% url 'Jollibee' %}" class="category">Jollibee</a>
                     <a href="{% url 'KFC' %}" class="category">KFC</a>
                     <a href="{% url 'BurgerKing' %}" class="category">Burger King</a>
@@ -293,75 +293,23 @@
 
                 <div class="offers-header">
                     <h1>Menu</h1>
+                    <!--make a Edit Menu button here-->
                 </div>
 
                 <div class="burgers-grid">
+                    {% for item in menu_items %}
                     <div class="burger-card">
-                        <img src="{% static 'img/burger1.png' %}" alt="Royal Cheese Burger with extra Fries" class="burger-image2">
+                        <img src="{% static 'img/burger1.png' %}" alt="{{ item.item_name }}" class="burger-image2">
                         <div class="burger-details">
-                            <h3 class="burger-title">Royal Cheese Burger with extra Fries</h3>
-                            <p class="burger-description">1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium sized French Fries</p>
+                            <h3 class="burger-title">{{ item.item_name }}</h3>
+                            <p class="burger-description">{{ item.item_description }}</p>
                             <div class="burger-price-add">
-                                <span class="burger-price">Php 23.10</span>
+                                <span class="burger-price">Php {{ item.item_price }}</span>
                                 <button class="add-button2" aria-label="Add to order">+</button>
                             </div>
                         </div>
                     </div>
-                    <div class="burger-card">
-                        <img src="{% static 'img/burger2.png' %}" alt="The classics for 3" class="burger-image2">
-                        <div class="burger-details">
-                            <h3 class="burger-title">The classics for 3</h3>
-                            <p class="burger-description">1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium sized French Fries , 3 cold drinks</p>
-                            <div class="burger-price-add">
-                                <span class="burger-price">Php 23.10</span>
-                                <button class="add-button2" aria-label="Add to order">+</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="burger-card">
-                        <img src="{% static 'img/burger3.png' %}" alt="The classics for 3" class="burger-image2">
-                        <div class="burger-details">
-                            <h3 class="burger-title">The classics for 3</h3>
-                            <p class="burger-description">1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium sized French Fries , 3 cold drinks</p>
-                            <div class="burger-price-add">
-                                <span class="burger-price">Php 23.10</span>
-                                <button class="add-button2" aria-label="Add to order">+</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="burger-card">
-                        <img src="{% static 'img/burger4.png' %}" alt="The classics for 3" class="burger-image2">
-                        <div class="burger-details">
-                            <h3 class="burger-title">The classics for 3</h3>
-                            <p class="burger-description">1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium sized French Fries , 3 cold drinks</p>
-                            <div class="burger-price-add">
-                                <span class="burger-price">Php 23.10</span>
-                                <button class="add-button2" aria-label="Add to order">+</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="burger-card">
-                        <img src="{% static 'img/burger5.png' %}" alt="The classics for 3" class="burger-image2">
-                        <div class="burger-details">
-                            <h3 class="burger-title">The classics for 3</h3>
-                            <p class="burger-description">1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium sized French Fries , 3 cold drinks</p>
-                            <div class="burger-price-add">
-                                <span class="burger-price">Php 23.10</span>
-                                <button class="add-button2" aria-label="Add to order">+</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="burger-card">
-                        <img src="{% static 'img/burger6.png' %}" alt="The classics for 3" class="burger-image2">
-                        <div class="burger-details">
-                            <h3 class="burger-title">The classics for 3</h3>
-                            <p class="burger-description">1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium sized French Fries , 3 cold drinks</p>
-                            <div class="burger-price-add">
-                                <span class="burger-price">Php 23.10</span>
-                                <button class="add-button2" aria-label="Add to order">+</button>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </section>
             <br>

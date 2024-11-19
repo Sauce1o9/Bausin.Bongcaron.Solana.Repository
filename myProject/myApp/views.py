@@ -58,35 +58,52 @@ def login_view(request):
 
 
 
-def restaurant_menu(request):
-    menu_items = Menu.objects.all()
-    context = {'menu_items': menu_items}
-    return render(request, "myApp/restaurants.html", context)
+
 
 def home(request):
     return render(request, "myApp/home.html")
 
-def restaurants(request):
-    return render(request, "myApp/restaurants.html")
+def restaurant_menu(request):
+    menu_items = Menu.objects.filter(restaurant_name2="McDonalds")
+    context = {'menu_items': menu_items}
+    return render(request, "myApp/restaurants.html", context)
 
-def Jollibee(request):
-    return render(request, "myApp/Jollibee.html")
+def restaurant_menu(request):
+    menu_items = Menu.objects.filter(restaurant_name2="McDonalds")
+    context = {'menu_items': menu_items}
+    return render(request, "myApp/McDonalds.html", context)
 
-def KFC(request):
-    return render(request, "myApp/KFC.html")
+def restaurant_menu(request):
+    menu_items = Menu.objects.all()
+    context = {'menu_items': menu_items}
+    return render(request, "myApp/Jollibee.html", context)
 
-def BurgerKing(request):
-    return render(request, "myApp/BurgerKing.html")
+def restaurant_menu(request):
+    menu_items = Menu.objects.all()
+    context = {'menu_items': menu_items}
+    return render(request, "myApp/KFC.html", context)
 
-def Chowking(request):
-    return render(request, "myApp/Chowking.html")
+def restaurant_menu(request):
+    menu_items = Menu.objects.all()
+    context = {'menu_items': menu_items}
+    return render(request, "myApp/BurgerKing.html", context)
 
-def Greenwich(request):
-    return render(request, "myApp/Greenwich.html")
+def restaurant_menu(request):
+    menu_items = Menu.objects.all()
+    context = {'menu_items': menu_items}
+    return render(request, "myApp/Chowking.html", context)
 
-def MangInasal(request):
-    return render(request, "myApp/MangInasal.html")
+def restaurant_menu(request):
+    menu_items = Menu.objects.all()
+    context = {'menu_items': menu_items}
+    return render(request, "myApp/Greenwich.html", context)
 
-def PizzaHut(request):
-    return render(request, "myApp/PizzaHut.html")
+def restaurant_menu(request):
+    menu_items = Menu.objects.all()
+    context = {'menu_items': menu_items}
+    return render(request, "myApp/MangInasal.html", context)
 
+def restaurant_menu(request):
+    menu_items = Menu.objects.all()
+    context = {'menu_items': menu_items}
+    return render(request, "myApp/PizzaHut.html", context)
