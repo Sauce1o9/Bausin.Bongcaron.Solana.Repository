@@ -26,4 +26,4 @@ class SignupForm(UserCreationForm):
 class MenuForm(forms.ModelForm):
     class Meta:
         model = Menu
-        fields = ['item_name', 'item_description', 'item_price']  # Add other fields as necessary
+        fields = ['item_name', 'item_description', 'item_price']  # Exclude restaurant_name2

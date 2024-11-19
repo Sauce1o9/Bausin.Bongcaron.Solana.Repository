@@ -15,5 +15,7 @@ urlpatterns = [
     path("MangInasal", views.MangInasal, name="MangInasal"),
     path("PizzaHut", views.PizzaHut, name="PizzaHut"),
     path('edit-menu/<int:menu_id>/', views.edit_menu, name='edit_menu'),
+    path('delete-menu/<int:menu_id>/', views.delete_menu, name='delete_menu'),
+    path('add-menu/', views.add_menu, name='add_menu'),
 ]
 

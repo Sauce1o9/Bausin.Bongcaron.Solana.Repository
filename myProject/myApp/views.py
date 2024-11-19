@@ -118,4 +118,22 @@ def edit_menu(request, menu_id):
     else:
         form = MenuForm(instance=menu_item)
     
-    return render(request, "myApp/edit_menu.html", {'form': form})
+    return render(request, "myApp/edit_menu.html", {'form': form, 'menu_item': menu_item})
+
+def delete_menu(request, menu_id):
+    menu_item = get_object_or_404(Menu, pk=menu_id)
+    menu_item.delete()  # Delete the menu item
+    return redirect('McDonalds')  # Redirect to the McDonald's page after deletion
+
+def add_menu(request):
+    if request.method == 'POST':
+        form = MenuForm(request.POST)
+        if form.is_valid():
+            menu_item = form.save(commit=False)
+            menu_item.restaurant_name2 = "McDonalds"
+            menu_item.save()
+            return redirect('McDonalds')
+    else:
+        form = MenuForm()
+    
+    return render(request, 'myApp/add_menu.html', {'form': form})
