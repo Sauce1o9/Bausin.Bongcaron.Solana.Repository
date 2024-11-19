@@ -127,7 +127,7 @@ def delete_menu(request, menu_id):
 
 def add_menu(request):
     if request.method == 'POST':
-        form = MenuForm(request.POST)
+        form = MenuForm(request.POST, request.FILES)  # Include request.FILES to handle file uploads
         if form.is_valid():
             menu_item = form.save(commit=False)
             menu_item.restaurant_name2 = "McDonalds"

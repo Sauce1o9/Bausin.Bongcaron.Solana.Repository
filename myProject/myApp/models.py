@@ -46,7 +46,7 @@ class Menu(models.Model):
     item_description = models.CharField(max_length=500)
     item_price = models.DecimalField(max_digits=10, decimal_places=2)
     restaurant_name2 = models.CharField(max_length=100)
-    #image = models.ImageField(upload_to='menu_images/', null=True, blank=True)
+    image = models.ImageField(upload_to='menu_images/', null=True, blank=True)
 
     def __str__(self):
         return self.item_name

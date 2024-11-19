@@ -1,5 +1,7 @@
 from . import views
 from django.urls import path # type: ignore
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("", views.home, name="home"),
@@ -18,4 +20,7 @@ urlpatterns = [
     path('delete-menu/<int:menu_id>/', views.delete_menu, name='delete_menu'),
     path('add-menu/', views.add_menu, name='add_menu'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -32,7 +32,8 @@ ALLOWED_HOSTS = []
 
 # Add these settings to handle media files
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Create a media directory in your project root
+
 
 
 # Application definition
