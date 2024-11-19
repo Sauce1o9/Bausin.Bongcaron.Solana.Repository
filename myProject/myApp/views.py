@@ -1,0 +1,92 @@
+from django.shortcuts import render, redirect # type: ignore
+from django.contrib.auth.models import User # type: ignore
+from django.contrib.auth import authenticate, login # type: ignore
+from django.contrib import messages # type: ignore
+from .forms import LoginForm, SignupForm
+from .models import Orders, Customer, Restaurant, Delivery_Driver, Menu
+
+
+# Create your views here.
+def signup(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        password_confirm = request.POST.get('password_confirm')
+        
+        print(f"Username: {username}, Email: {email}, Password: {password}, Confirm: {password_confirm}")
+        
+        if password and password == password_confirm:
+            if User.objects.filter(username=username).exists():
+                messages.error(request, 'Username already exists')
+            elif User.objects.filter(email=email).exists():
+                messages.error(request, 'Email already exists')
+            else:
+                user = User.objects.create_user(username=username, email=email, password=password)
+                user.save()
+                messages.success(request, 'Account created successfully')
+                return redirect('login')
+        else:
+            messages.error(request, 'Passwords do not match or were not provided')
+    return render(request, "myApp/signup.html")
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+       
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            messages.success(request, 'Login successful')
+            return redirect('home')  
+        else:
+            messages.error(request, 'Invalid username or password')
+    return render(request, "myApp/login.html")  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def restaurant_menu(request):
+    menu_items = Menu.objects.all()
+    context = {'menu_items': menu_items}
+    return render(request, "myApp/restaurants.html", context)
+
+def home(request):
+    return render(request, "myApp/home.html")
+
+def restaurants(request):
+    return render(request, "myApp/restaurants.html")
+
+def Jollibee(request):
+    return render(request, "myApp/Jollibee.html")
+
+def KFC(request):
+    return render(request, "myApp/KFC.html")
+
+def BurgerKing(request):
+    return render(request, "myApp/BurgerKing.html")
+
+def Chowking(request):
+    return render(request, "myApp/Chowking.html")
+
+def Greenwich(request):
+    return render(request, "myApp/Greenwich.html")
+
+def MangInasal(request):
+    return render(request, "myApp/MangInasal.html")
+
+def PizzaHut(request):
+    return render(request, "myApp/PizzaHut.html")
+

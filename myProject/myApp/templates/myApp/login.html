@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Order Phil</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, sans-serif; 
+            line-height: 1.6;
+            height: 100vh; 
+            background-image: url("{% static 'img/login_signup.png' %}"); 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
+        }
+        nav { display: flex; justify-content: center; align-items: center; padding: 20px; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .logo { display: flex; align-items: center; font-size: 20px; font-weight: bold; line-height: 1.2; margin-right: 20px; }
+        .logo img { height: 40px; }
+        .nav-links { display: flex; list-style: none; justify-content: center; }
+        .nav-links li { margin: 0 15px; }
+        .nav-links a { text-decoration: none; color: #333; font-weight: 600; }
+        .nav-links a.active { color: #ff8c00; }
+        .login-btn { background-color: #0f172a; color: #fff; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; display: flex; align-items: center; }
+        .container { background-color: rgba(255, 255, 255, 0.9); /* Optional: semi-transparent white background */ padding: 40px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 100%; max-width: 400px; margin: 20px auto; }
+        h2 { font-size: 24px; font-weight: 700; color: #0f172a; margin-bottom: 20px; text-align: center; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        .signup-btn { background-color: #ff8c00; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; width: 100%; }
+        .signup-link { text-align: center; margin-top: 20px; font-size: 14px; }
+        .signup-link a { color: #ff8c00; text-decoration: none; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="{% static 'img/Logo.png' %}" alt="Order Phil Logo" class="logo-img">
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'browse' %}">Browse Menu</a></li>
+                <li><a href="#">Special Offers</a></li>
+                <li><a href="{% url 'restaurants' %}">Restaurants</a></li>
+                <li><a href="#">Track Order</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <h2>Login to Order Phil</h2>
+        <!-- Start of form -->
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="signup-btn">Login</button>
+        </form>
+        <!-- End of form -->
+        <p class="signup-link">Don’t have an account? <a href="{% url 'signup' %}">Sign up</a></p>
+    </div>
+</body>
+</html>
