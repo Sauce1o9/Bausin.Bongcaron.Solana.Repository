@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect # type: ignore
+from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
 from django.contrib.auth.models import User # type: ignore
 from django.contrib.auth import authenticate, login # type: ignore
 from django.contrib import messages # type: ignore
-from .forms import LoginForm, SignupForm
+from .forms import LoginForm, SignupForm, MenuForm
 from .models import Orders, Customer, Restaurant, Delivery_Driver, Menu
+from django.http import Http404  # Add this import
 
 
 # Create your views here.
@@ -63,47 +64,58 @@ def login_view(request):
 def home(request):
     return render(request, "myApp/home.html")
 
-def restaurant_menu(request):
-    menu_items = Menu.objects.filter(restaurant_name2="McDonalds")
-    context = {'menu_items': menu_items}
-    return render(request, "myApp/restaurants.html", context)
+def restaurants(request):
+    return render(request, "myApp/restaurants.html")
 
-def restaurant_menu(request):
+def McDonalds(request):
     menu_items = Menu.objects.filter(restaurant_name2="McDonalds")
     context = {'menu_items': menu_items}
     return render(request, "myApp/McDonalds.html", context)
 
-def restaurant_menu(request):
-    menu_items = Menu.objects.all()
+def Jollibee(request):
+    menu_items = Menu.objects.filter(restaurant_name2="Jollibee")
     context = {'menu_items': menu_items}
     return render(request, "myApp/Jollibee.html", context)
 
-def restaurant_menu(request):
-    menu_items = Menu.objects.all()
+def KFC(request):
+    menu_items = Menu.objects.filter(restaurant_name2="KFC")
     context = {'menu_items': menu_items}
     return render(request, "myApp/KFC.html", context)
 
-def restaurant_menu(request):
-    menu_items = Menu.objects.all()
+def BurgerKing(request):
+    menu_items = Menu.objects.filter(restaurant_name2="BurgerKing")
     context = {'menu_items': menu_items}
     return render(request, "myApp/BurgerKing.html", context)
 
-def restaurant_menu(request):
-    menu_items = Menu.objects.all()
+def Chowking(request):
+    menu_items = Menu.objects.filter(restaurant_name2="Chowking")
     context = {'menu_items': menu_items}
     return render(request, "myApp/Chowking.html", context)
 
-def restaurant_menu(request):
-    menu_items = Menu.objects.all()
+def Greenwich(request):
+    menu_items = Menu.objects.filter(restaurant_name2="McDoGreenwichnalds")
     context = {'menu_items': menu_items}
     return render(request, "myApp/Greenwich.html", context)
 
-def restaurant_menu(request):
-    menu_items = Menu.objects.all()
+def MangInasal(request):
+    menu_items = Menu.objects.filter(restaurant_name2="MangInasal")
     context = {'menu_items': menu_items}
     return render(request, "myApp/MangInasal.html", context)
 
-def restaurant_menu(request):
-    menu_items = Menu.objects.all()
+def PizzaHut(request):
+    menu_items = Menu.objects.filter(restaurant_name2="PizzaHut")
     context = {'menu_items': menu_items}
     return render(request, "myApp/PizzaHut.html", context)
+
+def edit_menu(request, menu_id):
+    menu_item = get_object_or_404(Menu, pk=menu_id)
+    
+    if request.method == 'POST':
+        form = MenuForm(request.POST, instance=menu_item)
+        if form.is_valid():
+            form.save()
+            return redirect('McDonalds')  # Redirect to the McDonald's page after saving
+    else:
+        form = MenuForm(instance=menu_item)
+    
+    return render(request, "myApp/edit_menu.html", {'form': form})

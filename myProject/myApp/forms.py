@@ -2,6 +2,7 @@ from django import forms # type: ignore
 from django.contrib.auth.models import User # type: ignore
 from django.contrib.auth.forms import UserCreationForm # type: ignore
 from django.contrib.auth.models import User # type: ignore
+from .models import Menu
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=100, required=True)
@@ -21,3 +22,8 @@ class SignupForm(UserCreationForm):
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError("A user with this email already exists.")
         return email
+
+class MenuForm(forms.ModelForm):
+    class Meta:
+        model = Menu
+        fields = ['item_name', 'item_description', 'item_price']  # Add other fields as necessary

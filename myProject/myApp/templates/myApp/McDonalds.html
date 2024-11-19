@@ -22,7 +22,7 @@
                 .nav-links li { margin: 0 15px; }
                 .nav-links a { text-decoration: none; color: #333; font-weight: 600; }
                 .nav-links a.active { color: #ff8c00; }
-                .login-btn { background-color: #0f172a; color: #fff; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; display: flex; align-items: center; }
+                .login-btn { background-color: #0f172a; color: #fff; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; display: flex; align-items: center; text-decoration: none; }
                 .login-icon { margin-right: 5px; }
                 .hero { background-color: #0f172a; color: #fff; padding: 40px; position: relative; overflow: hidden; display: flex; justify-content: space-between; align-items: center; border-radius: 20px;}
                 .hero-content { max-width: 50%; }
@@ -195,6 +195,24 @@
             font-size: 20px;
             cursor: pointer;
         }
+
+        .edit-menu-btn {
+            background-color: #ff8c00;
+            border-radius: 10px;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .edit-menu-btn:hover {
+            background-color: #e68a00;
+        }
         </style>
     </head>
     <body>
@@ -293,7 +311,7 @@
 
                 <div class="offers-header">
                     <h1>Menu</h1>
-                    <!--make a Edit Menu button here-->
+                    <button class="edit-menu-btn">Add Menu</button>
                 </div>
 
                 <div class="burgers-grid">
@@ -307,6 +325,7 @@
                                     <span class="burger-price">Php {{ item.item_price }}</span>
                                     <button class="add-button2" aria-label="Add to order">+</button>
                                 </div>
+                                <a style="margin-top: 20px; text-align: center;" href="{% url 'edit_menu' item.menu_id %}" class="edit-menu-btn">Edit</a>
                             </div>
                         </div>
                     {% empty %}
