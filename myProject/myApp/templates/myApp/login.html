@@ -34,7 +34,8 @@
             padding: 40px; 
             border-radius: 10px; 
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-            width: 100%; 
+            width: 100%;
+            height: 400px;
             max-width: 400px;
             position: absolute; /* Use absolute positioning */
             top: 59%; /* Position from the top */
@@ -186,6 +187,22 @@
                 border-radius: 50%;
             }
         }
+        .input-container {
+            position: relative;
+        }
+
+        .icon {
+            position: absolute;
+            left: 10px; /* Adjust as needed */
+            top: 33%;
+            transform: translateY(-50%);
+            width: 20px; /* Adjust icon size */
+            height: 20px; /* Adjust icon size */
+        }
+
+        input {
+            padding-left: 40px; /* Add padding to the left for the icon */
+        }
     </style>
 </head>
 <body>
@@ -218,7 +235,7 @@
                 </div>
                 <ul class="nav-links">
                     <li><a href="{% url 'home' %}" class="active">Home</a></li>
-                    <li><a href="{% url 'restaurants' %}">Restaurants</a></li>
+                    <li><a href="{% url 'McDonalds' %}">Restaurants</a></li>
                     <li><a href="#">Orders</a></li>
                     <li><a href="#">Payment</a></li>
                     <li><a href="#">Delivery Drivers</a></li>
@@ -231,17 +248,17 @@
         </header>
         <main>
             <div class="container">
-                <h2>Login to Order Phil</h2>
+                <h2 style="margin-bottom: 80px;">Login to Order Phil</h2>
                 <!-- Start of form -->
                 <form method="post" action="{% url 'login' %}">
                     {% csrf_token %}
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username" required>
+                    <div class="input-container">
+                        <img src="{% static 'img/user.png' %}" alt="Username Icon" class="icon">
+                        <input type="text" id="customer_id" name="customer_id" placeholder="Username" required>
                     </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" required>
+                    <div class="input-container">
+                        <img src="{% static 'img/password.png' %}" alt="Password Icon" class="icon">
+                        <input type="password" id="password" name="password1" placeholder="Password" required>
                     </div>
                     <button type="submit" class="signup-btn">Login</button>
                 </form>

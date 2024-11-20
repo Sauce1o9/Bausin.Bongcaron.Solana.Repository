@@ -2,64 +2,39 @@ from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
 from django.contrib.auth.models import User # type: ignore
 from django.contrib.auth import authenticate, login # type: ignore
 from django.contrib import messages # type: ignore
-from .forms import LoginForm, SignupForm, MenuForm
+from .forms import MenuForm
 from .models import Orders, Customer, Restaurant, Delivery_Driver, Menu
 from django.http import Http404  # Add this import
 
 
 # Create your views here.
+def login(request):
+    return render(request, "myApp/login.html")
+
 def signup(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        password_confirm = request.POST.get('password_confirm')
-        
-        print(f"Username: {username}, Email: {email}, Password: {password}, Confirm: {password_confirm}")
-        
-        if password and password == password_confirm:
-            if User.objects.filter(username=username).exists():
-                messages.error(request, 'Username already exists')
-            elif User.objects.filter(email=email).exists():
-                messages.error(request, 'Email already exists')
-            else:
-                user = User.objects.create_user(username=username, email=email, password=password)
-                user.save()
-                messages.success(request, 'Account created successfully')
-                return redirect('login')
-        else:
-            messages.error(request, 'Passwords do not match or were not provided')
-    return render(request, "myApp/signup.html")
-
-def login_view(request):
-    if request.method == 'POST':
-        username = request.POST['username']
+        customer_id = request.POST['customer_id']
         password = request.POST['password']
-       
-        user = authenticate(request, username=username, password=password)
-        
-        if user is not None:
-            login(request, user)
-            messages.success(request, 'Login successful')
-            return redirect('home')  
-        else:
-            messages.error(request, 'Invalid username or password')
-    return render(request, "myApp/login.html")  
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        email = request.POST['email']
+        phone_number = request.POST['phone_number']
+        address = request.POST['address']
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        # Create a new Customer instance
+        customer = Customer(
+            customer_id=customer_id,
+            password=password,  # Consider hashing the password
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            phone_number=phone_number,
+            address=address
+        )
+        customer.save()
+        messages.success(request, 'Account created successfully!')
+        return redirect('login')  # Redirect to login after signup
+    return render(request, "myApp/signup.html")
 
 def home(request):
     return render(request, "myApp/home.html")
