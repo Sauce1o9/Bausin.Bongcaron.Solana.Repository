@@ -15,11 +15,17 @@ def signup(request):
     if request.method == 'POST':
         customer_id = request.POST['customer_id']
         password = request.POST['password']
+        password_confirm = request.POST['password_confirm']  # Get the confirm password
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
         email = request.POST['email']
         phone_number = request.POST['phone_number']
         address = request.POST['address']
+
+        # Check if passwords match
+        if password != password_confirm:
+            messages.error(request, 'Passwords must match')  # Error message
+            return render(request, "myApp/signup.html")  # Render the signup page again
 
         # Create a new Customer instance
         customer = Customer(
@@ -32,8 +38,8 @@ def signup(request):
             address=address
         )
         customer.save()
-        messages.success(request, 'Account created successfully!')
-        return redirect('login')  # Redirect to login after signup
+        messages.success(request, 'New user added')
+        return render(request, "myApp/signup.html")
     return render(request, "myApp/signup.html")
 
 def home(request):
