@@ -9,6 +9,20 @@ from django.http import Http404  # Add this import
 
 # Create your views here.
 def login(request):
+    if request.method == 'POST':
+        customer_id = request.POST['customer_id']
+        password = request.POST['password']
+        
+        # Authenticate the user using the Customer model
+        try:
+            customer = Customer.objects.get(customer_id=customer_id, password=password)
+            # If found, log the user in (you may want to implement session management here)
+            request.session['customer_id'] = customer.customer_id  # Store customer_id in session
+            messages.success(request, 'Login successful')  # Success message
+            return render(request, "myApp/login.html")  # Redirect to home or another page
+        except Customer.DoesNotExist:
+            messages.error(request, 'Invalid username or password')  # Error message
+
     return render(request, "myApp/login.html")
 
 def signup(request):

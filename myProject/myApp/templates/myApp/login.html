@@ -203,6 +203,14 @@
         input {
             padding-left: 40px; /* Add padding to the left for the icon */
         }
+        .alert {
+            background-color: #f8d7da; /* Light red background */
+            color: #721c24; /* Dark red text */
+            padding: 10px;
+            margin-top: 20px;
+            border: 1px solid #f5c6cb; /* Border color */
+            border-radius: 5px; /* Rounded corners */
+        }
     </style>
 </head>
 <body>
@@ -258,12 +266,20 @@
                     </div>
                     <div class="input-container">
                         <img src="{% static 'img/password.png' %}" alt="Password Icon" class="icon">
-                        <input type="password" id="password" name="password1" placeholder="Password" required>
+                        <input type="password" id="password" name="password" placeholder="Password" required>
                     </div>
                     <button type="submit" class="signup-btn">Login</button>
                 </form>
                 <!-- End of form -->
                 <p class="signup-link">Don’t have an account? <a href="{% url 'signup' %}">Sign up</a></p>
+                
+                {% if messages %}
+                    <div id="alert" class="alert">
+                        {% for message in messages %}
+                            <p style="text-align: center;">{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
         </main>
     </div>
