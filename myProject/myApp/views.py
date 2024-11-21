@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
 from django.contrib.auth.models import User # type: ignore
-from django.contrib.auth import authenticate, login # type: ignore
+from django.contrib.auth import authenticate, login, logout as auth_logout  # type: ignore
 from django.contrib import messages # type: ignore
 from .forms import MenuForm
 from .models import Orders, Customer, Restaurant, Delivery_Driver, Menu
@@ -13,15 +13,13 @@ def login(request):
         customer_id = request.POST['customer_id']
         password = request.POST['password']
         
-        # Authenticate the user using the Customer model
         try:
             customer = Customer.objects.get(customer_id=customer_id, password=password)
-            # If found, log the user in (you may want to implement session management here)
             request.session['customer_id'] = customer.customer_id  # Store customer_id in session
-            messages.success(request, 'Login successful')  # Success message
-            return render(request, "myApp/login.html")  # Redirect to home or another page
+            messages.success(request, 'Login successful')
+            return render(request, "myApp/login.html")
         except Customer.DoesNotExist:
-            messages.error(request, 'Invalid username or password')  # Error message
+            messages.error(request, 'Invalid username or password')
 
     return render(request, "myApp/login.html")
 
@@ -57,7 +55,14 @@ def signup(request):
     return render(request, "myApp/signup.html")
 
 def home(request):
-    return render(request, "myApp/home.html")
+    customer = None
+    if 'customer_id' in request.session:
+        try:
+            customer = Customer.objects.get(customer_id=request.session['customer_id'])
+        except Customer.DoesNotExist:
+            customer = None
+
+    return render(request, "myApp/home.html", {'customer': customer})
 
 def restaurants(request):
     return render(request, "myApp/restaurants.html")
@@ -132,3 +137,9 @@ def add_menu(request):
         form = MenuForm()
     
     return render(request, 'myApp/add_menu.html', {'form': form})
+
+def logout(request):
+    auth_logout(request)
+    request.session.pop('customer_id', None)
+    messages.success(request, 'You have been logged out.')
+    return render(request, "myApp/login.html")

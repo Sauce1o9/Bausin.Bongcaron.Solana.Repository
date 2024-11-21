@@ -64,10 +64,20 @@
                 <li><a href="#">Payment</a></li>
                 <li><a href="#">Delivery Drivers</a></li>
             </ul>
-            <a href="{% url 'login' %}" class="login-btn">
-                <span class="login-icon">👤</span>
-                Login/Signup
-            </a>
+            {% if request.session.customer_id %}
+                <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="login-btn">
+                        <span class="login-icon">👤</span>
+                        Logout
+                    </button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" class="login-btn">
+                    <span class="login-icon">👤</span>
+                    Login/Signup
+                </a>
+            {% endif %}
         </nav>
     </header>
     <main>

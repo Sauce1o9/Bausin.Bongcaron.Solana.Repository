@@ -19,6 +19,7 @@ urlpatterns = [
     path('edit-menu/<int:menu_id>/', views.edit_menu, name='edit_menu'),
     path('delete-menu/<int:menu_id>/', views.delete_menu, name='delete_menu'),
     path('add-menu/', views.add_menu, name='add_menu'),
+    path('logout/', views.logout, name='logout'),
 ]
 
 if settings.DEBUG:

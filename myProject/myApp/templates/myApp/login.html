@@ -26,7 +26,6 @@
             color: #ff8c00; /* Change text color on hover */
             transform: scale(1.05); /* Slightly enlarge the link */
         }
-        .login-btn { background-color: #0f172a; color: #fff; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; display: flex; align-items: center; text-decoration: none;}
         .login-icon { margin-right: 5px; }
         .highlight { color: #ff8c00; }
         .container { 
@@ -230,8 +229,13 @@
         <header>
             <div class="promo-banner">
                 <div class="promo">
-                    <p><span class="promo-icon">🎉</span>
-                    Get 5% Off your first order, <span class="highlight">Promo: UIPROJ</span></p>
+                    {% if request.session.customer_id %}
+                        {% with customer=request.session.customer_id %}
+                            <p><span class="promo-icon">🎉</span>Hi {{ customer }}, Get 5% Off your first order, <span class="highlight">Promo: UIPROJ</span></p>
+                        {% endwith %}
+                    {% else %}
+                        <p><span class="promo-icon">🎉</span>Get 5% Off your first order, <span class="highlight">Promo: UIPROJ</span></p>
+                    {% endif %}
                 </div>
                 <div class="location">
                     <p><span class="location-icon">📍</span>Natalio B. Bacalso Ave, Cebu City</p>
@@ -248,10 +252,18 @@
                     <li><a href="#">Payment</a></li>
                     <li><a href="#">Delivery Drivers</a></li>
                 </ul>
-                <a href="{% url 'login' %}" class="login-btn">
-                    <span class="login-icon">👤</span>
-                    Login/Signup
-                </a>
+                
+                {% if request.session.customer_id %}
+                    <a href="{% url 'logout' %}" style="background-color: #0f172a; color: #fff; width: 170px; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; display: flex; align-items: center; text-decoration: none;">
+                        <span class="login-icon">👤</span>
+                        Logout
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" style="background-color: #0f172a; color: #fff; width: 170px; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; display: flex; align-items: center; text-decoration: none;">
+                        <span class="login-icon">👤</span>
+                        Login/Signup
+                    </a>
+                {% endif %}
             </nav>
         </header>
         <main>
