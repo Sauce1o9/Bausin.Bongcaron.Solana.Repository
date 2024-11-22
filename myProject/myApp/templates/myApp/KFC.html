@@ -85,7 +85,7 @@
                 .burger-card {
                     background-color: white;
                     border-radius: 10px;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                    box-shadow: 2px 2px 15px rgba(0,0,0,0.2);
                     padding: 20px;
                     position: relative;
                     display: flex;
@@ -324,7 +324,7 @@
 
                 <div class="offers-header">
                     <h1>Menu</h1>
-                    <a href="{% url 'add_menu' %}" class="edit-menu-btn">Add Menu</a>
+                    <a href="{% url 'add_menu_kfc' %}" class="edit-menu-btn">Add Menu</a>
                 </div>
 
                 <div class="burgers-grid">
@@ -342,11 +342,11 @@
                                     <span class="burger-price">Php {{ item.item_price }}</span>
                                     <button class="add-button2" aria-label="Add to order">+</button>
                                 </div>
-                                <a style="margin-top: 20px; text-align: center;" href="{% url 'edit_menu' item.menu_id %}" class="edit-menu-btn">Edit</a>
+                                <a style="margin-top: 20px; text-align: center;" href="{% url 'edit_menu_kfc' item.menu_id %}" class="edit-menu-btn">Edit</a>
                             </div>
                         </div>
                     {% empty %}
-                        <p>No menu items available for McDonald's.</p>
+                        <p>No menu items available for KFC.</p>
                     {% endfor %}
                 </div>
             </section>

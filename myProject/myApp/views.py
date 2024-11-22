@@ -24,6 +24,12 @@ def login(request):
 
     return render(request, "myApp/login.html")
 
+def logout(request):
+    auth_logout(request)
+    request.session.pop('customer_id', None)
+    messages.success(request, 'You have been logged out.')
+    return render(request, "myApp/login.html")
+
 def signup(request):
     if request.method == 'POST':
         customer_id = request.POST['customer_id']
@@ -108,6 +114,8 @@ def PizzaHut(request):
     context = {'menu_items': menu_items}
     return render(request, "myApp/PizzaHut.html", context)
 
+
+#McDonalds-----------------------------------------------------------------------------------------------
 def edit_menu(request, menu_id):
     menu_item = get_object_or_404(Menu, pk=menu_id)
     
@@ -115,7 +123,7 @@ def edit_menu(request, menu_id):
         form = MenuForm(request.POST, instance=menu_item)
         if form.is_valid():
             form.save()
-            return redirect('McDonalds')  # Redirect to the McDonald's page after saving
+            return redirect('McDonalds')
     else:
         form = MenuForm(instance=menu_item)
     
@@ -123,12 +131,12 @@ def edit_menu(request, menu_id):
 
 def delete_menu(request, menu_id):
     menu_item = get_object_or_404(Menu, pk=menu_id)
-    menu_item.delete()  # Delete the menu item
-    return redirect('McDonalds')  # Redirect to the McDonald's page after deletion
+    menu_item.delete()
+    return redirect('McDonalds')
 
 def add_menu(request):
     if request.method == 'POST':
-        form = MenuForm(request.POST, request.FILES)  # Include request.FILES to handle file uploads
+        form = MenuForm(request.POST, request.FILES)
         if form.is_valid():
             menu_item = form.save(commit=False)
             menu_item.restaurant_name2 = "McDonalds"
@@ -139,8 +147,234 @@ def add_menu(request):
     
     return render(request, 'myApp/add_menu.html', {'form': form})
 
-def logout(request):
-    auth_logout(request)
-    request.session.pop('customer_id', None)
-    messages.success(request, 'You have been logged out.')
-    return render(request, "myApp/login.html")
+
+#Jollibee-----------------------------------------------------------------------------------------------
+def edit_menu_jollibee(request, menu_id):
+    menu_item = get_object_or_404(Menu, pk=menu_id)
+    
+    if request.method == 'POST':
+        form = MenuForm(request.POST, instance=menu_item)
+        if form.is_valid():
+            form.save()
+            return redirect('Jollibee')
+    else:
+        form = MenuForm(instance=menu_item)
+    
+    return render(request, "myApp/edit_menu_jollibee.html", {'form': form, 'menu_item': menu_item})
+
+def delete_menu_jollibee(request, menu_id):
+    menu_item = get_object_or_404(Menu, pk=menu_id)
+    menu_item.delete()
+    return redirect('Jollibee')
+
+def add_menu_jollibee(request):
+    if request.method == 'POST':
+        form = MenuForm(request.POST, request.FILES)
+        if form.is_valid():
+            menu_item = form.save(commit=False)
+            menu_item.restaurant_name2 = "Jollibee"
+            menu_item.save()
+            return redirect('Jollibee')
+    else:
+        form = MenuForm()
+    
+    return render(request, 'myApp/add_menu_jollibee.html', {'form': form})
+
+
+#KFC-----------------------------------------------------------------------------------------------
+def edit_menu_kfc(request, menu_id):
+    menu_item = get_object_or_404(Menu, pk=menu_id)
+    
+    if request.method == 'POST':
+        form = MenuForm(request.POST, instance=menu_item)
+        if form.is_valid():
+            form.save()
+            return redirect('KFC')
+    else:
+        form = MenuForm(instance=menu_item)
+    
+    return render(request, "myApp/edit_menu_kfc.html", {'form': form, 'menu_item': menu_item})
+
+def delete_menu_kfc(request, menu_id):
+    menu_item = get_object_or_404(Menu, pk=menu_id)
+    menu_item.delete()
+    return redirect('KFC')
+
+def add_menu_kfc(request):
+    if request.method == 'POST':
+        form = MenuForm(request.POST, request.FILES)
+        if form.is_valid():
+            menu_item = form.save(commit=False)
+            menu_item.restaurant_name2 = "KFC"
+            menu_item.save()
+            return redirect('KFC')
+    else:
+        form = MenuForm()
+    
+    return render(request, 'myApp/add_menu_kfc.html', {'form': form})
+
+
+
+#BurgerKing-----------------------------------------------------------------------------------------------
+def edit_menu_burgerking(request, menu_id):
+    menu_item = get_object_or_404(Menu, pk=menu_id)
+    
+    if request.method == 'POST':
+        form = MenuForm(request.POST, instance=menu_item)
+        if form.is_valid():
+            form.save()
+            return redirect('BurgerKing')
+    else:
+        form = MenuForm(instance=menu_item)
+    
+    return render(request, "myApp/edit_menu_burgerking.html", {'form': form, 'menu_item': menu_item})
+
+def delete_menu_burgerking(request, menu_id):
+    menu_item = get_object_or_404(Menu, pk=menu_id)
+    menu_item.delete()
+    return redirect('BurgerKing')
+
+def add_menu_burgerking(request):
+    if request.method == 'POST':
+        form = MenuForm(request.POST, request.FILES)
+        if form.is_valid():
+            menu_item = form.save(commit=False)
+            menu_item.restaurant_name2 = "BurgerKing"
+            menu_item.save()
+            return redirect('BurgerKing')
+    else:
+        form = MenuForm()
+    
+    return render(request, 'myApp/add_menu_burgerking.html', {'form': form})
+
+
+#Chowking-----------------------------------------------------------------------------------------------
+def edit_menu_chowking(request, menu_id):
+    menu_item = get_object_or_404(Menu, pk=menu_id)
+    
+    if request.method == 'POST':
+        form = MenuForm(request.POST, instance=menu_item)
+        if form.is_valid():
+            form.save()
+            return redirect('Chowking')
+    else:
+        form = MenuForm(instance=menu_item)
+    
+    return render(request, "myApp/edit_menu_chowking.html", {'form': form, 'menu_item': menu_item})
+
+def delete_menu_chowking(request, menu_id):
+    menu_item = get_object_or_404(Menu, pk=menu_id)
+    menu_item.delete()
+    return redirect('Chowking')
+
+def add_menu_chowking(request):
+    if request.method == 'POST':
+        form = MenuForm(request.POST, request.FILES)
+        if form.is_valid():
+            menu_item = form.save(commit=False)
+            menu_item.restaurant_name2 = "Chowking"
+            menu_item.save()
+            return redirect('Chowking')
+    else:
+        form = MenuForm()
+    
+    return render(request, 'myApp/add_menu_chowking.html', {'form': form})
+
+
+#MangInasal-----------------------------------------------------------------------------------------------
+def edit_menu_manginasal(request, menu_id):
+    menu_item = get_object_or_404(Menu, pk=menu_id)
+    
+    if request.method == 'POST':
+        form = MenuForm(request.POST, instance=menu_item)
+        if form.is_valid():
+            form.save()
+            return redirect('MangInasal')
+    else:
+        form = MenuForm(instance=menu_item)
+    
+    return render(request, "myApp/edit_menu_manginasal.html", {'form': form, 'menu_item': menu_item})
+
+def delete_menu_manginasal(request, menu_id):
+    menu_item = get_object_or_404(Menu, pk=menu_id)
+    menu_item.delete()
+    return redirect('MangInasal')
+
+def add_menu_manginasal(request):
+    if request.method == 'POST':
+        form = MenuForm(request.POST, request.FILES)
+        if form.is_valid():
+            menu_item = form.save(commit=False)
+            menu_item.restaurant_name2 = "MangInasal"
+            menu_item.save()
+            return redirect('MangInasal')
+    else:
+        form = MenuForm()
+    
+    return render(request, 'myApp/add_menu_manginasal.html', {'form': form})
+
+
+#PizzaHut-----------------------------------------------------------------------------------------------
+def edit_menu_pizzahut(request, menu_id):
+    menu_item = get_object_or_404(Menu, pk=menu_id)
+    
+    if request.method == 'POST':
+        form = MenuForm(request.POST, instance=menu_item)
+        if form.is_valid():
+            form.save()
+            return redirect('PizzaHut')
+    else:
+        form = MenuForm(instance=menu_item)
+    
+    return render(request, "myApp/edit_menu_pizzahut.html", {'form': form, 'menu_item': menu_item})
+
+def delete_menu_pizzahut(request, menu_id):
+    menu_item = get_object_or_404(Menu, pk=menu_id)
+    menu_item.delete()
+    return redirect('PizzaHut')
+
+def add_menu_pizzahut(request):
+    if request.method == 'POST':
+        form = MenuForm(request.POST, request.FILES)
+        if form.is_valid():
+            menu_item = form.save(commit=False)
+            menu_item.restaurant_name2 = "PizzaHut"
+            menu_item.save()
+            return redirect('PizzaHut')
+    else:
+        form = MenuForm()
+    
+    return render(request, 'myApp/add_menu_pizzahut.html', {'form': form})
+
+
+#Greenwich-----------------------------------------------------------------------------------------------
+def edit_menu_greenwich(request, menu_id):
+    menu_item = get_object_or_404(Menu, pk=menu_id)
+    
+    if request.method == 'POST':
+        form = MenuForm(request.POST, instance=menu_item)
+        if form.is_valid():
+            form.save()
+            return redirect('Greenwich')
+    else:
+        form = MenuForm(instance=menu_item)
+    
+    return render(request, "myApp/edit_menu_greenwich.html", {'form': form, 'menu_item': menu_item})
+
+def delete_menu_greenwich(request, menu_id):
+    menu_item = get_object_or_404(Menu, pk=menu_id)
+    menu_item.delete()
+    return redirect('Greenwich')
+
+def add_menu_greenwich(request):
+    if request.method == 'POST':
+        form = MenuForm(request.POST, request.FILES)
+        if form.is_valid():
+            menu_item = form.save(commit=False)
+            menu_item.restaurant_name2 = "Greenwich"
+            menu_item.save()
+            return redirect('Greenwich')
+    else:
+        form = MenuForm()
+    
+    return render(request, 'myApp/add_menu_greenwich.html', {'form': form})
