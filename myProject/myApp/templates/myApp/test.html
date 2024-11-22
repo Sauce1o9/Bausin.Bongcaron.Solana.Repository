@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Order Card</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            padding: 20px;
+            max-width: 800px;
+            width: 100%;
+        }
+        .image-container {
+            flex: 0 0 300px;
+            margin-right: 20px;
+        }
+        .image-container img {
+            width: 100%;
+            height: auto;
+        }
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+        }
+        .description {
+            color: #666;
+            margin: 0;
+        }
+        .driver-selection {
+            text-align: right;
+        }
+        .driver-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .driver-input {
+            width: 200px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: right;
+            flex: 1;
+            margin-right: 20px;
+        }
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .button {
+            padding: 10px 46px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .payment-button {
+            background-color: #FF8A00;
+            color: white;
+        }
+        .remove-button {
+            background-color: #0A0A29;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="image-container">
+            <img src="" alt="Royal Cheese Burger with Fries and Drink">
+        </div>
+        <div class="content">
+            <div class="header">
+                <div>
+                    <h2 class="title">Royal Cheese Burger with extra Fries</h2>
+                    <p class="description">1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium</p>
+                </div>
+                <div class="driver-selection">
+                    <a href="Drivers.html" style="display: block; text-align: left; padding-left: 8px; padding-bottom: 5px; margin-top: 5px;" class="driver-label">
+                        Check Delivery Drivers
+                    </a>
+                    <input type="text" class="driver-input" placeholder="Choose Delivery Driver">
+                </div>
+            </div>
+            <div class="footer">
+                <p class="price">Php 23.10</p>
+                <div class="buttons">
+                    <button class="button payment-button">proceed to payment</button>
+                    <button class="button remove-button">remove order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

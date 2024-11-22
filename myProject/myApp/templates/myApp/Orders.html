@@ -30,23 +30,108 @@
         .login-icon { margin-right: 5px; }
         .highlight { color: #ff8c00; }
         .container {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: white;
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 80%;
-            max-width: 800px;
+            height: auto;
+            max-width: 1000px;
             position: absolute;
-            top: 59%;
+            top: 60%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
-        h2 { font-size: 24px; font-weight: 700; color: #0f172a; margin-bottom: 20px; text-align: center; }
+        h2 { font-size: 24px; font-weight: 700; color: #0f172a; margin-bottom: 20px; text-align: left; }
         label { display: block; margin-bottom: 5px; font-weight: 600; }
         input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 20px; }
         button { background-color: #ff8c00; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; width: 100%; }
         .login-link { text-align: center; margin-top: 20px; font-size: 14px; }
         .login-link a { color: #ff8c00; text-decoration: none; font-weight: 600; }
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            padding: 20px;
+            max-width: 1000px;
+            width: 100%;
+        }
+        .image-container {
+            flex: 0 0 300px;
+            margin-right: 20px;
+        }
+        .image-container img {
+            width: 100%;
+            height: auto;
+        }
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+        }
+        .description {
+            color: #666;
+            margin: 0;
+        }
+        .driver-selection {
+            text-align: right;
+        }
+        .driver-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .driver-input {
+            width: 200px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: right;
+            flex: 1;
+            margin-right: 63px;
+        }
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .button {
+            padding: 10px 37px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .payment-button {
+            background-color: #FF8A00;
+            color: white;
+        }
+        .remove-button {
+            background-color: #0A0A29;
+            color: white;
+        }
         .context {
             width: 100%;
             position: absolute;
@@ -186,44 +271,6 @@
             }
         }
 
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr); /* Two columns */
-            gap: 20px; /* Space between fields */
-        }
-
-        .input-container {
-            position: relative;
-        }
-
-        .icon {
-            position: absolute;
-            left: 10px; /* Adjust as needed */
-            top: 33%;
-            transform: translateY(-50%);
-            width: 20px; /* Adjust icon size */
-            height: 20px; /* Adjust icon size */
-        }
-
-        input {
-            padding-left: 40px; /* Add padding to the left for the icon */
-        }
-
-        .signup-btn {
-            background-color: #ff8c00; /* Button background color */
-            color: #fff; /* Button text color */
-            border: none; /* No border */
-            padding: 10px 10px; /* Adjusted padding for smaller size */
-            border-radius: 5px; /* Rounded corners */
-            cursor: pointer; /* Pointer cursor on hover */
-            font-family: 'Poppins', sans-serif; /* Font family */
-            font-weight: 600; /* Font weight */
-            width: 50%; /* Set width to 50% of the container */
-            max-width: 300px; /* Optional: Set a maximum width */
-            margin: 0 auto; /* Center the button */
-            display: block; /* Make the button a block element */
-        }
-
         .alert {
             background-color: #f8d7da; /* Light red background */
             color: #721c24; /* Dark red text */
@@ -265,7 +312,7 @@
                 <ul class="nav-links">
                     <li><a href="{% url 'home' %}">Home</a></li>
                     <li><a href="{% url 'McDonalds' %}">Restaurants</a></li>
-                    <li><a href="{% url 'Orders' %}">Orders</a></li>
+                    <li><a href="{% url 'Orders' %}" class="active">Orders</a></li>
                     <li><a href="#">Payment</a></li>
                     <li><a href="{% url 'Drivers' %}">Delivery Drivers</a></li>
                 </ul>
@@ -277,56 +324,33 @@
         </header>
         <main>
             <div class="container">
-                <h2>Create an Account</h2>
-                <!-- Start of form -->
-                <form method="post">
-                    {% csrf_token %}
-                    <div class="form-grid">
-                        <div class="input-container">
-                            <img src="{% static 'img/user.png' %}" alt="Username Icon" class="icon">
-                            <input type="text" id="customer_id" name="customer_id" placeholder="Username" required>
-                        </div>
-                        <div class="input-container">
-                            <img src="{% static 'img/name.png' %}" alt="First Name Icon" class="icon">
-                            <input type="text" id="first_name" name="first_name" placeholder="First name" required>
-                        </div>
-                        <div class="input-container">
-                            <img src="{% static 'img/email.png' %}" alt="Email Icon" class="icon">
-                            <input type="email" id="email" name="email" placeholder="Email" required>
-                        </div>
-                        <div class="input-container">
-                            <img src="{% static 'img/name.png' %}" alt="Last Name Icon" class="icon">
-                            <input type="text" id="last_name" name="last_name" placeholder="Last name" required>
-                        </div>
-                        <div class="input-container">
-                            <img src="{% static 'img/password.png' %}" alt="Password Icon" class="icon">
-                            <input type="password" id="password" name="password" placeholder="Password" required>
-                        </div>
-                        <div class="input-container">
-                            <img src="{% static 'img/phone.png' %}" alt="Phone Icon" class="icon">
-                            <input type="text" id="phone_number" name="phone_number" placeholder="Phone number" required>
-                        </div>
-                        <div class="input-container">
-                            <img src="{% static 'img/password.png' %}" alt="Confirm Password Icon" class="icon">
-                            <input type="password" id="password_confirm" name="password_confirm" placeholder="Confirm Password" required>
-                        </div>
-                        <div class="input-container">
-                            <img src="{% static 'img/location.png' %}" alt="Address Icon" class="icon">
-                            <input type="text" id="address" name="address" placeholder="Address" required>
-                        </div>
+                <h2>My Orders</h2>
+                <div class="card">
+                    <div class="image-container">
+                        <img src="" alt="Royal Cheese Burger with Fries and Drink">
                     </div>
-                    <div>
-                        <button type="submit" class="signup-btn">Sign Up</button>
-                        <p class="login-link">Already have an account? <a href="{% url 'login' %}">Login</a></p>
-                    </div>
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div id="alert" class="alert" style="position: absolute; left: 50%; transform: translateX(-50%); padding: 10px 50px;">
-                                <p style="text-align: center;">{{ message }}</p>
+                    <div class="content">
+                        <div class="header">
+                            <div>
+                                <h2 class="title">Royal Cheese Burger with extra Fries</h2>
+                                <p class="description">1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium</p>
                             </div>
-                        {% endfor %}
-                    {% endif %}
-                </form>
+                            <div class="driver-selection">
+                                <a href="Drivers.html" style="display: block; text-align: left; padding-left: 8px; padding-bottom: 5px; margin-top: 5px;" class="driver-label">
+                                    Check Delivery Drivers
+                                </a>
+                                <input type="text" class="driver-input" placeholder="Choose Delivery Driver">
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <p class="price">Php 23.10</p>
+                            <div class="buttons">
+                                <button class="button payment-button">proceed to payment</button>
+                                <button class="button remove-button">remove order</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>

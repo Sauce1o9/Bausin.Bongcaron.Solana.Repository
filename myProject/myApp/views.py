@@ -8,6 +8,9 @@ from django.http import Http404  # Add this import
 
 
 # Create your views here.
+def test(request):
+    return render(request, "myApp/test.html")
+
 def login(request):
     if request.method == 'POST':
         customer_id = request.POST['customer_id']
@@ -71,8 +74,11 @@ def home(request):
 
     return render(request, "myApp/home.html", {'customer': customer})
 
-def restaurants(request):
-    return render(request, "myApp/restaurants.html")
+def Orders(request):
+    return render(request, "myApp/Orders.html")
+
+def Drivers(request):
+    return render(request, "myApp/Drivers.html")
 
 def McDonalds(request):
     menu_items = Menu.objects.filter(restaurant_name2="McDonalds")
@@ -345,7 +351,7 @@ def add_menu_pizzahut(request):
         form = MenuForm()
     
     return render(request, 'myApp/add_menu_pizzahut.html', {'form': form})
-
+    
 
 #Greenwich-----------------------------------------------------------------------------------------------
 def edit_menu_greenwich(request, menu_id):

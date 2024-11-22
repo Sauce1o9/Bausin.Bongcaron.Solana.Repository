@@ -4,11 +4,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path("test", views.test, name="test"),
     path("", views.home, name="home"),
-    path("restaurants", views.restaurants, name="restaurants"),
     path("login/", views.login, name="login"),
     path('logout/', views.logout, name='logout'),
     path("signup/", views.signup, name="signup"),
+    path("Orders", views.Orders, name="Orders"),
+    path("Drivers", views.Drivers, name="Drivers"),
     path("McDonalds", views.McDonalds, name="McDonalds"),
     path("Jollibee", views.Jollibee, name="Jollibee"),
     path("KFC", views.KFC, name="KFC"),

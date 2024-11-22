@@ -5,7 +5,6 @@ class Orders(models.Model):
     order_id = models.BigAutoField(primary_key=True)
     order_item = models.CharField(max_length=100)
     order_date = models.DateTimeField()
-    total_amount = models.DecimalField(max_digits=10, decimal_places=2)
     delivery_address = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
     estimated_delivery_time = models.TimeField()
