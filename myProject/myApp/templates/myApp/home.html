@@ -22,7 +22,6 @@
             color: #ff8c00; /* Change text color on hover */
             transform: scale(1.05); /* Slightly enlarge the link */
         }
-        .login-btn { background-color: #0f172a; color: #fff; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; display: flex; align-items: center; text-decoration: none; }
         .login-icon { margin-right: 5px; }
         .hero { display: flex; background-color: #0f172a; color: #fff; padding: 50px; position: relative; overflow: hidden; border-radius: 20px; height: 79vh; }
         .hero-content { margin-top: 130px; flex: 1; z-index: 1; max-width: 50%; }
@@ -45,10 +44,13 @@
 <body>
     <header>
         <div class="promo-banner">
-            <div class="promo">
-                <p><span class="promo-icon">🎉</span>
-                Get 5% Off your first order, <span class="highlight">Promo: UIPROJ</span></p>
-            </div>
+            {% if request.session.customer_id %}
+                {% with customer=request.session.customer_id %}
+                    <p><span class="promo-icon">🎉</span>Hi {{ customer }}, Get 5% Off your first order, <span class="highlight">Promo: UIPROJ</span></p>
+                {% endwith %}
+            {% else %}
+                <p><span class="promo-icon">🎉</span>Get 5% Off your first order, <span class="highlight">Promo: UIPROJ</span></p>
+            {% endif %}
             <div class="location">
                 <p><span class="location-icon">📍</span>Natalio B. Bacalso Ave, Cebu City</p>
             </div>
@@ -65,15 +67,12 @@
                 <li><a href="#">Delivery Drivers</a></li>
             </ul>
             {% if request.session.customer_id %}
-                <form method="post" action="{% url 'logout' %}" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit" class="login-btn">
-                        <span class="login-icon">👤</span>
-                        Logout
-                    </button>
-                </form>
+                <a href="{% url 'logout' %}" style="background-color: #0f172a; color: #fff; width: 170px; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; display: flex; align-items: center; text-decoration: none;">
+                    <span class="login-icon">👤</span>
+                    Logout
+                </a>
             {% else %}
-                <a href="{% url 'login' %}" class="login-btn">
+                <a href="{% url 'login' %}" style="background-color: #0f172a; color: #fff; width: 170px; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; display: flex; align-items: center; text-decoration: none;">
                     <span class="login-icon">👤</span>
                     Login/Signup
                 </a>

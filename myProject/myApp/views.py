@@ -17,9 +17,10 @@ def login(request):
             customer = Customer.objects.get(customer_id=customer_id, password=password)
             request.session['customer_id'] = customer.customer_id  # Store customer_id in session
             messages.success(request, 'Login successful')
-            return render(request, "myApp/login.html")
+            return render(request, "myApp/home.html")
         except Customer.DoesNotExist:
             messages.error(request, 'Invalid username or password')
+            return render(request, "myApp/login.html")
 
     return render(request, "myApp/login.html")
 
