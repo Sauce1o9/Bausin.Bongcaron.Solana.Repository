@@ -35,10 +35,10 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 80%;
-            height: 550px;
+            height: 570px;
             max-width: 1000px;
             position: absolute;
-            top: 60%;
+            top: 59%;
             left: 50%;
             transform: translate(-50%, -50%);
             overflow-y: auto; /* Enable vertical scrolling */
@@ -120,7 +120,7 @@
             font-weight: bold;
             text-align: right;
             flex: 1;
-            margin-right: 63px;
+            margin-right: 45px;
         }
         .buttons {
             display: flex;
@@ -361,7 +361,7 @@
                         <div class="header">
                             <div>
                                 <h2 class="title">{{ order.order_name }}</h2>
-                                <p class="description">{{ order.order_description }}</p>
+                                <p class="description" style="margin-right: 40px;">{{ order.order_description }}</p>
                             </div>
                             <div class="driver-selection">
                                 <a href="{% url 'Drivers' %}" style="display: block; text-align: left; padding-left: 8px; padding-bottom: 5px; margin-top: 5px;" class="driver-label">
@@ -377,7 +377,10 @@
                             <p class="price">Php {{ order.order_price }}</p>
                             <div class="buttons">
                                 <button class="button payment-button">Proceed to Payment</button>
-                                <button class="button remove-button">Remove Order</button>
+                                <form method="POST" action="{% url 'delete_order' order.order_id %}" style="display: inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="remove-button" onclick="return confirm('Are you sure you want to remove this order?');">Remove Order</button>
+                                </form>
                             </div>
                         </div>
                     </div>

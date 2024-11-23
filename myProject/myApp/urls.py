@@ -51,6 +51,8 @@ urlpatterns = [
     path('edit-menu_greenwich/<int:menu_id>/', views.edit_menu_greenwich, name='edit_menu_greenwich'),
     path('delete-menu_greenwich/<int:menu_id>/', views.delete_menu_greenwich, name='delete_menu_greenwich'),
     path('add-menu_greenwich/', views.add_menu_greenwich, name='add_menu_greenwich'),
+    path('add-order/', views.add_order, name='add_order'),
+    path('delete-order/<int:order_id>/', views.delete_order, name='delete_order'),
 ]
 
 if settings.DEBUG:

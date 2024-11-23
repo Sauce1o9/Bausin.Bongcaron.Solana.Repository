@@ -12,6 +12,9 @@
                     color: #333;
                     height: 100vh; /* Makes the body span the full viewport height */
                     overflow-y: auto;}
+                body::-webkit-scrollbar {
+                    display: none; /* For Chrome, Safari, and Opera */
+                }
                 .promo-banner { background-color: #f8f8f8; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; font-size: 14px; }
                 .promo-icon, .location-icon { margin-right: 10px; font-size: 18px; }
                 .change-location { color: #ff8c00; text-decoration: none; margin-left: 10px; font-weight: 600; }
@@ -237,11 +240,11 @@
                     <img src="{% static 'img/Logo.png' %}" alt="Order Phil Logo" class="logo-img">
                 </div>
                 <ul class="nav-links">
-                    <li><a href="{% url 'home' %}" class="active">Home</a></li>
-                    <li><a href="{% url 'McDonalds' %}">Restaurants</a></li>
-                    <li><a href="#">Orders</a></li>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'KFC' %}" class="active">Restaurants</a></li>
+                    <li><a href="{% url 'Orders' %}">Orders</a></li>
                     <li><a href="#">Payment</a></li>
-                    <li><a href="#">Delivery Drivers</a></li>
+                    <li><a href="{% url 'Drivers' %}">Delivery Drivers</a></li>
                 </ul>
                 {% if request.session.customer_id %}
                     <a href="{% url 'logout' %}" style="background-color: #0f172a; color: #fff; width: 170px; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; display: flex; align-items: center; text-decoration: none;">
@@ -340,7 +343,11 @@
                                 <p class="burger-description">{{ item.item_description }}</p>
                                 <div class="burger-price-add">
                                     <span class="burger-price">Php {{ item.item_price }}</span>
-                                    <button class="add-button2" aria-label="Add to order">+</button>
+                                    <form action="{% url 'add_order' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="item_id" value="{{ item.menu_id }}">
+                                        <button class="add-button2" aria-label="Add to order" type="submit">+</button>
+                                    </form>
                                 </div>
                                 <a style="margin-top: 20px; text-align: center;" href="{% url 'edit_menu_kfc' item.menu_id %}" class="edit-menu-btn">Edit</a>
                             </div>

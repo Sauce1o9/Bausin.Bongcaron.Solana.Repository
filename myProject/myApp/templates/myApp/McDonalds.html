@@ -12,6 +12,9 @@
                     color: #333;
                     height: 100vh; /* Makes the body span the full viewport height */
                     overflow-y: auto;}
+                body::-webkit-scrollbar {
+                    display: none; /* For Chrome, Safari, and Opera */
+                }
                 .promo-banner { background-color: #f8f8f8; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; font-size: 14px; }
                 .promo-icon, .location-icon { margin-right: 10px; font-size: 18px; }
                 .change-location { color: #ff8c00; text-decoration: none; margin-left: 10px; font-weight: 600; }
@@ -340,7 +343,11 @@
                                 <p class="burger-description">{{ item.item_description }}</p>
                                 <div class="burger-price-add">
                                     <span class="burger-price">Php {{ item.item_price }}</span>
-                                    <button class="add-button2" aria-label="Add to order">+</button>
+                                    <form action="{% url 'add_order' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="item_id" value="{{ item.menu_id }}">
+                                        <button class="add-button2" aria-label="Add to order" type="submit">+</button>
+                                    </form>
                                 </div>
                                 <a style="margin-top: 20px; text-align: center;" href="{% url 'edit_menu' item.menu_id %}" class="edit-menu-btn">Edit</a>
                             </div>

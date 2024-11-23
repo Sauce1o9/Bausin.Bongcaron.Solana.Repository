@@ -64,6 +64,31 @@ def signup(request):
         return render(request, "myApp/signup.html")
     return render(request, "myApp/signup.html")
 
+def add_order(request):
+    if request.method == 'POST':
+        item_id = request.POST.get('item_id')  # Get the item ID from the POST request
+        menu_item = get_object_or_404(Menu, pk=item_id)  # Fetch the menu item
+        
+        # Create a new order
+        order = Orders(
+            order_name=menu_item.item_name,
+            order_description=menu_item.item_description,
+            order_price=menu_item.item_price,
+            orders_image=menu_item.image if menu_item.image else None,  # Set the image if it exists
+            delivery_address=''  # Leave blank for now
+        )
+        order.save()  # Save the order to the database
+        messages.success(request, 'Order added successfully!')
+        return redirect('Orders')  # Redirect back to the McDonalds page
+
+    return redirect('Orders')  # Redirect if not a POST request
+
+def delete_order(request, order_id):
+    order_item = get_object_or_404(Orders, pk=order_id)
+    order_item.delete()
+    messages.success(request, 'Order removed successfully!')
+    return redirect('Orders')
+
 def home(request):
     customer = None
     if 'customer_id' in request.session:
