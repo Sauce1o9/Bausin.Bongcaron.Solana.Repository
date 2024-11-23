@@ -30,24 +30,125 @@
         .login-icon { margin-right: 5px; }
         .highlight { color: #ff8c00; }
         .container {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: white;
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 80%;
-            height: 70%;
-            max-width: 800px;
+            height: 550px;
+            max-width: 1000px;
             position: absolute;
             top: 60%;
             left: 50%;
             transform: translate(-50%, -50%);
+            overflow-y: auto; /* Enable vertical scrolling */
+            scrollbar-width: none; /* For Firefox */
         }
-        h2 { font-size: 24px; font-weight: 700; color: #0f172a; margin-bottom: 20px; text-align: center; }
+
+        .container::-webkit-scrollbar {
+            display: none; /* For Chrome, Safari, and Opera */
+        }
+        h2 { font-size: 24px; font-weight: 700; color: #0f172a; margin-bottom: 20px; text-align: left; }
         label { display: block; margin-bottom: 5px; font-weight: 600; }
         input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 20px; }
         button { background-color: #ff8c00; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; width: 100%; }
         .login-link { text-align: center; margin-top: 20px; font-size: 14px; }
         .login-link a { color: #ff8c00; text-decoration: none; font-weight: 600; }
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 2px 2px 15px rgba(0,0,0,0.2);
+            display: flex;
+            padding: 20px;
+            max-width: 1000px;
+            width: 100%;
+            flex-direction: row;
+            margin-top: 20px;
+        }
+        .image-container {
+            flex: 0 0 300px;
+            margin-right: 20px;
+        }
+        .image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+        }
+        .description {
+            color: #666;
+            margin: 0;
+        }
+        .driver-selection {
+            text-align: right;
+        }
+        .driver-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .driver-input {
+            width: 200px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: right;
+            flex: 1;
+            margin-right: 63px;
+        }
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .button {
+            padding: 10px 37px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .payment-button {
+            background-color: #FF8A00;
+            color: white;
+        }
+        .remove-button {
+            background-color: #0A0A29;
+            color: white;
+        }
+        .date_address {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            color: #666;
+            margin: 0;
+        }
         .context {
             width: 100%;
             position: absolute;
@@ -213,10 +314,13 @@
         </ul>
         <header>
             <div class="promo-banner">
-                <div class="promo">
-                    <p><span class="promo-icon">🎉</span>
-                    Get 5% Off your first order, <span class="highlight">Promo: UIPROJ</span></p>
-                </div>
+                {% if request.session.customer_id %}
+                    {% with customer=request.session.customer_id %}
+                        <p><span class="promo-icon">🎉</span>Hi {{ customer }}, Get 5% Off your first order, <span class="highlight">Promo: UIPROJ</span></p>
+                    {% endwith %}
+                {% else %}
+                    <p><span class="promo-icon">🎉</span>Get 5% Off your first order, <span class="highlight">Promo: UIPROJ</span></p>
+                {% endif %}
                 <div class="location">
                     <p><span class="location-icon">📍</span>Natalio B. Bacalso Ave, Cebu City</p>
                 </div>
@@ -232,16 +336,55 @@
                     <li><a href="#">Payment</a></li>
                     <li><a href="{% url 'Drivers' %}" class="active">Delivery Drivers</a></li>
                 </ul>
-                <a href="{% url 'login' %}" class="login-btn">
-                    <span class="login-icon">👤</span>
-                    Login/Signup
-                </a>
+                {% if request.session.customer_id %}
+                    <a href="{% url 'logout' %}" style="background-color: #0f172a; color: #fff; width: 170px; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; display: flex; align-items: center; text-decoration: none;">
+                        <span class="login-icon">👤</span>
+                        Logout
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" style="background-color: #0f172a; color: #fff; width: 170px; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; display: flex; align-items: center; text-decoration: none;">
+                        <span class="login-icon">👤</span>
+                        Login/Signup
+                    </a>
+                {% endif %}
             </nav>
         </header>
         <main>
             <div class="container">
                 <h2>My Orders</h2>
-                
+                {% for order in orders %}
+                <div class="card">
+                    <div class="image-container">
+                        <img src="{{ order.orders_image.url }}" alt="Order Image">
+                    </div>
+                    <div class="content">
+                        <div class="header">
+                            <div>
+                                <h2 class="title">{{ order.order_name }}</h2>
+                                <p class="description">{{ order.order_description }}</p>
+                            </div>
+                            <div class="driver-selection">
+                                <a href="{% url 'Drivers' %}" style="display: block; text-align: left; padding-left: 8px; padding-bottom: 5px; margin-top: 5px;" class="driver-label">
+                                    Check Delivery Drivers
+                                </a>
+                                <input type="text" class="driver-input" placeholder="Choose Delivery Driver">
+                                <div style="display: block; text-align: left;" class="date_address">
+                                    <p>Address: {{ order.delivery_address }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <p class="price">Php {{ order.order_price }}</p>
+                            <div class="buttons">
+                                <button class="button payment-button">Proceed to Payment</button>
+                                <button class="button remove-button">Remove Order</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No orders available.</p>
+                {% endfor %}
             </div>
         </main>
     </div>

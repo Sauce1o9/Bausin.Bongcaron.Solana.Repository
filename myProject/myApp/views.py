@@ -74,8 +74,9 @@ def home(request):
 
     return render(request, "myApp/home.html", {'customer': customer})
 
-def Orders(request):
-    return render(request, "myApp/Orders.html")
+def orders_list(request):
+    orders = Orders.objects.all()  # Fetch all orders from the database
+    return render(request, "myApp/Orders.html", {'orders': orders})  # Pass orders to the template
 
 def Drivers(request):
     return render(request, "myApp/Drivers.html")
