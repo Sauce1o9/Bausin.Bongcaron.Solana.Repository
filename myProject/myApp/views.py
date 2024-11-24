@@ -20,7 +20,7 @@ def login(request):
             customer = Customer.objects.get(customer_id=customer_id, password=password)
             request.session['customer_id'] = customer.customer_id  # Store customer_id in session
             messages.success(request, 'Login successful')
-            return render(request, "myApp/home.html")
+            return render(request, "myApp/home.html", {'customer': customer})
         except Customer.DoesNotExist:
             messages.error(request, 'Invalid username or password')
             return render(request, "myApp/login.html")
@@ -69,17 +69,26 @@ def add_order(request):
         item_id = request.POST.get('item_id')  # Get the item ID from the POST request
         menu_item = get_object_or_404(Menu, pk=item_id)  # Fetch the menu item
         
+        # Retrieve the delivery address from the logged-in customer
+        delivery_address = None
+        if 'customer_id' in request.session:
+            try:
+                customer = Customer.objects.get(customer_id=request.session['customer_id'])
+                delivery_address = customer.address  # Get the customer's address
+            except Customer.DoesNotExist:
+                delivery_address = ''  # Fallback if customer does not exist
+
         # Create a new order
         order = Orders(
             order_name=menu_item.item_name,
             order_description=menu_item.item_description,
             order_price=menu_item.item_price,
             orders_image=menu_item.image if menu_item.image else None,  # Set the image if it exists
-            delivery_address=''  # Leave blank for now
+            delivery_address=delivery_address  # Use the customer's address
         )
         order.save()  # Save the order to the database
         messages.success(request, 'Order added successfully!')
-        return redirect('Orders')  # Redirect back to the McDonalds page
+        return redirect('Orders')  # Redirect back to the Orders page
 
     return redirect('Orders')  # Redirect if not a POST request
 
@@ -100,50 +109,114 @@ def home(request):
     return render(request, "myApp/home.html", {'customer': customer})
 
 def orders_list(request):
+    customer = None
+    if 'customer_id' in request.session:
+        try:
+            customer = Customer.objects.get(customer_id=request.session['customer_id'])
+        except Customer.DoesNotExist:
+            customer = None
+
     orders = Orders.objects.all()  # Fetch all orders from the database
-    return render(request, "myApp/Orders.html", {'orders': orders})  # Pass orders to the template
+    context = {'orders': orders, 'customer': customer}
+    return render(request, "myApp/Orders.html", context)  # Pass orders to the template
 
 def Drivers(request):
     return render(request, "myApp/Drivers.html")
 
 def McDonalds(request):
+    customer = None
+    if 'customer_id' in request.session:
+        try:
+            customer = Customer.objects.get(customer_id=request.session['customer_id'])
+        except Customer.DoesNotExist:
+            customer = None
+
     menu_items = Menu.objects.filter(restaurant_name2="McDonalds")
-    context = {'menu_items': menu_items}
+    context = {'menu_items': menu_items, 'customer': customer}
     return render(request, "myApp/McDonalds.html", context)
 
 def Jollibee(request):
+    customer = None
+    if 'customer_id' in request.session:
+        try:
+            customer = Customer.objects.get(customer_id=request.session['customer_id'])
+        except Customer.DoesNotExist:
+            customer = None
+
     menu_items = Menu.objects.filter(restaurant_name2="Jollibee")
-    context = {'menu_items': menu_items}
+    context = {'menu_items': menu_items, 'customer': customer}
     return render(request, "myApp/Jollibee.html", context)
 
 def KFC(request):
+    customer = None
+    if 'customer_id' in request.session:
+        try:
+            customer = Customer.objects.get(customer_id=request.session['customer_id'])
+        except Customer.DoesNotExist:
+            customer = None
+
     menu_items = Menu.objects.filter(restaurant_name2="KFC")
-    context = {'menu_items': menu_items}
+    context = {'menu_items': menu_items, 'customer': customer}
     return render(request, "myApp/KFC.html", context)
 
 def BurgerKing(request):
+    customer = None
+    if 'customer_id' in request.session:
+        try:
+            customer = Customer.objects.get(customer_id=request.session['customer_id'])
+        except Customer.DoesNotExist:
+            customer = None
+
     menu_items = Menu.objects.filter(restaurant_name2="BurgerKing")
-    context = {'menu_items': menu_items}
+    context = {'menu_items': menu_items, 'customer': customer}
     return render(request, "myApp/BurgerKing.html", context)
 
 def Chowking(request):
+    customer = None
+    if 'customer_id' in request.session:
+        try:
+            customer = Customer.objects.get(customer_id=request.session['customer_id'])
+        except Customer.DoesNotExist:
+            customer = None
+
     menu_items = Menu.objects.filter(restaurant_name2="Chowking")
-    context = {'menu_items': menu_items}
+    context = {'menu_items': menu_items, 'customer': customer}
     return render(request, "myApp/Chowking.html", context)
 
 def Greenwich(request):
-    menu_items = Menu.objects.filter(restaurant_name2="McDoGreenwichnalds")
-    context = {'menu_items': menu_items}
+    customer = None
+    if 'customer_id' in request.session:
+        try:
+            customer = Customer.objects.get(customer_id=request.session['customer_id'])
+        except Customer.DoesNotExist:
+            customer = None
+
+    menu_items = Menu.objects.filter(restaurant_name2="Greenwich")
+    context = {'menu_items': menu_items, 'customer': customer}
     return render(request, "myApp/Greenwich.html", context)
 
 def MangInasal(request):
+    customer = None
+    if 'customer_id' in request.session:
+        try:
+            customer = Customer.objects.get(customer_id=request.session['customer_id'])
+        except Customer.DoesNotExist:
+            customer = None
+
     menu_items = Menu.objects.filter(restaurant_name2="MangInasal")
-    context = {'menu_items': menu_items}
+    context = {'menu_items': menu_items, 'customer': customer}
     return render(request, "myApp/MangInasal.html", context)
 
 def PizzaHut(request):
+    customer = None
+    if 'customer_id' in request.session:
+        try:
+            customer = Customer.objects.get(customer_id=request.session['customer_id'])
+        except Customer.DoesNotExist:
+            customer = None
+
     menu_items = Menu.objects.filter(restaurant_name2="PizzaHut")
-    context = {'menu_items': menu_items}
+    context = {'menu_items': menu_items, 'customer': customer}
     return render(request, "myApp/PizzaHut.html", context)
 
 

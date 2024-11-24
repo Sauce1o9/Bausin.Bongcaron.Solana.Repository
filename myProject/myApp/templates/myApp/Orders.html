@@ -315,15 +315,18 @@
         <header>
             <div class="promo-banner">
                 {% if request.session.customer_id %}
-                    {% with customer=request.session.customer_id %}
-                        <p><span class="promo-icon">🎉</span>Hi {{ customer }}, Get 5% Off your first order, <span class="highlight">Promo: UIPROJ</span></p>
+                    {% with customer=customer %}
+                        <p><span class="promo-icon">🎉</span>Hi {{ customer.first_name }}, Get 5% Off your first order, <span class="highlight">Promo: UIPROJ</span></p>
+                        <div class="location">
+                            <p><span class="location-icon">📍</span>{{ customer.address }}</p>
+                        </div>
                     {% endwith %}
                 {% else %}
                     <p><span class="promo-icon">🎉</span>Get 5% Off your first order, <span class="highlight">Promo: UIPROJ</span></p>
+                    <div class="location">
+                        <p><span class="location-icon">📍</span>Please log in to set your location.</p>
+                    </div>
                 {% endif %}
-                <div class="location">
-                    <p><span class="location-icon">📍</span>Natalio B. Bacalso Ave, Cebu City</p>
-                </div>
             </div>
             <nav>
                 <div class="logo">
@@ -352,42 +355,48 @@
         <main>
             <div class="container">
                 <h2>My Orders</h2>
-                {% for order in orders %}
-                <div class="card">
-                    <div class="image-container">
-                        <img src="{{ order.orders_image.url }}" alt="Order Image">
-                    </div>
-                    <div class="content">
-                        <div class="header">
-                            <div>
-                                <h2 class="title">{{ order.order_name }}</h2>
-                                <p class="description" style="margin-right: 40px;">{{ order.order_description }}</p>
+                {% if request.session.customer_id %}
+                    {% with customer=customer %}
+                        {% for order in orders %}
+                        <div class="card">
+                            <div class="image-container">
+                                <img src="{{ order.orders_image.url }}" alt="Order Image">
                             </div>
-                            <div class="driver-selection">
-                                <a href="{% url 'Drivers' %}" style="display: block; text-align: left; padding-left: 8px; padding-bottom: 5px; margin-top: 5px;" class="driver-label">
-                                    Check Delivery Drivers
-                                </a>
-                                <input type="text" class="driver-input" placeholder="Choose Delivery Driver">
-                                <div style="display: block; text-align: left;" class="date_address">
-                                    <p>Address: {{ order.delivery_address }}</p>
+                            <div class="content">
+                                <div class="header">
+                                    <div>
+                                        <h2 class="title">{{ order.order_name }}</h2>
+                                        <p class="description" style="margin-right: 40px;">{{ order.order_description }}</p>
+                                    </div>
+                                    <div class="driver-selection">
+                                        <a href="{% url 'Drivers' %}" style="display: block; text-align: left; padding-left: 8px; padding-bottom: 5px; margin-top: 5px;" class="driver-label">
+                                            Check Delivery Drivers
+                                        </a>
+                                        <input type="text" class="driver-input" placeholder="Choose Delivery Driver">
+                                        <div style="display: block; text-align: left;" class="date_address">
+                                            <p>Location:</p>
+                                            <p>{{ order.delivery_address }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <p class="price">Php {{ order.order_price }}</p>
+                                    <div class="buttons">
+                                        <button class="button payment-button">Proceed to Payment</button>
+                                        <form method="POST" action="{% url 'delete_order' order.order_id %}" style="display: inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="remove-button" onclick="return confirm('Are you sure you want to remove this order?');">Remove Order</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="footer">
-                            <p class="price">Php {{ order.order_price }}</p>
-                            <div class="buttons">
-                                <button class="button payment-button">Proceed to Payment</button>
-                                <form method="POST" action="{% url 'delete_order' order.order_id %}" style="display: inline;">
-                                    {% csrf_token %}
-                                    <button type="submit" class="remove-button" onclick="return confirm('Are you sure you want to remove this order?');">Remove Order</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% empty %}
-                <p>No orders available.</p>
-                {% endfor %}
+                        {% empty %}
+                        <p>No orders available.</p>
+                        {% endfor %}
+                    {% endwith %}
+                {% else %}
+                {% endif %}
             </div>
         </main>
     </div>

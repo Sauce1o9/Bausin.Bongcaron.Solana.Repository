@@ -21,7 +21,7 @@
             max-width: 600px; 
             width: 100%; 
             padding: 20px; 
-            background-color: rgba(255, 255, 255, 0.9); 
+            background-color: white;
             backdrop-filter: blur(2px); 
             border-radius: 10px; 
             box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
@@ -176,6 +176,20 @@
                 border-radius: 50%;
             }
         }
+        .drop-zone {
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(1px);
+            transition: border-color 0.3s, background-color 0.3s; /* Smooth transition */
+        }
+        .drop-zone.active {
+            border-color: #ff8c00;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -210,7 +224,11 @@
                 </div>
                 <div class="form-group">
                     <label for="image">Upload Image</label>
-                    <input type="file" id="image" name="image" accept="image/*" required>
+                    <div class="drop-zone" id="drop-zone">
+                        <span>Drag & drop an image here or click to select</span>
+                        <input type="file" id="image" name="image" accept="image/*" required style="display: none;">
+                    </div>
+                    <div id="file-name" style="display: none; margin-top: 10px; font-weight: bold; color: #0f172a;"></div>
                 </div>
                 <div class="button-container">
                     <button type="submit" class="save-button">Add Menu</button>
@@ -219,5 +237,46 @@
             </form>
         </div>
     </div>
+    <script>
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('image');
+        const fileNameDisplay = document.getElementById('file-name');
+
+        dropZone.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('active');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('active');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('active');
+            const files = e.dataTransfer.files;
+            if (files.length) {
+                fileInput.files = files;
+                fileNameDisplay.textContent = `Uploaded: ${files[0].name}`;
+                fileNameDisplay.style.display = 'block'; // Show the file name
+                dropZone.style.borderColor = '#4CAF50'; // Change border color to indicate success
+                dropZone.style.backgroundColor = 'rgba(76, 175, 80, 0.1)'; // Change background color
+            }
+        });
+
+        fileInput.addEventListener('change', () => {
+            const files = fileInput.files;
+            if (files.length) {
+                fileNameDisplay.textContent = `Uploaded: ${files[0].name}`;
+                fileNameDisplay.style.display = 'block'; // Show the file name
+                dropZone.style.borderColor = '#4CAF50'; // Change border color to indicate success
+                dropZone.style.backgroundColor = 'rgba(76, 175, 80, 0.1)'; // Change background color
+            }
+        });
+    </script>
 </body>
 </html>

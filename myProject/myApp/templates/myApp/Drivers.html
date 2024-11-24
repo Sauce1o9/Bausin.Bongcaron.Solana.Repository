@@ -315,15 +315,18 @@
         <header>
             <div class="promo-banner">
                 {% if request.session.customer_id %}
-                    {% with customer=request.session.customer_id %}
-                        <p><span class="promo-icon">🎉</span>Hi {{ customer }}, Get 5% Off your first order, <span class="highlight">Promo: UIPROJ</span></p>
-                    {% endwith %}
+                    {% with customer=customer %}
+                        <p><span class="promo-icon">🎉</span>Hi {{ customer.first_name }}, Get 5% Off your first order, <span class="highlight">Promo: UIPROJ</span></p>
+                        <div class="location">
+                            <p><span class="location-icon">📍</span>{{ customer.address }}</p>
+                        </div>
+                        {% endwith %}
                 {% else %}
                     <p><span class="promo-icon">🎉</span>Get 5% Off your first order, <span class="highlight">Promo: UIPROJ</span></p>
+                    <div class="location">
+                        <p><span class="location-icon">📍</span>Please log in to set your location.</p>
+                    </div>
                 {% endif %}
-                <div class="location">
-                    <p><span class="location-icon">📍</span>Natalio B. Bacalso Ave, Cebu City</p>
-                </div>
             </div>
             <nav>
                 <div class="logo">
