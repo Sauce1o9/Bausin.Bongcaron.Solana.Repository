@@ -120,7 +120,8 @@ def orders_list(request):
             customer = None
 
     orders = Orders.objects.all()  # Fetch all orders from the database
-    context = {'orders': orders, 'customer': customer}
+    drivers = Delivery_Driver.objects.all()  # Fetch all delivery drivers
+    context = {'orders': orders, 'customer': customer, 'drivers': drivers}  # Pass drivers to the template
     return render(request, "myApp/Orders.html", context)  # Pass orders to the template
 
 def Drivers(request):

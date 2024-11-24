@@ -109,6 +109,28 @@
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            background-color: #fff;
+            color: #333;
+            font-size: 16px;
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><polygon points="0,0 10,0 5,5" fill="%23ff8c00"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 10px;
+            transition: border-color 0.3s;
+        }
+
+        .driver-input:focus {
+            border-color: #ff8c00;
+            outline: none;
+        }
+
+        .driver-input option {
+            padding: 10px;
+        }
+
+        .driver-selection {
+            position: relative;
         }
         .footer {
             display: flex;
@@ -373,7 +395,14 @@
                                         <a href="{% url 'Drivers' %}" style="display: block; text-align: left; padding-left: 8px; padding-bottom: 5px; margin-top: 5px;" class="driver-label">
                                             Check Delivery Drivers
                                         </a>
-                                        <input type="text" class="driver-input" placeholder="Choose Delivery Driver">
+                                        <select style="margin-bottom: 20px; margin-top: -10px;" class="driver-input" required>
+                                            <option value="">Choose Delivery Driver</option>
+                                            {% for driver in drivers %}
+                                                <option value="{{ driver.driver_id }}">{{ driver.driver_fname }} {{ driver.driver_lname }}</option>
+                                            {% empty %}
+                                                <option value="">No drivers available</option>
+                                            {% endfor %}
+                                        </select>
                                         <div style="display: block; text-align: left;" class="date_address">
                                             <p>Location:</p>
                                             <p style="color: #0A0A29;">{{ order.delivery_address }}</p>
