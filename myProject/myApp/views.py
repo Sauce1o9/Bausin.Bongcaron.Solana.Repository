@@ -71,10 +71,12 @@ def add_order(request):
         
         # Retrieve the delivery address from the logged-in customer
         delivery_address = None
+        order_customer = None  # Initialize order_customer
         if 'customer_id' in request.session:
             try:
                 customer = Customer.objects.get(customer_id=request.session['customer_id'])
                 delivery_address = customer.address  # Get the customer's address
+                order_customer = customer.customer_id  # Get the customer_id for the order
             except Customer.DoesNotExist:
                 delivery_address = ''  # Fallback if customer does not exist
 
@@ -84,7 +86,8 @@ def add_order(request):
             order_description=menu_item.item_description,
             order_price=menu_item.item_price,
             orders_image=menu_item.image if menu_item.image else None,  # Set the image if it exists
-            delivery_address=delivery_address  # Use the customer's address
+            delivery_address=delivery_address,  # Use the customer's address
+            order_customer=order_customer  # Associate the order with the customer
         )
         order.save()  # Save the order to the database
         messages.success(request, 'Order added successfully!')
@@ -121,7 +124,16 @@ def orders_list(request):
     return render(request, "myApp/Orders.html", context)  # Pass orders to the template
 
 def Drivers(request):
-    return render(request, "myApp/Drivers.html")
+    customer = None
+    if 'customer_id' in request.session:
+        try:
+            customer = Customer.objects.get(customer_id=request.session['customer_id'])
+        except Customer.DoesNotExist:
+            customer = None
+
+    drivers = Delivery_Driver.objects.all()  # Fetch all delivery drivers
+    context = {'drivers': drivers, 'customer': customer}
+    return render(request, "myApp/Drivers.html", context)  # Pass drivers to the template
 
 def McDonalds(request):
     customer = None

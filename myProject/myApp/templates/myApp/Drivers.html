@@ -35,10 +35,10 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 80%;
-            height: 550px;
+            height: 570px;
             max-width: 1000px;
             position: absolute;
-            top: 60%;
+            top: 59%;
             left: 50%;
             transform: translate(-50%, -50%);
             overflow-y: auto; /* Enable vertical scrolling */
@@ -66,8 +66,10 @@
             margin-top: 20px;
         }
         .image-container {
-            flex: 0 0 300px;
-            margin-right: 20px;
+            flex: 0 0 100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
         }
         .image-container img {
             width: 100%;
@@ -296,6 +298,53 @@
             border: 1px solid #f5c6cb; /* Border color */
             border-radius: 5px; /* Rounded corners */
         }
+
+        .drivers-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .driver-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 293px;
+        }
+
+        .driver-card .image-container {
+            flex: 0 0 100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .driver-card .image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .driver-card .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .driver-card .title {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+        }
+
+        .driver-card .info {
+            color: #666;
+            margin: 0;
+        }
     </style>
 </head>
 <body>
@@ -354,40 +403,26 @@
         </header>
         <main>
             <div class="container">
-                <h2>My Orders</h2>
-                {% for order in orders %}
-                <div class="card">
-                    <div class="image-container">
-                        <img src="{{ order.orders_image.url }}" alt="Order Image">
-                    </div>
-                    <div class="content">
-                        <div class="header">
-                            <div>
-                                <h2 class="title">{{ order.order_name }}</h2>
-                                <p class="description">{{ order.order_description }}</p>
-                            </div>
-                            <div class="driver-selection">
-                                <a href="{% url 'Drivers' %}" style="display: block; text-align: left; padding-left: 8px; padding-bottom: 5px; margin-top: 5px;" class="driver-label">
-                                    Check Delivery Drivers
-                                </a>
-                                <input type="text" class="driver-input" placeholder="Choose Delivery Driver">
-                                <div style="display: block; text-align: left;" class="date_address">
-                                    <p>Address: {{ order.delivery_address }}</p>
-                                </div>
-                            </div>
+                <h2>Delivery Drivers</h2>
+                <div class="drivers-list">
+                    {% for driver in drivers %}
+                    <div class="driver-card">
+                        <div class="image-container">
+                            <img src="{{ driver.driver_image.url }}" alt="Driver Image">
                         </div>
-                        <div class="footer">
-                            <p class="price">Php {{ order.order_price }}</p>
-                            <div class="buttons">
-                                <button class="button payment-button">Proceed to Payment</button>
-                                <button class="button remove-button">Remove Order</button>
-                            </div>
+                        <div class="content">
+                            <h3 class="title">{{ driver.driver_fname }} {{ driver.driver_lname }}</h3>
+                            <p class="info"><strong>Phone Number:</strong> {{ driver.driver_phone_number }}</p>
+                            <p class="info"><strong>Vehicle Type:</strong> {{ driver.vehicle_type }}</p>
+                            <p class="info"><strong>License Plate:</strong> {{ driver.license_plate }}</p>
                         </div>
                     </div>
+                    {% empty %}
+                    <p>No drivers available.</p>
+                    {% endfor %}
                 </div>
-                {% empty %}
-                <p>No orders available.</p>
-                {% endfor %}
+                <p>hallo</p>
+                <p>make "edit" and "add" drivers at the lower right</p>
             </div>
         </main>
     </div>

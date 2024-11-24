@@ -358,8 +358,9 @@
                 {% if request.session.customer_id %}
                     {% with customer=customer %}
                         {% for order in orders %}
+                        {% if order.order_customer == customer.customer_id %}
                         <div class="card">
-                            <div class="image-container">
+                            <div style="top: 50%;" class="image-container">
                                 <img src="{{ order.orders_image.url }}" alt="Order Image">
                             </div>
                             <div class="content">
@@ -375,7 +376,7 @@
                                         <input type="text" class="driver-input" placeholder="Choose Delivery Driver">
                                         <div style="display: block; text-align: left;" class="date_address">
                                             <p>Location:</p>
-                                            <p>{{ order.delivery_address }}</p>
+                                            <p style="color: #0A0A29;">{{ order.delivery_address }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -391,6 +392,7 @@
                                 </div>
                             </div>
                         </div>
+                        {% endif %}
                         {% empty %}
                         <p>No orders available.</p>
                         {% endfor %}
