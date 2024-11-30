@@ -124,16 +124,32 @@ def orders_list(request):
     context = {'orders': orders, 'customer': customer, 'drivers': drivers}  # Pass drivers to the template
     return render(request, "myApp/Orders.html", context)  # Pass orders to the template
 
-def Checkout(request):
+def checkout_view(request):
     customer = None
+    checkout_items = None
+    subtotal = 0
+    delivery_fee = 29
+
     if 'customer_id' in request.session:
         try:
             customer = Customer.objects.get(customer_id=request.session['customer_id'])
+            checkout_items = Checkout.objects.filter(checkout_customer=customer.customer_id)
+            
+            # Calculate subtotal for this customer's items
+            subtotal = sum(item.checkout_price for item in checkout_items)
+            
         except Customer.DoesNotExist:
             customer = None
 
-    context = {'customer': customer}
-    return render(request, "myApp/Checkout.html", context)  # Pass drivers to the template
+    total = subtotal + delivery_fee
+    context = {
+        'customer': customer,
+        'checkout_items': checkout_items,
+        'subtotal': subtotal,
+        'delivery_fee': delivery_fee,
+        'total': total
+    }
+    return render(request, "myApp/Checkout.html", context)
 
 def Drivers(request):
     customer = None
@@ -507,3 +523,55 @@ def add_menu_greenwich(request):
         form = MenuForm()
     
     return render(request, 'myApp/add_menu_greenwich.html', {'form': form})
+
+def add_to_checkout(request, order_id):
+    if request.method == 'POST':
+        try:
+            # Check if user is logged in
+            if 'customer_id' not in request.session:
+                messages.error(request, 'Please log in first!')
+                return redirect('Orders')
+            
+            # Get the order and customer ID
+            order = Orders.objects.get(order_id=order_id)
+            customer_id = request.session['customer_id']
+            
+            # Create new checkout item
+            checkout_item = Checkout(
+                checkout_name=order.order_name,
+                checkout_description=order.order_description,
+                checkout_price=order.order_price,
+                checkout_image=order.orders_image,
+                checkout_customer=customer_id  # Use logged-in customer's ID
+            )
+            checkout_item.save()
+            
+            # Delete the order
+            order.delete()
+            
+            messages.success(request, 'Item added to checkout successfully!')
+            return redirect('Orders')
+            
+        except Orders.DoesNotExist:
+            messages.error(request, 'Order not found!')
+            return redirect('Orders')
+    
+    return redirect('Orders')
+
+def remove_from_checkout(request, checkout_id):
+    if request.method == 'POST':
+        try:
+            # Get the checkout item and verify it belongs to the logged-in customer
+            if 'customer_id' in request.session:
+                checkout_item = Checkout.objects.get(
+                    checkout_id=checkout_id,
+                    checkout_customer=request.session['customer_id']
+                )
+                checkout_item.delete()
+                messages.success(request, 'Item removed from checkout successfully!')
+            else:
+                messages.error(request, 'Please log in first!')
+        except Checkout.DoesNotExist:
+            messages.error(request, 'Item not found in checkout!')
+    
+    return redirect('Checkout')

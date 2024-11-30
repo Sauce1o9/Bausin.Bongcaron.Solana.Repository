@@ -50,7 +50,8 @@ class Orders(models.Model):
         return self.order_name if self.order_name else "Unnamed Order"
 
 class Checkout(models.Model):
-    checkout_name = models.CharField(max_length=100, primary_key=True)
+    checkout_id = models.AutoField(primary_key=True)
+    checkout_name = models.CharField(max_length=100, null=True, blank=True)
     checkout_description = models.CharField(max_length=100)
     checkout_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     checkout_image = models.ImageField(upload_to='menu_images/', null=True, blank=True)

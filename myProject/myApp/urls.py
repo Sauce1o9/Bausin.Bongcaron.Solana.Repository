@@ -10,7 +10,7 @@ urlpatterns = [
     path('logout/', views.logout, name='logout'),
     path("signup/", views.signup, name="signup"),
     path("Orders", views.orders_list, name="Orders"),
-    path("Checkout", views.Checkout, name="Checkout"),
+    path("Checkout", views.checkout_view, name="Checkout"),
     path("Drivers", views.Drivers, name="Drivers"),
     path("McDonalds", views.McDonalds, name="McDonalds"),
     path("Jollibee", views.Jollibee, name="Jollibee"),
@@ -52,10 +52,11 @@ urlpatterns = [
     path('edit-menu_greenwich/<int:menu_id>/', views.edit_menu_greenwich, name='edit_menu_greenwich'),
     path('delete-menu_greenwich/<int:menu_id>/', views.delete_menu_greenwich, name='delete_menu_greenwich'),
     path('add-menu_greenwich/', views.add_menu_greenwich, name='add_menu_greenwich'),
+    path('add-to-checkout/<int:order_id>/', views.add_to_checkout, name='add_to_checkout'),
+    path('remove-from-checkout/<int:checkout_id>/', views.remove_from_checkout, name='remove_from_checkout'),
     path('add-order/', views.add_order, name='add_order'),
     path('delete-order/<int:order_id>/', views.delete_order, name='delete_order'),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
