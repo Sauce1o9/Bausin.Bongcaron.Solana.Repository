@@ -516,7 +516,7 @@
                     <h2>Check out</h2>
                     
                     <div style="margin-top: -10px;" class="shipping-section">
-                        <h2 class="section-title">SHIPPING DETAILS</h2>
+                        <h2 class="section-title">CUSTOMER DETAILS</h2>
                         <div class="customer-info">
                             <p>Kent Jose Bausin</p>
                             <p>Kentbausin83@gmail.com</p>
@@ -542,49 +542,13 @@
                     
                     <div class="orders-container">
                         <div class="order-item">
-                            <img src="{% static 'img/hot_drinks.png' %}" alt="Royal Cheese Burger" class="order-image">
+                            <img src="{% static 'img/hot_drinks.png' %}" alt="Royal Cheese Burger" class="order-image"> <!--this is for checkout_image-->
                             <div class="order-details">
-                                <h3>Royal Cheese Burger with extra Fries</h3>
-                                <p>1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium</p>
+                                <h3>Royal Cheese Burger with extra Fries</h3> <!--this is for checkout_name-->
+                                <p>1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium</p> <!--this is for checkout_description-->
                             </div>
                             <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
-                                <div class="order-price">Php 23.10</div>
-                                <button class="remove-order-btn">Remove</button>
-                            </div>
-                        </div>
-            
-                        <div class="order-item">
-                            <img src="{% static 'img/hot_drinks.png' %}" alt="Royal Cheese Burger" class="order-image">
-                            <div class="order-details">
-                                <h3>Royal Cheese Burger with extra Fries</h3>
-                                <p>1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium</p>
-                            </div>
-                            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
-                                <div class="order-price">Php 23.10</div>
-                                <button class="remove-order-btn">Remove</button>
-                            </div>
-                        </div>
-
-                        <div class="order-item">
-                            <img src="{% static 'img/hot_drinks.png' %}" alt="Royal Cheese Burger" class="order-image">
-                            <div class="order-details">
-                                <h3>Royal Cheese Burger with extra Fries</h3>
-                                <p>1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium</p>
-                            </div>
-                            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
-                                <div class="order-price">Php 23.10</div>
-                                <button class="remove-order-btn">Remove</button>
-                            </div>
-                        </div>
-
-                        <div class="order-item">
-                            <img src="{% static 'img/hot_drinks.png' %}" alt="Royal Cheese Burger" class="order-image">
-                            <div class="order-details">
-                                <h3>Royal Cheese Burger with extra Fries</h3>
-                                <p>1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium</p>
-                            </div>
-                            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
-                                <div class="order-price">Php 23.10</div>
+                                <div class="order-price">Php 23.10</div> <!--this is for checkout_price-->
                                 <button class="remove-order-btn">Remove</button>
                             </div>
                         </div>
@@ -596,7 +560,7 @@
                             <span>Php 46.20</span>
                         </div>
                         <div class="total-row">
-                            <span>Shipping</span>
+                            <span>Delivery</span>
                             <span>Php 18.00</span>
                         </div>
                         <div class="total-row" style="font-weight: bold; font-size: 18px; margin-bottom: -2px;">

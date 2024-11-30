@@ -49,8 +49,9 @@ class Orders(models.Model):
     def __str__(self):
         return self.order_name if self.order_name else "Unnamed Order"
 
-class Restaurant(models.Model):
-    restaurant_id = models.BigAutoField(primary_key=True)
-    restaurant_name = models.CharField(max_length=100)
-    restaurant_address = models.CharField(max_length=100)
-    restaurant_email = models.EmailField(max_length=100)
+class Checkout(models.Model):
+    checkout_name = models.CharField(max_length=100, primary_key=True)
+    checkout_description = models.CharField(max_length=100)
+    checkout_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    checkout_image = models.ImageField(upload_to='menu_images/', null=True, blank=True)
+    checkout_customer = models.CharField(max_length=50, null=True, blank=True)

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User # type: ignore
 from django.contrib.auth import authenticate, login, logout as auth_logout  # type: ignore
 from django.contrib import messages # type: ignore
 from .forms import MenuForm
-from .models import Orders, Customer, Restaurant, Delivery_Driver, Menu
+from .models import Orders, Customer, Delivery_Driver, Menu, Checkout
 from django.http import Http404  # Add this import
 
 
