@@ -44,6 +44,10 @@ urlpatterns = [
     path('edit-menu_manginasal/<int:menu_id>/', views.edit_menu_manginasal, name='edit_menu_manginasal'),
     path('delete-menu_manginasal/<int:menu_id>/', views.delete_menu_manginasal, name='delete_menu_manginasal'),
     path('add-menu_manginasal/', views.add_menu_manginasal, name='add_menu_manginasal'),
+    #Drivers
+    path('add-driver/', views.add_driver, name='add_driver'),
+    path('edit-driver/<int:driver_id>/', views.edit_driver, name='edit_driver'),
+    path('remove-driver/<int:driver_id>/', views.remove_driver, name='remove_driver'),
     #PizzaHut
     path('edit-menu_pizzahut/<int:menu_id>/', views.edit_menu_pizzahut, name='edit_menu_pizzahut'),
     path('delete-menu_pizzahut/<int:menu_id>/', views.delete_menu_pizzahut, name='delete_menu_pizzahut'),
@@ -54,6 +58,7 @@ urlpatterns = [
     path('add-menu_greenwich/', views.add_menu_greenwich, name='add_menu_greenwich'),
     path('add-to-checkout/<int:order_id>/', views.add_to_checkout, name='add_to_checkout'),
     path('remove-from-checkout/<int:checkout_id>/', views.remove_from_checkout, name='remove_from_checkout'),
+    path('complete-order/', views.complete_order, name='complete_order'),
     path('add-order/', views.add_order, name='add_order'),
     path('delete-order/<int:order_id>/', views.delete_order, name='delete_order'),
 ]

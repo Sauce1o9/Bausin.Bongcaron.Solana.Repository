@@ -347,21 +347,49 @@
             margin-bottom: 10px;
         }
         .checkout-button {
-            width: 50%;
-            padding: 12px;
-            background: #ff8c00;
-            color: white;
+            padding: 10px 20px;
             border: none;
-            border-radius: 8px;
-            font-size: 16px;
+            border-radius: 4px;
             cursor: pointer;
-            margin-top: 20px;
-            transition: background-color 0.3s ease;
-            display: inline-block;
-            text-decoration: none;
+            font-weight: bold;
+            min-width: 170px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
-        .checkout-button:hover {
-            background-color: #e68a00;
+
+        .checkout-button:disabled {
+            background-color: #0d0d32 !important; /* This will override the inline style when disabled */
+            opacity: 1;
+            cursor: not-allowed;
+            color: #ffffff;
+        }
+
+        .checkbox-button {
+            background-color: #ff8c00;
+            color: white;
+        }
+
+        .checkmark {
+            width: 18px;
+            height: 18px;
+            border: 2px solid white;
+            display: inline-block;
+            position: relative;
+            border-radius: 2px;
+        }
+
+        .checkbox-button.checked .checkmark::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
         }
         .orders-container {
             flex: 1;
@@ -394,46 +422,6 @@
             background: white;
             padding: 20px;
             border-top: 1px solid #eee;
-        }
-        .checkbox-button {
-            position: relative;
-            padding-left: 45px; /* Make room for checkmark */
-        }
-
-        .checkmark {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            border: 2px solid white;
-            border-radius: 3px;
-            display: inline-block;
-        }
-
-        .checkbox-button.checked .checkmark::after {
-            content: '';
-            position: absolute;
-            left: 6px;
-            top: 2px;
-            width: 5px;
-            height: 10px;
-            border: solid white;
-            border-width: 0 2px 2px 0;
-            transform: rotate(45deg);
-            animation: checkmark-appear 0.3s ease-out;
-        }
-
-        @keyframes checkmark-appear {
-            0% {
-                transform: rotate(45deg) scale(0);
-                opacity: 0;
-            }
-            100% {
-                transform: rotate(45deg) scale(1);
-                opacity: 1;
-            }
         }
         .remove-order-btn {
             margin-right: -5px;
@@ -637,7 +625,7 @@
                             <span>Delivery</span>
                             <span>₱{{ delivery_fee|floatformat:2 }}</span>
                         </div>
-                        <div class="total-row" style="font-weight: bold; font-size: 18px; margin-bottom: -2px;">
+                        <div class="total-row" style="font-weight: bold; font-size: 18px; margin-bottom: 23px;">
                             <span>Total</span>
                             <span>₱{{ total|floatformat:2 }}</span>
                         </div>
@@ -646,7 +634,10 @@
                                 <span class="checkmark"></span>
                                 Confirm Order
                             </button>
-                            <button style="background-color: #0A0A29; color: white;" class="checkout-button">Order Received</button>
+                            <form id="completeOrderForm" method="POST" action="{% url 'complete_order' %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button id="orderReceivedBtn" style="background-color: #0A0A29;" class="checkout-button" disabled>Order Received</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -667,6 +658,7 @@
         function validateAndToggleCheckmark(button) {
             const cardName = document.getElementById('cardName').value.trim();
             const cardNumber = document.getElementById('cardNumber').value.trim();
+            const orderReceivedBtn = document.getElementById('orderReceivedBtn');
             
             if (!cardName || !cardNumber) {
                 showToast('Please fill in both Name on Card and Card Number fields');
@@ -676,8 +668,10 @@
             // If validation passes, proceed with the original toggle functionality
             if (!button.classList.contains('checked')) {
                 button.classList.add('checked');
+                orderReceivedBtn.disabled = false; // Enable the Order Received button
             } else {
                 button.classList.remove('checked');
+                orderReceivedBtn.disabled = true; // Disable the Order Received button
             }
         }
     </script>

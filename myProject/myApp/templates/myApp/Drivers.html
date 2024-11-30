@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Phil - Food Delivery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
@@ -47,6 +48,77 @@
 
         .container::-webkit-scrollbar {
             display: none; /* For Chrome, Safari, and Opera */
+        }
+        .container-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .action-button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            color: white;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .action-button:hover::before {
+            left: 100%;
+        }
+
+        .edit-button {
+            background: linear-gradient(145deg, #0A0A29, #14144d);
+        }
+
+        .add-button {
+            background: linear-gradient(145deg, #ff8c00, #ff9d2f);
+        }
+
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .action-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-button i {
+            font-size: 16px;
         }
         h2 { font-size: 24px; font-weight: 700; color: #0f172a; margin-bottom: 20px; text-align: left; }
         label { display: block; margin-bottom: 5px; font-weight: 600; }
@@ -273,8 +345,6 @@
             animation-duration: 11s;
         }
 
-
-
         @keyframes animate {
 
             0%{
@@ -299,51 +369,952 @@
             border-radius: 5px; /* Rounded corners */
         }
 
+        /* Drivers List Styles */
         .drivers-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .driver-item {
+            background: linear-gradient(145deg, #ffffff, #f5f5f5);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1),
+                       -5px -5px 15px rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .driver-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.15),
+                       -8px -8px 20px rgba(255, 255, 255, 0.9);
+        }
+
+        .driver-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff8c00, #ff9d2f);
+        }
+
+        .driver-header {
             display: flex;
-            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .driver-image-container {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin-right: 15px;
+        }
+
+        .driver-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ff8c00;
+            box-shadow: 0 3px 10px rgba(255, 140, 0, 0.2);
+        }
+
+        .driver-status {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #2ecc71;
+            border: 2px solid white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .driver-info {
+            flex-grow: 1;
+        }
+
+        .driver-name {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #333;
+            margin: 0 0 5px 0;
+        }
+
+        .driver-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .detail-item i {
+            width: 20px;
+            color: #ff8c00;
+            margin-right: 8px;
+        }
+
+        /* Driver Status Styles */
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 500;
+            margin-top: 15px;
+            text-align: center;
+            width: 100%;
+            background: linear-gradient(135deg, #f0f0f0, #e6e6e6);
+            color: #666;
+            border: 1px solid #ddd;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .status-badge i {
+            margin-right: 5px;
+            color: #ff8c00;
+        }
+
+        .driver-footer {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .availability {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9em;
+            color: #2ecc71;
+        }
+
+        .availability i {
+            font-size: 0.8em;
+        }
+
+        .availability.unavailable {
+            color: #e74c3c;
+        }
+
+        .driver-status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
+        }
+
+        .driver-status-indicator i {
+            font-size: 1em;
+        }
+
+        .driver-status-indicator.on-delivery {
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+            color: #ef6c00;
+            border: 1px solid #ffcc80;
+        }
+
+        .driver-status-indicator.offline {
+            background: linear-gradient(135deg, #f5f5f5, #eeeeee);
+            color: #757575;
+            border: 1px solid #e0e0e0;
+        }
+
+        @media (max-width: 768px) {
+            .drivers-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: relative;
+            background: white;
+            width: 90%;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+            display: flex;
+            gap: 30px;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .modal-left {
+            flex: 1;
+            padding-right: 20px;
+        }
+
+        .modal-right {
+            flex: 1;
+            border-left: 2px solid #f0f0f0;
+            padding-left: 20px;
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            color: #333;
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s ease;
+            margin-top: -80px;
+            margin-left: -70px;
+            position: absolute;
+        }
+
+        .close-modal:hover {
+            color: #ff8c00;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #ff8c00;
+            outline: none;
+        }
+
+        .preview-container {
+            width: 100%;
+            height: 250px;
+            border: 2px dashed #e0e0e0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: none;
+        }
+
+        .preview-placeholder {
+            color: #666;
+            text-align: center;
+        }
+
+        .preview-placeholder i {
+            font-size: 48px;
+            color: #e0e0e0;
+            margin-bottom: 10px;
+        }
+
+        .form-submit {
+            background: linear-gradient(145deg, #ff8c00, #ff9d2f);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-submit:active {
+            transform: translateY(0);
+        }
+
+        /* Edit Modal Styles */
+        .edit-modal-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .edit-modal {
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+            height: 80vh;
+            background: white;
+            margin: 50px auto;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .driver-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
+            padding: 20px;
+            overflow-y: auto;
+            max-height: calc(80vh - 100px);
         }
 
         .driver-card {
-            background-color: #fff;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 100%;
-            max-width: 293px;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
         }
 
-        .driver-card .image-container {
-            flex: 0 0 100px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
+        .driver-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-color: #ff8c00;
         }
 
-        .driver-card .image-container img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
+        .driver-card.selected {
+            border-color: #ff8c00;
+            background: linear-gradient(135deg, #fff3e6 0%, #fff9f2 100%);
+        }
+
+        .driver-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
             object-fit: cover;
+            margin: 0 auto 15px;
+            display: block;
+            border: 3px solid #ff8c00;
         }
 
-        .driver-card .content {
+        .driver-info {
+            text-align: center;
+        }
+
+        .driver-info h3 {
+            margin: 0;
+            color: #333;
+            font-size: 1.2em;
+        }
+
+        .driver-info p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        .edit-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            flex-direction: row;
+        }
+
+        .edit-modal-header h2 {
+            margin: 0;
+            color: #333;
+            font-size: 1.5em;
+        }
+
+        .edit-modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .edit-modal-close:hover {
+            color: #ff8c00;
+        }
+
+        .edit-modal-footer {
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            text-align: right;
+        }
+
+        .edit-button {
+            background: linear-gradient(135deg, #ff8c00 0%, #ff9d2f 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: transform 0.2s ease;
+        }
+
+        .edit-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .edit-button:not(:disabled):hover {
+            transform: translateY(-2px);
+        }
+
+        /* Scrollbar Styling */
+        .driver-grid::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .driver-grid::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .driver-grid::-webkit-scrollbar-thumb {
+            background: #ff8c00;
+            border-radius: 4px;
+        }
+
+        .driver-grid::-webkit-scrollbar-thumb:hover {
+            background: #e67e00;
+        }
+
+        /* Edit Details Modal Styles */
+        .edit-details-modal-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1100;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .edit-details-modal {
+            position: relative;
+            width: 95%;
+            max-width: 1200px;
+            max-height: 90vh;
+            background: white;
+            margin: 30px auto;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            animation: slideIn 0.3s ease;
+            overflow: hidden;
+        }
+
+        .edit-details-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-left-section {
             flex: 1;
             display: flex;
             flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-right-section {
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(145deg, #f6f6f6, #ffffff);
+            border-radius: 15px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .image-upload-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .edit-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .edit-form-group label {
+            font-weight: 500;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .edit-form-group label i {
+            color: #ff8c00;
+            width: 20px;
+            text-align: center;
+        }
+
+        .edit-form-group input {
+            padding: 12px 15px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .image-preview {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #ff8c00;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .edit-details-header {
+            display: flex;
             justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            flex-direction: row;
+            border-bottom: 2px solid #eee;
         }
 
-        .driver-card .title {
-            font-size: 20px;
-            font-weight: bold;
-            margin: 0 0 10px 0;
-        }
-
-        .driver-card .info {
-            color: #666;
+        .edit-details-header h2 {
+            color: #333;
             margin: 0;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .edit-details-header h2 i {
+            color: #ff8c00;
+        }
+
+        .edit-details-close {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s ease;
+            padding: 5px;
+        }
+
+        .edit-details-close:hover {
+            color: #ff8c00;
+        }
+
+        .edit-details-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .edit-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .edit-form-group label {
+            font-weight: 500;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .edit-form-group label i {
+            color: #ff8c00;
+        }
+
+        .edit-form-group input {
+            padding: 10px 15px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .edit-form-group input:focus {
+            outline: none;
+            border-color: #ff8c00;
+            box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
+        }
+
+        .image-upload-container {
+            grid-column: span 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .image-upload-container:hover {
+            border-color: #ff8c00;
+            background: rgba(255, 140, 0, 0.05);
+        }
+
+        .image-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ff8c00;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .edit-details-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+
+        .cancel-button, .save-button {
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cancel-button {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            color: #666;
+        }
+
+        .cancel-button:hover {
+            background: #eee;
+        }
+
+        .save-button {
+            background: linear-gradient(135deg, #ff8c00, #ff9d2f);
+            border: none;
+            color: white;
+        }
+
+        .save-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(255, 140, 0, 0.3);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .edit-modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+
+        .edit-modal-footer button {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .edit-selected-btn {
+            background: linear-gradient(135deg, #ff8c00, #ff9d2f);
+            border: none;
+            color: white;
+        }
+
+        .edit-selected-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(255, 140, 0, 0.3);
+        }
+
+        .remove-driver-btn {
+            background: #0A0A29;
+            border: none;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .remove-driver-btn:hover {
+            background: #d32f2f;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(211, 47, 47, 0.3);
+        }
+
+        .remove-driver-btn, .edit-selected-btn {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .remove-driver-btn.enabled {
+            opacity: 1;
+            cursor: pointer;
+            pointer-events: all;
+            background: #0A0A29;
+            border: none;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .remove-driver-btn.enabled:hover {
+            background: #d32f2f;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(211, 47, 47, 0.3);
+        }
+
+        .edit-selected-btn.enabled {
+            opacity: 1;
+            cursor: pointer;
+            pointer-events: all;
+            background: linear-gradient(135deg, #ff8c00, #ff9d2f);
+            border: none;
+            color: white;
+        }
+
+        .edit-selected-btn.enabled:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(255, 140, 0, 0.3);
+        }
+
+        /* Confirmation Modal Styles */
+        .confirm-modal-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1200;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .confirm-modal {
+            position: relative;
+            width: 90%;
+            max-width: 500px;
+            background: white;
+            margin: 150px auto;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            animation: slideInUp 0.4s ease;
+            text-align: center;
+        }
+
+        .confirm-modal-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: #fff0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .confirm-modal-icon i {
+            font-size: 40px;
+            color: #d32f2f;
+        }
+
+        .confirm-modal h2 {
+            color: #333;
+            margin: 0 0 10px;
+            font-size: 1.5em;
+        }
+
+        .confirm-modal p {
+            color: #666;
+            margin: 0 0 25px;
+            font-size: 1.1em;
+            line-height: 1.5;
+        }
+
+        .confirm-modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+
+        .confirm-cancel-btn, .confirm-delete-btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .confirm-cancel-btn {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            color: #666;
+        }
+
+        .confirm-cancel-btn:hover {
+            background: #eee;
+        }
+
+        .confirm-delete-btn {
+            background: #0A0A29;
+            border: none;
+            color: white;
+        }
+
+        .confirm-delete-btn:hover {
+            background: #d32f2f;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(211, 47, 47, 0.3);
+        }
+
+        .confirm-delete-btn.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
     </style>
 </head>
@@ -403,28 +1374,489 @@
         </header>
         <main>
             <div class="container">
-                <h2>Delivery Drivers</h2>
+                <div class="container-header">
+                    <h2>Delivery Drivers</h2>
+                    <div class="action-buttons">
+                        <button class="action-button edit-button" onclick="openEditModal()">
+                            <i class="fas fa-edit"></i>
+                            Edit
+                        </button>
+                        <button class="action-button add-button" id="addDriverButton">
+                            <i class="fas fa-plus"></i>
+                            Add
+                        </button>
+                    </div>
+                </div>
                 <div class="drivers-list">
                     {% for driver in drivers %}
-                    <div class="driver-card">
-                        <div class="image-container">
-                            <img src="{{ driver.driver_image.url }}" alt="Driver Image">
+                    <div class="driver-item">
+                        <div class="driver-header">
+                            <div class="driver-image-container">
+                                {% if driver.driver_image %}
+                                <img src="{{ driver.driver_image.url }}" alt="{{ driver.driver_fname }}" class="driver-image">
+                                {% else %}
+                                <img src="{% static 'images/default-driver.png' %}" alt="Default" class="driver-image">
+                                {% endif %}
+                                <div class="driver-status"></div>
+                            </div>
+                            <div class="driver-info">
+                                <h3 class="driver-name">{{ driver.driver_fname }} {{ driver.driver_lname }}</h3>
+                            </div>
                         </div>
-                        <div class="content">
-                            <h3 class="title">{{ driver.driver_fname }} {{ driver.driver_lname }}</h3>
-                            <p class="info"><strong>Phone Number:</strong> {{ driver.driver_phone_number }}</p>
-                            <p class="info"><strong>Vehicle Type:</strong> {{ driver.vehicle_type }}</p>
-                            <p class="info"><strong>License Plate:</strong> {{ driver.license_plate }}</p>
+                        <div class="driver-details">
+                            <div class="detail-item">
+                                <i class="fas fa-phone"></i>
+                                <span>{{ driver.driver_phone_number }}</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-car"></i>
+                                <span>{{ driver.vehicle_type }}</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-id-card"></i>
+                                <span>{{ driver.license_plate }}</span>
+                            </div>
+                        </div>
+                        <div class="driver-footer">
+                            <div class="availability">
+                                <i class="fas fa-circle"></i>
+                                Currently Active
+                            </div>
+                            <div class="driver-status-indicator">
+                                <i class="fas fa-check-circle"></i>
+                                Ready for Orders
+                            </div>
                         </div>
                     </div>
-                    {% empty %}
-                    <p>No drivers available.</p>
                     {% endfor %}
                 </div>
-                <p>hallo</p>
-                <p>make "edit" and "add" drivers at the lower right</p>
             </div>
         </main>
     </div>
+    <!-- Add Driver Modal -->
+    <div id="addDriverModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-left">
+                <div class="modal-header">
+                    <h2><i class="fas fa-user-plus"></i> Add New Driver</h2>
+                </div>
+                <form action="{% url 'add_driver' %}" method="POST" enctype="multipart/form-data" id="addDriverForm">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="driver_fname">First Name</label>
+                        <input type="text" id="driver_fname" name="driver_fname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="driver_lname">Last Name</label>
+                        <input type="text" id="driver_lname" name="driver_lname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="driver_phone_number">Phone Number</label>
+                        <input type="tel" 
+                               id="driver_phone_number" 
+                               name="driver_phone_number" 
+                               pattern="[0-9]*" 
+                               maxlength="11"
+                               oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                               required>
+                        <small class="error-message" id="phone-error" style="color: #ff3333; display: none;">Please enter a valid phone number (numbers only)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="vehicle_type">Vehicle Type</label>
+                        <input type="text" id="vehicle_type" name="vehicle_type" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="license_plate">License Plate</label>
+                        <input type="text" id="license_plate" name="license_plate" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-right">
+                <div class="form-group">
+                    <button style="margin-right: -500px;" class="close-modal">&times;</button>
+                    <label style="margin-top: 70px;" >Driver Image</label>
+                    <input type="file" id="driver_image" name="driver_image" accept="image/*" onchange="previewImage(this)" style="display: none;" form="addDriverForm">
+                    <div class="preview-container" onclick="document.getElementById('driver_image').click()">
+                        <img id="imagePreview" class="preview-image" src="#" alt="Image preview">
+                        <div class="preview-placeholder">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to upload image</p>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="form-submit" form="addDriverForm" onclick="return validateForm(event)">
+                    <i class="fas fa-save"></i> Add Driver
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Driver Modal -->
+    <div class="edit-modal-container" id="editModalContainer">
+        <div class="edit-modal">
+            <div class="edit-modal-header">
+                <div>
+                    <h2><i class="fas fa-edit"></i> Edit Driver</h2>
+                </div>
+                <div>
+                    <button class="edit-modal-close" onclick="closeEditModal()">&times;</button>
+                </div>
+            </div>
+            <div class="driver-grid" id="driverGrid">
+                {% for driver in drivers %}
+                <div class="driver-card" data-id="{{ driver.driver_id }}" onclick="selectDriver(this, '{{ driver.driver_id }}')">
+                    {% if driver.driver_image %}
+                    <img src="{{ driver.driver_image.url }}" alt="{{ driver.driver_fname }}" class="driver-image">
+                    {% else %}
+                    <img src="{% static 'images/default-driver.png' %}" alt="Default" class="driver-image">
+                    {% endif %}
+                    <div class="driver-info">
+                        <h3>{{ driver.driver_fname }} {{ driver.driver_lname }}</h3>
+                        <p><i class="fas fa-phone"></i> {{ driver.driver_phone_number }}</p>
+                        <p><i class="fas fa-car"></i> {{ driver.vehicle_type }}</p>
+                        <p><i class="fas fa-id-card"></i> {{ driver.license_plate }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="edit-modal-footer">
+                <button type="button" class="remove-driver-btn" id="removeDriverBtn" onclick="removeSelectedDriver()">
+                    <i class="fas fa-trash-alt"></i> Remove Driver
+                </button>
+                <button type="button" class="edit-selected-btn" id="editSelectedBtn" onclick="editSelectedDriver()">
+                    <i class="fas fa-edit"></i> Edit Selected Driver
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Details Modal -->
+    <div class="edit-details-modal-container" id="editDetailsModal">
+        <div class="edit-details-modal">
+            <div class="edit-details-header">
+                <div>
+                    <h2><i class="fas fa-user-edit"></i> Edit Driver Details</h2>
+                </div>
+                <div>
+                    <button class="edit-details-close" onclick="closeEditDetailsModal()">&times;</button>
+                </div>
+            </div>
+            <form id="editDriverForm" action="{% url 'edit_driver' 0 %}" method="POST" enctype="multipart/form-data" onsubmit="return validateEditForm(event)">
+                {% csrf_token %}
+                <div class="edit-details-form">
+                    <div class="form-left-section">
+                        <div class="form-grid">
+                            <div class="edit-form-group">
+                                <label><i class="fas fa-user"></i> First Name</label>
+                                <input type="text" id="edit_driver_fname" name="driver_fname" required>
+                            </div>
+                            <div class="edit-form-group">
+                                <label><i class="fas fa-user"></i> Last Name</label>
+                                <input type="text" id="edit_driver_lname" name="driver_lname" required>
+                            </div>
+                            <div class="edit-form-group">
+                                <label><i class="fas fa-phone"></i> Phone Number</label>
+                                <input type="tel" 
+                                       id="edit_driver_phone_number" 
+                                       name="driver_phone_number" 
+                                       pattern="[0-9]*" 
+                                       maxlength="11"
+                                       oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                       required>
+                            </div>
+                            <div class="edit-form-group">
+                                <label><i class="fas fa-car"></i> Vehicle Type</label>
+                                <input type="text" id="edit_vehicle_type" name="vehicle_type" required>
+                            </div>
+                            <div class="edit-form-group">
+                                <label><i class="fas fa-id-card"></i> License Plate</label>
+                                <input type="text" id="edit_license_plate" name="license_plate" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-right-section">
+                        <div class="image-upload-container" onclick="document.getElementById('edit_driver_image').click()">
+                            <img id="editImagePreview" src="{% static 'images/default-driver.png' %}" alt="" class="image-preview">
+                            <div class="upload-text">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Click to upload new image</p>
+                            </div>
+                            <input type="file" 
+                                   id="edit_driver_image" 
+                                   name="driver_image" 
+                                   accept="image/*" 
+                                   onchange="previewEditImage(this)" 
+                                   style="display: none;">
+                        </div>
+                    </div>
+                </div>
+                <div class="edit-details-footer">
+                    <button type="button" class="cancel-button" onclick="closeEditDetailsModal()">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="save-button">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="confirm-modal-container" id="confirmModal">
+        <div class="confirm-modal">
+            <div class="confirm-modal-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h2>Remove Driver</h2>
+            <p>Are you sure you want to remove this driver? This action cannot be undone.</p>
+            <div class="confirm-modal-buttons">
+                <button type="button" class="confirm-cancel-btn" onclick="closeConfirmModal()">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button type="button" class="confirm-delete-btn" id="confirmDeleteBtn" onclick="confirmRemoveDriver()">
+                    <i class="fas fa-trash-alt"></i> Remove Driver
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        const modal = document.getElementById('addDriverModal');
+        const addButton = document.getElementById('addDriverButton');
+        const closeButton = document.querySelector('.close-modal');
+
+        addButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            modal.style.display = 'block';
+            setTimeout(() => modal.classList.add('active'), 10);
+        });
+
+        closeButton.addEventListener('click', () => {
+            modal.classList.remove('active');
+            setTimeout(() => modal.style.display = 'none', 300);
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                setTimeout(() => modal.style.display = 'none', 300);
+            }
+        });
+
+        // Image preview functionality
+        function previewImage(input) {
+            const preview = document.getElementById('imagePreview');
+            const placeholder = document.querySelector('.preview-placeholder');
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    placeholder.style.display = 'none';
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Form validation
+        function validateForm(event) {
+            event.preventDefault();
+            
+            // Get all required inputs
+            const form = document.getElementById('addDriverForm');
+            const firstName = document.getElementById('driver_fname').value.trim();
+            const lastName = document.getElementById('driver_lname').value.trim();
+            const phoneNumber = document.getElementById('driver_phone_number').value.trim();
+            const vehicleType = document.getElementById('vehicle_type').value.trim();
+            const licensePlate = document.getElementById('license_plate').value.trim();
+            
+            // Reset error messages
+            document.getElementById('phone-error').style.display = 'none';
+            
+            // Validate phone number
+            if (!/^[0-9]{11}$/.test(phoneNumber)) {
+                document.getElementById('phone-error').style.display = 'block';
+                return false;
+            }
+            
+            // Check if any field is empty
+            if (!firstName || !lastName || !phoneNumber || !vehicleType || !licensePlate) {
+                alert('Please fill in all required fields');
+                return false;
+            }
+            
+            // If all validations pass, submit the form
+            form.submit();
+            return true;
+        }
+
+        // Phone number input validation
+        const phoneInput = document.getElementById('driver_phone_number');
+        phoneInput.addEventListener('input', function(e) {
+            // Remove any non-numeric characters
+            this.value = this.value.replace(/[^0-9]/g, '');
+            
+            // Show/hide error message based on input validity
+            const isValid = /^[0-9]{11}$/.test(this.value);
+            document.getElementById('phone-error').style.display = isValid ? 'none' : 'block';
+        });
+
+        let selectedDriverId = null;
+
+        function openEditModal() {
+            document.getElementById('editModalContainer').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModalContainer').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            selectedDriverId = null;
+            document.getElementById('removeDriverBtn').classList.remove('enabled');
+            document.getElementById('editSelectedBtn').classList.remove('enabled');
+            // Reset all selected cards
+            document.querySelectorAll('.driver-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+        }
+
+        function selectDriver(card, driverId) {
+            // Remove selection from all cards
+            document.querySelectorAll('.driver-card').forEach(c => {
+                c.classList.remove('selected');
+            });
+            
+            // Add selection to clicked card
+            card.classList.add('selected');
+            selectedDriverId = driverId;
+            document.getElementById('removeDriverBtn').classList.add('enabled');
+            document.getElementById('editSelectedBtn').classList.add('enabled');
+        }
+
+        function editSelectedDriver() {
+            if (selectedDriverId) {
+                // Update form action URL with selected driver ID
+                const form = document.getElementById('editDriverForm');
+                form.action = form.action.replace('/0/', `/${selectedDriverId}/`);
+                
+                // Show edit details modal
+                document.getElementById('editDetailsModal').style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                
+                // Close the selection modal
+                closeEditModal();
+            }
+        }
+
+        function closeEditDetailsModal() {
+            document.getElementById('editDetailsModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function previewEditImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('editImagePreview').src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function validateEditForm(event) {
+            const phoneNumber = document.getElementById('edit_driver_phone_number').value.trim();
+            
+            // Validate phone number
+            if (!/^[0-9]{11}$/.test(phoneNumber)) {
+                alert('Please enter a valid 11-digit phone number');
+                return false;
+            }
+            
+            // Check if any field is empty
+            const fields = ['edit_driver_fname', 'edit_driver_lname', 'edit_vehicle_type', 'edit_license_plate'];
+            for (const fieldId of fields) {
+                const value = document.getElementById(fieldId).value.trim();
+                if (!value) {
+                    alert('Please fill in all required fields');
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        function showConfirmModal() {
+            document.getElementById('confirmModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('confirmModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function removeSelectedDriver() {
+            if (selectedDriverId) {
+                showConfirmModal();
+            }
+        }
+
+        function confirmRemoveDriver() {
+            // Show loading state
+            const confirmBtn = document.getElementById('confirmDeleteBtn');
+            const originalText = confirmBtn.innerHTML;
+            confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Removing...';
+            confirmBtn.classList.add('loading');
+
+            // Make the request to remove the driver
+            fetch(`/remove-driver/${selectedDriverId}/`, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Remove the driver card from the UI
+                    const driverCard = document.querySelector(`.driver-card[data-id="${selectedDriverId}"]`);
+                    if (driverCard) {
+                        driverCard.remove();
+                    }
+                    // Close both modals
+                    closeConfirmModal();
+                    closeEditModal();
+                    // Reload the page to show the success message
+                    window.location.reload();
+                } else {
+                    throw new Error('Failed to remove driver');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to remove driver. Please try again.');
+                // Reset button state
+                confirmBtn.innerHTML = originalText;
+                confirmBtn.classList.remove('loading');
+                closeConfirmModal();
+            });
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const editModal = document.getElementById('editModalContainer');
+            const editDetailsModal = document.getElementById('editDetailsModal');
+            const confirmModal = document.getElementById('confirmModal');
+            if (event.target === editModal) {
+                closeEditModal();
+            } else if (event.target === editDetailsModal) {
+                closeEditDetailsModal();
+            } else if (event.target === confirmModal) {
+                closeConfirmModal();
+            }
+        }
+    </script>
 </body>
 </html>

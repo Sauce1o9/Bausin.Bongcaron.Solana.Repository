@@ -5,7 +5,7 @@ from django.contrib import messages # type: ignore
 from .forms import MenuForm
 from .models import Orders, Customer, Delivery_Driver, Menu, Checkout
 from django.http import Http404  # Add this import
-
+import os
 
 # Create your views here.
 def test(request):
@@ -575,3 +575,79 @@ def remove_from_checkout(request, checkout_id):
             messages.error(request, 'Item not found in checkout!')
     
     return redirect('Checkout')
+
+def complete_order(request):
+    if request.method == 'POST':
+        try:
+            if 'customer_id' in request.session:
+                # Delete all checkout items for the logged-in customer
+                Checkout.objects.filter(checkout_customer=request.session['customer_id']).delete()
+                messages.success(request, 'Order completed successfully!')
+            else:
+                messages.error(request, 'Please log in first!')
+        except Exception as e:
+            messages.error(request, 'An error occurred while completing your order.')
+    
+    return redirect('Checkout')
+
+def add_driver(request):
+    if request.method == 'POST':
+        try:
+            driver = Delivery_Driver(
+                driver_fname=request.POST['driver_fname'],
+                driver_lname=request.POST['driver_lname'],
+                driver_phone_number=request.POST['driver_phone_number'],
+                vehicle_type=request.POST['vehicle_type'],
+                license_plate=request.POST['license_plate']
+            )
+            
+            # Only set driver_image if a file was actually uploaded
+            if request.FILES and 'driver_image' in request.FILES:
+                driver.driver_image = request.FILES['driver_image']
+            
+            driver.save()
+            messages.success(request, 'Driver added successfully!')
+            return redirect('Drivers')
+        except Exception as e:
+            messages.error(request, f'Error adding driver: {str(e)}')
+            return redirect('Drivers')
+    
+    return redirect('Drivers')
+
+def edit_driver(request, driver_id):
+    if request.method == 'POST':
+        try:
+            driver = Delivery_Driver.objects.get(driver_id=driver_id)
+            driver.driver_fname = request.POST['driver_fname']
+            driver.driver_lname = request.POST['driver_lname']
+            driver.driver_phone_number = request.POST['driver_phone_number']
+            driver.vehicle_type = request.POST['vehicle_type']
+            driver.license_plate = request.POST['license_plate']
+            
+            if request.FILES and 'driver_image' in request.FILES:
+                driver.driver_image = request.FILES['driver_image']
+            
+            driver.save()
+            messages.success(request, 'Driver updated successfully!')
+            return redirect('Drivers')
+        except Exception as e:
+            messages.error(request, f'Error updating driver: {str(e)}')
+            return redirect('Drivers')
+    
+    return redirect('Drivers')
+
+def remove_driver(request, driver_id):
+    try:
+        driver = Delivery_Driver.objects.get(driver_id=driver_id)
+        # Delete the driver's image if it exists
+        if driver.driver_image:
+            if os.path.isfile(driver.driver_image.path):
+                os.remove(driver.driver_image.path)
+        driver.delete()
+        messages.success(request, 'Driver has been successfully removed.')
+    except Delivery_Driver.DoesNotExist:
+        messages.error(request, 'Driver not found.')
+    except Exception as e:
+        messages.error(request, f'Error removing driver: {str(e)}')
+    
+    return redirect('Drivers')
