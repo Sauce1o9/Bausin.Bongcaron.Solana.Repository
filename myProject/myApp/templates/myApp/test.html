@@ -87,19 +87,60 @@
             justify-content: space-between;
             margin-bottom: 10px;
         }
-        .checkout-button {
+        .checkbox-button {
             width: 100%;
             padding: 15px;
-            background: #ff8c00;
+            background-color: #4CAF50;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
             margin-top: 20px;
+            transition: background-color 0.3s ease;
+            position: relative;
+            padding-left: 45px; /* Make room for checkmark */
         }
-        .checkout-button:hover {
-            background: #ff7600;
+
+        .checkbox-button:hover {
+            background-color: #45a049;
+        }
+
+        .checkmark {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid white;
+            border-radius: 3px;
+            display: inline-block;
+        }
+
+        .checkbox-button.checked .checkmark::after {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            animation: checkmark-appear 0.3s ease-out;
+        }
+
+        @keyframes checkmark-appear {
+            0% {
+                transform: rotate(45deg) scale(0);
+                opacity: 0;
+            }
+            100% {
+                transform: rotate(45deg) scale(1);
+                opacity: 1;
+            }
         }
     </style>
 </head>
@@ -164,7 +205,15 @@
                     <span>Total</span>
                     <span>Php 64.20</span>
                 </div>
-                <button class="checkout-button">This is a button</button>
+                <button class="checkbox-button" onclick="toggleCheckmark(this)">
+                    <span class="checkmark"></span>
+                    Proceed to Checkout
+                </button>
+                <script>
+                    function toggleCheckmark(button) {
+                        button.classList.toggle('checked');
+                    }
+                </script>
             </div>
         </div>
     </div>

@@ -348,7 +348,7 @@
             margin-bottom: 10px;
         }
         .checkout-button {
-            width: 100%;
+            width: 50%;
             padding: 12px;
             background: #ff8c00;
             color: white;
@@ -357,9 +357,12 @@
             font-size: 16px;
             cursor: pointer;
             margin-top: 20px;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
         }
         .checkout-button:hover {
-            background: #ff7600;
+            background-color: #e68a00;
         }
         .orders-container {
             flex: 1;
@@ -392,6 +395,64 @@
             background: white;
             padding: 20px;
             border-top: 1px solid #eee;
+        }
+        .checkbox-button {
+            position: relative;
+            padding-left: 45px; /* Make room for checkmark */
+        }
+
+        .checkmark {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid white;
+            border-radius: 3px;
+            display: inline-block;
+        }
+
+        .checkbox-button.checked .checkmark::after {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            animation: checkmark-appear 0.3s ease-out;
+        }
+
+        @keyframes checkmark-appear {
+            0% {
+                transform: rotate(45deg) scale(0);
+                opacity: 0;
+            }
+            100% {
+                transform: rotate(45deg) scale(1);
+                opacity: 1;
+            }
+        }
+        .remove-order-btn {
+            margin-right: -5px;
+            background-color: #0A0A29;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .remove-order-btn:hover {
+            background-color: #d32f2f;
         }
     </style>
 </head>
@@ -486,7 +547,10 @@
                                 <h3>Royal Cheese Burger with extra Fries</h3>
                                 <p>1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium</p>
                             </div>
-                            <div class="order-price">Php 23.10</div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
+                                <div class="order-price">Php 23.10</div>
+                                <button class="remove-order-btn">Remove</button>
+                            </div>
                         </div>
             
                         <div class="order-item">
@@ -495,7 +559,10 @@
                                 <h3>Royal Cheese Burger with extra Fries</h3>
                                 <p>1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium</p>
                             </div>
-                            <div class="order-price">Php 23.10</div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
+                                <div class="order-price">Php 23.10</div>
+                                <button class="remove-order-btn">Remove</button>
+                            </div>
                         </div>
 
                         <div class="order-item">
@@ -504,7 +571,10 @@
                                 <h3>Royal Cheese Burger with extra Fries</h3>
                                 <p>1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium</p>
                             </div>
-                            <div class="order-price">Php 23.10</div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
+                                <div class="order-price">Php 23.10</div>
+                                <button class="remove-order-btn">Remove</button>
+                            </div>
                         </div>
 
                         <div class="order-item">
@@ -513,7 +583,10 @@
                                 <h3>Royal Cheese Burger with extra Fries</h3>
                                 <p>1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium</p>
                             </div>
-                            <div class="order-price">Php 23.10</div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
+                                <div class="order-price">Php 23.10</div>
+                                <button class="remove-order-btn">Remove</button>
+                            </div>
                         </div>
                     </div>
         
@@ -531,13 +604,21 @@
                             <span>Php 64.20</span>
                         </div>
                         <div style="margin-bottom: -9px;" class="buttons">
-                            <button class="checkout-button">Confirm Payment</button>
-                            <button style="background-color: #0A0A29; color: white;" class="checkout-button">Confirm Payment</button>
+                            <button class="checkout-button checkbox-button" onclick="toggleCheckmark(this)">
+                                <span class="checkmark"></span>
+                                Confirm Order
+                            </button>
+                            <button style="background-color: #0A0A29; color: white;" class="checkout-button">Order Received</button>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
     </div>
+    <script>
+        function toggleCheckmark(button) {
+            button.classList.toggle('checked');
+        }
+    </script>
 </body>
 </html>
