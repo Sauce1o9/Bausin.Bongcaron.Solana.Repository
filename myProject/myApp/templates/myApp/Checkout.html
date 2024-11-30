@@ -7,7 +7,7 @@
     <title>Order Phil - Food Delivery</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #fff;}
         .promo-banner { background-color: #f8f8f8; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; font-size: 14px; }
         .promo-icon, .location-icon { margin-right: 10px; font-size: 18px; }
         .change-location { color: #ff8c00; text-decoration: none; margin-left: 10px; font-weight: 600; }
@@ -30,7 +30,11 @@
         .login-icon { margin-right: 5px; }
         .highlight { color: #ff8c00; }
         .container {
-            background-color: white;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 40px;
+            background: white;
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -65,16 +69,6 @@
             flex-direction: row;
             margin-top: 20px;
         }
-        .image-container {
-            flex: 0 0 300px;
-            margin-right: 20px;
-        }
-        .image-container img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            object-fit: cover;
-        }
         .content {
             flex: 1;
             display: flex;
@@ -87,50 +81,9 @@
             align-items: flex-start;
             margin-bottom: 20px;
         }
-        .title {
-            font-size: 24px;
-            font-weight: bold;
-            margin: 0 0 10px 0;
-        }
         .description {
             color: #666;
             margin: 0;
-        }
-        .driver-selection {
-            text-align: right;
-        }
-        .driver-label {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 5px;
-        }
-        .driver-input {
-            width: 200px;
-            padding: 8px;
-            border: 1px solid #787878;
-            border-radius: 4px;
-            background-color: #fff;
-            color: #333;
-            font-size: 16px;
-            appearance: none;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><polygon points="0,0 10,0 5,5" fill="%23ff8c00"/></svg>');
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-            background-size: 10px;
-            transition: border-color 0.3s;
-        }
-
-        .driver-input:focus {
-            border-color: #ff8c00;
-            outline: none;
-        }
-
-        .driver-input option {
-            padding: 10px;
-        }
-
-        .driver-selection {
-            position: relative;
         }
         .footer {
             display: flex;
@@ -142,7 +95,7 @@
             font-weight: bold;
             text-align: right;
             flex: 1;
-            margin-right: 45px;
+            margin-right: 63px;
         }
         .buttons {
             display: flex;
@@ -192,8 +145,6 @@
             background: -webkit-linear-gradient(to left, #ff8c00, #ff8c00);  
             width: 100%;
             height:100vh;
-            
-        
         }
 
         .circles{
@@ -318,6 +269,129 @@
             border: 1px solid #f5c6cb; /* Border color */
             border-radius: 5px; /* Rounded corners */
         }
+        .left-section, .right-section {
+            flex: 1;
+        }
+        .right-section {
+            flex: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        h1 {
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+        .section-title {
+            color: #888;
+            margin-bottom: 10px;
+            font-size: 14px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .customer-info {
+            margin-bottom: 30px;
+        }
+        .customer-info p {
+            margin: 5px 0;
+        }
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            color: #333;
+            border: 1px solid #787878;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        .order-item {
+            height: 90px;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: #fff;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            font-size: 11px;
+        }
+        .order-image {
+            width: 70px;
+            height: 70px;
+            border-radius: 8px;
+            margin-right: 15px;
+        }.order-image img {
+            width: auto;
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        .order-details {
+            flex: 1;
+        }
+        .order-price {
+            font-weight: bold;
+        }
+        .totals-section {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            background: white;
+            padding: 20px 0;
+        }
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .checkout-button {
+            width: 100%;
+            padding: 12px;
+            background: #ff8c00;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .checkout-button:hover {
+            background: #ff7600;
+        }
+        .orders-container {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+            margin-bottom: 200px; /* Space for totals section */
+        }
+        .orders-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        .orders-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .orders-container::-webkit-scrollbar-thumb {
+            background: #ff8c00;
+            border-radius: 4px;
+        }
+
+        .orders-container::-webkit-scrollbar-thumb:hover {
+            background: #e67e00;
+        }
+        .totals-section {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
     </style>
 </head>
 <body>
@@ -342,7 +416,7 @@
                         <div class="location">
                             <p><span class="location-icon">📍</span>{{ customer.address }}</p>
                         </div>
-                    {% endwith %}
+                        {% endwith %}
                 {% else %}
                     <p><span class="promo-icon">🎉</span>Get 5% Off your first order, <span class="highlight">Promo: UIPROJ</span></p>
                     <div class="location">
@@ -357,8 +431,8 @@
                 <ul class="nav-links">
                     <li><a href="{% url 'home' %}">Home</a></li>
                     <li><a href="{% url 'McDonalds' %}">Restaurants</a></li>
-                    <li><a href="{% url 'Orders' %}" class="active">Orders</a></li>
-                    <li><a href="{% url 'Checkout' %}">Checkout</a></li>
+                    <li><a href="{% url 'Orders' %}">Orders</a></li>
+                    <li><a href="{% url 'Checkout' %}" class="active">Checkout</a></li>
                     <li><a href="{% url 'Drivers' %}">Delivery Drivers</a></li>
                 </ul>
                 {% if request.session.customer_id %}
@@ -376,58 +450,88 @@
         </header>
         <main>
             <div class="container">
-                <h2>My Orders</h2>
-                {% if request.session.customer_id %}
-                    {% with customer=customer %}
-                        {% for order in orders %}
-                        {% if order.order_customer == customer.customer_id %}
-                        <div class="card">
-                            <div style="top: 50%;" class="image-container">
-                                <img src="{{ order.orders_image.url }}" alt="Order Image">
-                            </div>
-                            <div class="content">
-                                <div class="header">
-                                    <div>
-                                        <h2 class="title">{{ order.order_name }}</h2>
-                                        <p class="description" style="margin-right: 40px;">{{ order.order_description }}</p>
-                                    </div>
-                                    <div class="driver-selection">
-                                        <a href="{% url 'Drivers' %}" style="display: block; text-align: left; padding-left: 8px; padding-bottom: 5px; margin-top: 5px;" class="driver-label">
-                                            Check Delivery Drivers
-                                        </a>
-                                        <select style="margin-bottom: 20px; margin-top: -10px;" class="driver-input" required>
-                                            <option value="">Choose Delivery Driver</option>
-                                            {% for driver in drivers %}
-                                                <option value="{{ driver.driver_id }}">{{ driver.driver_fname }} {{ driver.driver_lname }}</option>
-                                            {% empty %}
-                                                <option value="">No drivers available</option>
-                                            {% endfor %}
-                                        </select>
-                                        <div style="display: block; text-align: left;" class="date_address">
-                                            <p>Location:</p>
-                                            <p style="color: #0A0A29;">{{ order.delivery_address }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="footer">
-                                    <p class="price">Php {{ order.order_price }}</p>
-                                    <div class="buttons">
-                                        <button style="width: 200px;" class="button payment-button">Add to Checkout</button>
-                                        <form method="POST" action="{% url 'delete_order' order.order_id %}" style="display: inline;">
-                                            {% csrf_token %}
-                                            <button style="width: 200px;" type="submit" class="remove-button" onclick="return confirm('Are you sure you want to remove this order?');">Remove Order</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="left-section">
+                    <h2>Check out</h2>
+                    
+                    <div style="padding-top: 20px;" class="shipping-section">
+                        <h2 class="section-title">SHIPPING DETAILS</h2>
+                        <div class="customer-info">
+                            <p>Kent Jose Bausin</p>
+                            <p>Kentbausin83@gmail.com</p>
+                            <p>09295929473</p>
+                            <p>Punta, Labangon, Cebu</p>
                         </div>
-                        {% endif %}
-                        {% empty %}
-                        <p>No orders available.</p>
-                        {% endfor %}
-                    {% endwith %}
-                {% else %}
-                {% endif %}
+                    </div>
+        
+                    <div class="payment-section">
+                        <h2 class="section-title">PAYMENT DETAILS</h2>
+                        <div>
+                            <p>NAME ON CARD</p>
+                            <input type="text" class="input-field" placeholder="Name">
+                            
+                            <p>CARD NUMBER</p>
+                            <input type="text" class="input-field" placeholder="Number">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="right-section">
+                    <h2 class="section-title">YOUR ORDER</h2>
+                    
+                    <div class="orders-container">
+                        <div class="order-item">
+                            <img src="{% static 'img/hot_drinks.png' %}" alt="Royal Cheese Burger" class="order-image">
+                            <div class="order-details">
+                                <h3>Royal Cheese Burger with extra Fries</h3>
+                                <p>1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium</p>
+                            </div>
+                            <div class="order-price">Php 23.10</div>
+                        </div>
+            
+                        <div class="order-item">
+                            <img src="{% static 'img/hot_drinks.png' %}" alt="Royal Cheese Burger" class="order-image">
+                            <div class="order-details">
+                                <h3>Royal Cheese Burger with extra Fries</h3>
+                                <p>1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium</p>
+                            </div>
+                            <div class="order-price">Php 23.10</div>
+                        </div>
+
+                        <div class="order-item">
+                            <img src="{% static 'img/hot_drinks.png' %}" alt="Royal Cheese Burger" class="order-image">
+                            <div class="order-details">
+                                <h3>Royal Cheese Burger with extra Fries</h3>
+                                <p>1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium</p>
+                            </div>
+                            <div class="order-price">Php 23.10</div>
+                        </div>
+
+                        <div class="order-item">
+                            <img src="{% static 'img/hot_drinks.png' %}" alt="Royal Cheese Burger" class="order-image">
+                            <div class="order-details">
+                                <h3>Royal Cheese Burger with extra Fries</h3>
+                                <p>1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium</p>
+                            </div>
+                            <div class="order-price">Php 23.10</div>
+                        </div>
+                    </div>
+        
+                    <div class="totals-section">
+                        <div style="margin-top: -10px;" class="total-row">
+                            <span>Subtotal</span>
+                            <span>Php 46.20</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Shipping</span>
+                            <span>Php 18.00</span>
+                        </div>
+                        <div class="total-row" style="font-weight: bold; font-size: 18px; margin-bottom: -12px;">
+                            <span>Total</span>
+                            <span>Php 64.20</span>
+                        </div>
+                        <button class="checkout-button">Confirm Payment</button>
+                    </div>
+                </div>
             </div>
         </main>
     </div>

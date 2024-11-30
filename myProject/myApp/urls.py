@@ -10,6 +10,7 @@ urlpatterns = [
     path('logout/', views.logout, name='logout'),
     path("signup/", views.signup, name="signup"),
     path("Orders", views.orders_list, name="Orders"),
+    path("Checkout", views.Checkout, name="Checkout"),
     path("Drivers", views.Drivers, name="Drivers"),
     path("McDonalds", views.McDonalds, name="McDonalds"),
     path("Jollibee", views.Jollibee, name="Jollibee"),

@@ -124,6 +124,17 @@ def orders_list(request):
     context = {'orders': orders, 'customer': customer, 'drivers': drivers}  # Pass drivers to the template
     return render(request, "myApp/Orders.html", context)  # Pass orders to the template
 
+def Checkout(request):
+    customer = None
+    if 'customer_id' in request.session:
+        try:
+            customer = Customer.objects.get(customer_id=request.session['customer_id'])
+        except Customer.DoesNotExist:
+            customer = None
+
+    context = {'customer': customer}
+    return render(request, "myApp/Checkout.html", context)  # Pass drivers to the template
+
 def Drivers(request):
     customer = None
     if 'customer_id' in request.session:
