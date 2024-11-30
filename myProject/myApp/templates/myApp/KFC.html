@@ -246,7 +246,7 @@
                     <li><a href="{% url 'home' %}">Home</a></li>
                     <li><a href="{% url 'KFC' %}" class="active">Restaurants</a></li>
                     <li><a href="{% url 'Orders' %}">Orders</a></li>
-                    <li><a href="#">Payment</a></li>
+                    <li><a href="{% url 'Checkout' %}">Checkout</a></li>
                     <li><a href="{% url 'Drivers' %}">Delivery Drivers</a></li>
                 </ul>
                 {% if request.session.customer_id %}

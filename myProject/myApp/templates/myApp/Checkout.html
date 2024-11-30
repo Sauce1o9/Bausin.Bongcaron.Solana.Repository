@@ -45,8 +45,6 @@
             top: 59%;
             left: 50%;
             transform: translate(-50%, -50%);
-            overflow-y: auto; /* Enable vertical scrolling */
-            scrollbar-width: none; /* For Firefox */
         }
 
         .container::-webkit-scrollbar {
@@ -99,7 +97,7 @@
         }
         .buttons {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             gap: 10px;
         }
         .button {
@@ -278,6 +276,7 @@
             display: flex;
             flex-direction: column;
             height: 100%;
+            margin-top: 47px;
         }
         h1 {
             font-size: 32px;
@@ -341,6 +340,7 @@
             width: 100%;
             background: white;
             padding: 20px 0;
+            margin-bottom: 25px;
         }
         .total-row {
             display: flex;
@@ -363,9 +363,10 @@
         }
         .orders-container {
             flex: 1;
+            max-height: 200px;
             overflow-y: auto;
             padding-right: 10px;
-            margin-bottom: 200px; /* Space for totals section */
+            margin-bottom: 200px;
         }
         .orders-container::-webkit-scrollbar {
             width: 8px;
@@ -453,7 +454,7 @@
                 <div class="left-section">
                     <h2>Check out</h2>
                     
-                    <div style="padding-top: 20px;" class="shipping-section">
+                    <div style="margin-top: -10px;" class="shipping-section">
                         <h2 class="section-title">SHIPPING DETAILS</h2>
                         <div class="customer-info">
                             <p>Kent Jose Bausin</p>
@@ -464,7 +465,7 @@
                     </div>
         
                     <div class="payment-section">
-                        <h2 class="section-title">PAYMENT DETAILS</h2>
+                        <h2 style="margin-top: 90px;" class="section-title">PAYMENT DETAILS</h2>
                         <div>
                             <p>NAME ON CARD</p>
                             <input type="text" class="input-field" placeholder="Name">
@@ -525,11 +526,14 @@
                             <span>Shipping</span>
                             <span>Php 18.00</span>
                         </div>
-                        <div class="total-row" style="font-weight: bold; font-size: 18px; margin-bottom: -12px;">
+                        <div class="total-row" style="font-weight: bold; font-size: 18px; margin-bottom: -2px;">
                             <span>Total</span>
                             <span>Php 64.20</span>
                         </div>
-                        <button class="checkout-button">Confirm Payment</button>
+                        <div style="margin-bottom: -9px;" class="buttons">
+                            <button class="checkout-button">Confirm Payment</button>
+                            <button style="background-color: #0A0A29; color: white;" class="checkout-button">Confirm Payment</button>
+                        </div>
                     </div>
                 </div>
             </div>
