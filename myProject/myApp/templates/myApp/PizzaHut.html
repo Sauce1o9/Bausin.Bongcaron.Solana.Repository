@@ -16,19 +16,131 @@
                 body::-webkit-scrollbar {
                     display: none; /* For Chrome, Safari, and Opera */
                 }
-                .promo-banner { background-color: #f8f8f8; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; font-size: 14px; }
-                .promo-icon, .location-icon { margin-right: 10px; font-size: 18px; }
-                .change-location { color: #ff8c00; text-decoration: none; margin-left: 10px; font-weight: 600; }
-                nav { display: flex; justify-content: space-between; align-items: center; padding: 20px; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-                .logo { display: flex; align-items: center; font-size: 20px; font-weight: bold; line-height: 1.2; }
-                .logo img { height: 40px; margin-right: 10px; }
-                .nav-links { display: flex; list-style: none; }
-                .nav-links li { margin: 0 15px; }
-                .nav-links a { text-decoration: none; color: #333; font-weight: 600; transition: color 0.3s, transform 0.3s; }
-                .nav-links a.active { color: #ff8c00; }
-                .nav-links a:hover {
-                    color: #ff8c00; /* Change text color on hover */
-                    transform: scale(1.05); /* Slightly enlarge the link */
+                .promo-banner {
+                    background-color: #0A0A29;
+                    color: white;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 12px 30px;
+                    font-size: 14px;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                }
+
+                .promo-icon {
+                    color: #ff8c00;
+                    margin-right: 10px;
+                    font-size: 16px;
+                }
+
+                .location-icon {
+                    color: #ff8c00;
+                    margin-right: 10px;
+                    font-size: 16px;
+                }
+
+                .highlight {
+                    color: #ff8c00;
+                    font-weight: 600;
+                }
+
+                nav {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 15px 30px;
+                    background-color: white;
+                    box-shadow: 0 4px 6px rgba(10, 10, 41, 0.1);
+                }
+
+                .logo {
+                    display: flex;
+                    align-items: center;
+                    font-size: 22px;
+                    font-weight: bold;
+                    line-height: 1.2;
+                }
+
+                .logo img {
+                    height: 45px;
+                    margin-right: 12px;
+                    transition: transform 0.3s ease;
+                }
+
+                .logo img:hover {
+                    transform: scale(1.05);
+                }
+
+                .nav-links {
+                    display: flex;
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+                }
+
+                .nav-links li {
+                    margin: 0 20px;
+                }
+
+                .nav-links a {
+                    text-decoration: none;
+                    color: #0A0A29;
+                    font-weight: 600;
+                    font-size: 15px;
+                    transition: all 0.3s ease;
+                    position: relative;
+                    padding-bottom: 5px;
+                }
+
+                .nav-links a:after {
+                    content: '';
+                    position: absolute;
+                    width: 0;
+                    height: 2px;
+                    bottom: 0;
+                    left: 0;
+                    background-color: #ff8c00;
+                    transition: width 0.3s ease;
+                }
+
+                .nav-links a:hover:after {
+                    width: 100%;
+                }
+
+                .nav-links a.active {
+                    color: #ff8c00;
+                }
+
+                .nav-links a.active:after {
+                    width: 100%;
+                }
+
+                .auth-button {
+                    background-color: #0A0A29;
+                    color: white;
+                    width: 170px;
+                    border: none;
+                    padding: 12px 24px;
+                    border-radius: 25px;
+                    cursor: pointer;
+                    font-family: 'Poppins', sans-serif;
+                    font-weight: 600;
+                    display: flex;
+                    align-items: center;
+                    text-decoration: none;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 6px rgba(10, 10, 41, 0.1);
+                }
+
+                .auth-button:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 12px rgba(10, 10, 41, 0.15);
+                    background-color: #14144d;
+                }
+
+                .auth-icon {
+                    margin-right: 10px;
+                    font-size: 16px;
                 }
                 .login-icon { margin-right: 5px; }
                 .hero { background-color: #0f172a; color: #fff; padding: 40px; position: relative; overflow: hidden; display: flex; justify-content: space-between; align-items: center; border-radius: 20px;}
@@ -275,15 +387,15 @@
             <div class="promo-banner">
                 {% if request.session.customer_id %}
                     {% with customer=customer %}
-                        <p><span class="promo-icon">🎉</span>Hi {{ customer.first_name }}, Get 5% Off your first order, <span class="highlight">Promo: UIPROJ</span></p>
+                        <p><i class="fas fa-gift promo-icon"></i>Hi {{ customer.first_name }}, Get 5% Off your first order <span class="highlight">Promo: UIPROJ</span></p>
                         <div class="location">
-                            <p><span class="location-icon">📍</span>{{ customer.address }}</p>
+                            <p><i class="fas fa-map-marker-alt location-icon"></i>{{ customer.address }}</p>
                         </div>
-                        {% endwith %}
+                    {% endwith %}
                 {% else %}
-                    <p><span class="promo-icon">🎉</span>Get 5% Off your first order, <span class="highlight">Promo: UIPROJ</span></p>
+                    <p><i class="fas fa-gift promo-icon"></i>Get 5% Off your first order <span class="highlight">Promo: UIPROJ</span></p>
                     <div class="location">
-                        <p><span class="location-icon">📍</span>Please log in to set your location.</p>
+                        <p><i class="fas fa-map-marker-alt location-icon"></i>Please log in to set your location.</p>
                     </div>
                 {% endif %}
             </div>
@@ -293,19 +405,19 @@
                 </div>
                 <ul class="nav-links">
                     <li><a href="{% url 'home' %}">Home</a></li>
-                    <li><a href="{% url 'PizzaHut' %}" class="active">Restaurants</a></li>
+                    <li><a href="{% url 'McDonalds' %}" class="active">Restaurants</a></li>
                     <li><a href="{% url 'Orders' %}">Orders</a></li>
                     <li><a href="{% url 'Checkout' %}">Checkout</a></li>
                     <li><a href="{% url 'Drivers' %}">Delivery Drivers</a></li>
                 </ul>
                 {% if request.session.customer_id %}
-                    <a href="{% url 'logout' %}" style="background-color: #0f172a; color: #fff; width: 170px; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; display: flex; align-items: center; text-decoration: none;">
-                        <span class="login-icon">👤</span>
+                    <a href="{% url 'logout' %}" class="auth-button">
+                        <i class="fas fa-sign-out-alt auth-icon"></i>
                         Logout
                     </a>
                 {% else %}
-                    <a href="{% url 'login' %}" style="background-color: #0f172a; color: #fff; width: 170px; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; display: flex; align-items: center; text-decoration: none;">
-                        <span class="login-icon">👤</span>
+                    <a href="{% url 'login' %}" class="auth-button">
+                        <i class="fas fa-user auth-icon"></i>
                         Login/Signup
                     </a>
                 {% endif %}
