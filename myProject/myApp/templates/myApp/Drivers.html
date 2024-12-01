@@ -539,8 +539,8 @@
 
         .driver-status {
             position: absolute;
-            bottom: 0;
-            right: 0;
+            bottom: -15px;
+            right: -15px;
             width: 20px;
             height: 20px;
             border-radius: 50%;
@@ -831,7 +831,7 @@
             position: relative;
             width: 90%;
             max-width: 1200px;
-            height: 80vh;
+            height: 90vh;
             background: white;
             margin: 50px auto;
             border-radius: 15px;
@@ -1504,7 +1504,7 @@
                                 {% if driver.driver_image %}
                                 <img src="{{ driver.driver_image.url }}" alt="{{ driver.driver_fname }}" class="driver-image">
                                 {% else %}
-                                <img src="{% static 'images/default-driver.png' %}" alt="Default" class="driver-image">
+                                <img src="{% static 'img/default-driver.png' %}" alt="Default" class="driver-image">
                                 {% endif %}
                                 <div class="driver-status"></div>
                             </div>

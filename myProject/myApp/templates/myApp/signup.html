@@ -141,46 +141,175 @@
         }
         .container {
             background-color: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            max-width: 800px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 1200px;
             position: absolute;
             top: 59%;
             left: 50%;
             transform: translate(-50%, -50%);
+            height: 75vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container-header {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .container-header h2 {
+            color: #0A0A29;
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .form-sections {
+            display: flex;
+            gap: 3px;
+            flex: 1;
+        }
+
+        .container-footer {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .container-footer form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .left-section {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .right-section {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
         }
 
         h2 { 
             font-size: 28px; 
             font-weight: 700; 
             color: #0A0A29; 
-            margin-bottom: 25px; 
             text-align: center; 
         }
 
-        label { 
-            display: block; 
-            margin-bottom: 8px; 
-            font-weight: 600; 
-            color: #0A0A29;
+        .input-group {
+            position: relative;
+            margin-bottom: 15px;
         }
 
-        input { 
-            width: 100%; 
-            padding: 12px 15px; 
-            border: 2px solid #e2e8f0; 
-            border-radius: 8px; 
-            margin-bottom: 20px; 
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
             transition: all 0.3s ease;
             font-size: 14px;
         }
 
-        input:focus {
+        .input-group input:focus {
             border-color: #ff8c00;
             outline: none;
             box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .radio-button {
+            position: relative;
+            width: 254px;
+        }
+
+        .radio-button input {
+            display: none;
+        }
+
+        .radio-button label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .radio-button i {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: #94a3b8;
+            transition: all 0.3s ease;
+        }
+
+        .radio-button input:checked + label {
+            border-color: #ff8c00;
+            background-color: #fff5eb;
+        }
+
+        .radio-button input:checked + label i {
+            color: #ff8c00;
+            transform: scale(1.1);
+        }
+
+        .image-upload {
+            border: 2px dashed #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            height: 65px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+        }
+
+        .image-upload.has-image {
+            border: 2px dashed #ff8c00;
+            background-color: #fff5eb;
+        }
+
+        .image-upload p {
+            margin: 0;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .image-preview {
+            display: none;
         }
 
         button { 
@@ -190,7 +319,6 @@
             padding: 12px 24px; 
             border-radius: 8px; 
             cursor: pointer; 
-            font-family: 'Poppins', sans-serif; 
             font-weight: 600; 
             width: 100%;
             transition: all 0.3s ease;
@@ -201,22 +329,19 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(255, 140, 0, 0.3);
         }
-        .login-link { text-align: center; margin-top: 20px; font-size: 14px; }
-        .login-link a { color: #ff8c00; text-decoration: none; font-weight: 600; }
-        .context {
-            width: 100%;
-            position: absolute;
-            top:50vh;
-            
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
 
-        .context h1{
-            text-align: center;
-            color: #fff;
-            font-size: 50px;
+        .floating-icon {
+            position: relative;
+            top: 8px;
+            animation: float 3s ease-in-out infinite;
         }
-
-
+        
         .area{
             position: relative;
             z-index: 1;
@@ -388,9 +513,81 @@
             border: 1px solid #f5c6cb; /* Border color */
             border-radius: 5px; /* Rounded corners */
         }
+        .icon-text{
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            gap: 10px;
+        }
+        .login-link {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .login-link a {
+            color: #ff8c00;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .message-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            max-width: 300px;
+        }
+
+        .message {
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            animation: slideIn 0.5s ease-out forwards, fadeOut 0.5s ease-out 2.5s forwards;
+            opacity: 0;
+        }
+
+        .message.success {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .message.error {
+            background-color: #f44336;
+            color: white;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="message-container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
     <div class="area">
         <ul class="circles">
             <li></li>
@@ -446,57 +643,138 @@
         </header>
         <main>
             <div class="container">
-                <h2>Create an Account</h2>
-                <!-- Start of form -->
-                <form method="post">
+                <div class="container-header">
+                    <h2>Create an Account</h2>
+                </div>
+                <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <div class="form-grid">
-                        <div class="input-container">
-                            <img src="{% static 'img/user.png' %}" alt="Username Icon" class="icon">
-                            <input type="text" id="customer_id" name="customer_id" placeholder="Username" required>
+                    <div class="form-sections">
+                        <div class="left-section">
+                            <div class="input-group">
+                                <i class="fas fa-user"></i>
+                                <input type="text" name="customer_id" placeholder="Username" required>
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" name="password" placeholder="Password" required>
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" name="password_confirm" placeholder="Confirm Password" required>
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-phone"></i>
+                                <input type="tel" name="phone_number" placeholder="Phone Number" required>
+                            </div>
+                            <div class="radio-group">
+                                <div class="radio-button">
+                                    <input type="radio" id="customer" name="user_type" value="Customer" checked>
+                                    <label for="customer">
+                                        <div class="icon-text">
+                                            <i class="fas fa-user"></i>
+                                            Customer
+                                        </div>    
+                                    </label>
+                                </div>
+                                <div class="radio-button">
+                                    <input type="radio" id="admin" name="user_type" value="Admin">
+                                    <label for="admin">
+                                        <div class="icon-text">
+                                            <i class="fas fa-user-shield"></i>
+                                            Admin
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="input-container">
-                            <img src="{% static 'img/name.png' %}" alt="First Name Icon" class="icon">
-                            <input type="text" id="first_name" name="first_name" placeholder="First name" required>
-                        </div>
-                        <div class="input-container">
-                            <img src="{% static 'img/email.png' %}" alt="Email Icon" class="icon">
-                            <input type="email" id="email" name="email" placeholder="Email" required>
-                        </div>
-                        <div class="input-container">
-                            <img src="{% static 'img/name.png' %}" alt="Last Name Icon" class="icon">
-                            <input type="text" id="last_name" name="last_name" placeholder="Last name" required>
-                        </div>
-                        <div class="input-container">
-                            <img src="{% static 'img/password.png' %}" alt="Password Icon" class="icon">
-                            <input type="password" id="password" name="password" placeholder="Password" required>
-                        </div>
-                        <div class="input-container">
-                            <img src="{% static 'img/phone.png' %}" alt="Phone Icon" class="icon">
-                            <input type="text" id="phone_number" name="phone_number" placeholder="Phone number" required>
-                        </div>
-                        <div class="input-container">
-                            <img src="{% static 'img/password.png' %}" alt="Confirm Password Icon" class="icon">
-                            <input type="password" id="password_confirm" name="password_confirm" placeholder="Confirm Password" required>
-                        </div>
-                        <div class="input-container">
-                            <img src="{% static 'img/location.png' %}" alt="Address Icon" class="icon">
-                            <input type="text" id="address" name="address" placeholder="Address" required>
+                        <div class="right-section">
+                            <div class="input-group">
+                                <i class="fas fa-user-circle"></i>
+                                <input type="text" name="first_name" placeholder="First Name" required>
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-user-circle"></i>
+                                <input type="text" name="last_name" placeholder="Last Name" required>
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" name="email" placeholder="Email" required>
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <input type="text" name="address" placeholder="Address" required>
+                            </div>
+                            <div class="image-upload" id="imageUpload">
+                                <input type="file" name="customer_image" id="customerImage" hidden accept="image/*">
+                                <p>Drag and drop your image here or click to browse</p>
+                            </div>
                         </div>
                     </div>
-                    <div>
-                        <button type="submit" class="signup-btn">Sign Up</button>
+                    <div class="container-footer">
+                        <button style="width: 50%; align-items: center;" type="submit">Create Account</button>
                         <p class="login-link">Already have an account? <a href="{% url 'login' %}">Login</a></p>
                     </div>
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div id="alert" class="alert" style="position: absolute; left: 50%; transform: translateX(-50%); padding: 10px 50px;">
-                                <p style="text-align: center;">{{ message }}</p>
-                            </div>
-                        {% endfor %}
-                    {% endif %}
                 </form>
             </div>
+
+            <script>
+                const imageUpload = document.getElementById('imageUpload');
+                const customerImage = document.getElementById('customerImage');
+
+                function preventDefaults(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+
+                function highlight(e) {
+                    preventDefaults(e);
+                    imageUpload.classList.add('highlight');
+                }
+
+                function unhighlight(e) {
+                    preventDefaults(e);
+                    imageUpload.classList.remove('highlight');
+                }
+
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    imageUpload.addEventListener(eventName, highlight, false);
+                });
+
+                ['dragleave', 'drop'].forEach(eventName => {
+                    imageUpload.addEventListener(eventName, unhighlight, false);
+                });
+
+                imageUpload.addEventListener('drop', handleDrop, false);
+                imageUpload.addEventListener('click', () => customerImage.click());
+                customerImage.addEventListener('change', handleFiles);
+
+                function handleDrop(e) {
+                    preventDefaults(e);
+                    const dt = e.dataTransfer;
+                    const files = dt.files;
+                    handleFiles({ target: { files: files } });
+                }
+
+                function handleFiles(e) {
+                    const files = e.target.files;
+                    if (files.length > 0) {
+                        imageUpload.classList.add('has-image');
+                        imageUpload.querySelector('p').textContent = 'Image selected';
+                    }
+                }
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const messages = document.querySelectorAll('.message');
+                    messages.forEach(message => {
+                        // Remove the message element after animation completes (3 seconds)
+                        setTimeout(() => {
+                            message.remove();
+                        }, 3000);
+                    });
+                });
+            </script>
         </main>
     </div>
 </body>

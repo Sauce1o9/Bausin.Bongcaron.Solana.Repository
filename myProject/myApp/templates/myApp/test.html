@@ -1,221 +1,190 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout</title>
+    <title>Order Phil - Food Delivery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        body {
-            margin: 0;
-            padding: 20px;
-            font-family: Arial, sans-serif;
-            background-color: #fff;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { 
+            font-family: Arial, sans-serif; 
+            line-height: 1.6; 
+            color: #333;
+            height: 100vh;
+            overflow: hidden;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            gap: 40px;
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .left-section, .right-section {
-            flex: 1;
-        }
-        .right-section {
-            position: relative;
-            padding-bottom: 200px;
-        }
-        h1 {
-            font-size: 32px;
-            margin-bottom: 30px;
-        }
-        .section-title {
-            color: #888;
-            margin-bottom: 10px;
-            font-size: 14px;
-            text-transform: uppercase;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
-        }
-        .customer-info {
-            margin-bottom: 30px;
-        }
-        .customer-info p {
-            margin: 5px 0;
-        }
-        .input-field {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            box-sizing: border-box;
-        }
-        .order-item {
-            display: flex;
-            align-items: center;
-            padding: 20px;
-            background: #fff;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        .order-image {
-            width: 80px;
-            height: 80px;
-            margin-right: 15px;
-        }
-        .order-details {
-            flex: 1;
-        }
-        .order-price {
-            font-weight: bold;
-        }
-        .totals-section {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 100%;
-            background: white;
-            padding: 20px 0;
-        }
-        .total-row {
+        nav {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(10, 10, 41, 0.1);
         }
-        .checkbox-button {
-            width: 100%;
-            padding: 15px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 22px;
             font-weight: bold;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: background-color 0.3s ease;
+            line-height: 1.2;
+        }
+
+        .logo img {
+            height: 45px;
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            margin: 0 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #0A0A29;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
             position: relative;
-            padding-left: 45px; /* Make room for checkmark */
+            padding-bottom: 5px;
         }
 
-        .checkbox-button:hover {
-            background-color: #45a049;
-        }
-
-        .checkmark {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            border: 2px solid white;
-            border-radius: 3px;
-            display: inline-block;
-        }
-
-        .checkbox-button.checked .checkmark::after {
+        .nav-links a:after {
             content: '';
             position: absolute;
-            left: 6px;
-            top: 2px;
-            width: 5px;
-            height: 10px;
-            border: solid white;
-            border-width: 0 2px 2px 0;
-            transform: rotate(45deg);
-            animation: checkmark-appear 0.3s ease-out;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #ff8c00;
+            transition: width 0.3s ease;
         }
 
-        @keyframes checkmark-appear {
-            0% {
-                transform: rotate(45deg) scale(0);
-                opacity: 0;
-            }
-            100% {
-                transform: rotate(45deg) scale(1);
-                opacity: 1;
-            }
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: #ff8c00;
+        }
+
+        .nav-links a.active:after {
+            width: 100%;
+        }
+
+        .auth-button {
+            background-color: #0A0A29;
+            color: white;
+            width: 170px;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(10, 10, 41, 0.1);
+        }
+
+        .auth-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(10, 10, 41, 0.15);
+            background-color: #14144d;
+        }
+
+        .auth-icon {
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .promo-icon {
+            color: #ff8c00;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .location-icon {
+            color: #ff8c00;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .highlight {
+            color: #ff8c00;
+            font-weight: 600;
+        }
+
+        .promo-banner {
+            background-color: #0A0A29;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 30px;
+            font-size: 14px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="left-section">
-            <h1>Check out</h1>
-            
-            <div class="shipping-section">
-                <h2 class="section-title">SHIPPING DETAILS</h2>
-                <div class="customer-info">
-                    <p>Kent Jose Bausin</p>
-                    <p>Kentbausin83@gmail.com</p>
-                    <p>09295929473</p>
-                    <p>Punta, Labangon, Cebu</p>
+    <header>
+        <div class="promo-banner">
+            {% if request.session.customer_id %}
+                {% with customer=customer %}
+                    <p><i class="fas fa-gift promo-icon"></i>Hi {{ customer.first_name }}, Get 5% Off your first order <span class="highlight">Promo: UIPROJ</span></p>
+                    <div class="location">
+                        <p><i class="fas fa-map-marker-alt location-icon"></i>{{ customer.address }}</p>
+                    </div>
+                {% endwith %}
+            {% else %}
+                <p><i class="fas fa-gift promo-icon"></i>Get 5% Off your first order <span class="highlight">Promo: UIPROJ</span></p>
+                <div class="location">
+                    <p><i class="fas fa-map-marker-alt location-icon"></i>Please log in to set your location.</p>
                 </div>
-            </div>
-
-            <div class="payment-section">
-                <h2 class="section-title">PAYMENT DETAILS</h2>
-                <div>
-                    <p>NAME ON CARD</p>
-                    <input type="text" class="input-field" placeholder="This is a Place holder">
-                    
-                    <p>CARD NUMBER</p>
-                    <input type="text" class="input-field" placeholder="This is a Place holder">
-                </div>
-            </div>
+            {% endif %}
         </div>
-
-        <div class="right-section">
-            <h2 class="section-title">YOUR ORDER</h2>
-            
-            <div class="order-item">
-                <img src="/placeholder.svg?height=80&width=80" alt="Royal Cheese Burger" class="order-image">
-                <div class="order-details">
-                    <h3>Royal Cheese Burger with extra Fries</h3>
-                    <p>1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium</p>
-                </div>
-                <div class="order-price">Php 23.10</div>
+        <nav>
+            <div class="logo">
+                <img src="{% static 'img/Logo.png' %}" alt="Order Phil Logo" class="logo-img">
             </div>
-
-            <div class="order-item">
-                <img src="/placeholder.svg?height=80&width=80" alt="Royal Cheese Burger" class="order-image">
-                <div class="order-details">
-                    <h3>Royal Cheese Burger with extra Fries</h3>
-                    <p>1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium</p>
-                </div>
-                <div class="order-price">Php 23.10</div>
-            </div>
-
-            <div class="totals-section">
-                <div style="border-top: 1px solid #ddd; padding-top: 10px;" class="total-row">
-                    <span>Subtotal</span>
-                    <span>Php 46.20</span>
-                </div>
-                <div class="total-row">
-                    <span>Shipping</span>
-                    <span>Php 18.00</span>
-                </div>
-                <div class="total-row" style="font-weight: bold; font-size: 18px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
-                    <span>Total</span>
-                    <span>Php 64.20</span>
-                </div>
-                <button class="checkbox-button" onclick="toggleCheckmark(this)">
-                    <span class="checkmark"></span>
-                    Proceed to Checkout
-                </button>
-                <script>
-                    function toggleCheckmark(button) {
-                        button.classList.toggle('checked');
-                    }
-                </script>
-            </div>
-        </div>
-    </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}" class="active">Home</a></li>
+                <li><a href="{% url 'McDonalds' %}">Restaurants</a></li>
+                <li><a href="{% url 'Orders' %}">Orders</a></li>
+                <li><a href="{% url 'Checkout' %}">Checkout</a></li>
+                <li><a href="{% url 'Drivers' %}">Delivery Drivers</a></li>
+            </ul>
+            {% if request.session.customer_id %}
+                <a href="{% url 'logout' %}" class="auth-button">
+                    <i class="fas fa-sign-out-alt auth-icon"></i>
+                    Logout
+                </a>
+            {% else %}
+                <a href="{% url 'login' %}" class="auth-button">
+                    <i class="fas fa-user auth-icon"></i>
+                    Login/Signup
+                </a>
+            {% endif %}
+        </nav>
+    </header>
+    <main>
+    </main>
 </body>
 </html>

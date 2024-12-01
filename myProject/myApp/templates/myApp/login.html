@@ -226,7 +226,7 @@
 
         .signup-link { 
             text-align: center; 
-            margin-top: 25px; 
+            margin-top: 5px; 
             font-size: 14px; 
             color: #0A0A29;
         }
@@ -372,8 +372,32 @@
             }
         }
 
-        .input-container {
+        .input-group {
             position: relative;
+            margin-bottom: 15px;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 35%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .input-group input:focus {
+            border-color: #ff8c00;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
         }
 
         .icon {
@@ -397,9 +421,69 @@
             border: 1px solid #f5c6cb; /* Border color */
             border-radius: 5px; /* Rounded corners */
         }
+
+        /* Message Container Styles */
+        .message-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            max-width: 300px;
+        }
+
+        .message {
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            animation: slideIn 0.5s ease-out forwards, fadeOut 0.5s ease-out 2.5s forwards;
+            opacity: 0;
+        }
+
+        .message.success {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .message.error {
+            background-color: #f44336;
+            color: white;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Add message container -->
+    <div class="message-container">
+        {% if messages %}
+            {% for message in messages %}
+                {% if 'Invalid username or password' in message|stringformat:"s" %}
+                    <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
     <div class="area">
         <ul class="circles">
             <li></li>
@@ -442,12 +526,12 @@
                 </ul>
                 {% if request.session.customer_id %}
                     <a href="{% url 'logout' %}" class="auth-button">
-                        <i class="fas fa-user auth-icon"></i>
-                        Logout
+                        <i style="position: absolute; margin-top: -20px;" class="fas fa-user"></i>
+                         Logout
                     </a>
                 {% else %}
                     <a href="{% url 'login' %}" class="auth-button">
-                        <i class="fas fa-user auth-icon"></i>
+                        <i style="margin-right: 10px;"  class="fas fa-user"></i>
                         Login/Signup
                     </a>
                 {% endif %}
@@ -459,26 +543,18 @@
                 <!-- Start of form -->
                 <form method="post" action="{% url 'login' %}">
                     {% csrf_token %}
-                    <div class="input-container">
-                        <img src="{% static 'img/user.png' %}" alt="Username Icon" class="icon">
-                        <input type="text" id="customer_id" name="customer_id" placeholder="Username" required>
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" name="customer_id" placeholder="Username" required>
                     </div>
-                    <div class="input-container">
-                        <img src="{% static 'img/password.png' %}" alt="Password Icon" class="icon">
-                        <input type="password" id="password" name="password" placeholder="Password" required>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" name="password" placeholder="Password" required>
                     </div>
                     <button type="submit" class="signup-btn">Login</button>
                 </form>
                 <!-- End of form -->
                 <p class="signup-link">Don’t have an account? <a href="{% url 'signup' %}">Sign up</a></p>
-                
-                {% if messages %}
-                    <div id="alert" class="alert">
-                        {% for message in messages %}
-                            <p style="text-align: center;">{{ message }}</p>
-                        {% endfor %}
-                    </div>
-                {% endif %}
             </div>
         </main>
     </div>

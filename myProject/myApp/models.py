@@ -10,6 +10,8 @@ class Customer(models.Model):
     email = models.EmailField(max_length=100)
     phone_number = models.CharField(max_length=11)
     address = models.CharField(max_length=100)
+    user_type = models.CharField(max_length=100, null=True, blank=True)
+    customer_image = models.ImageField(upload_to='menu_images/', null=True, blank=True)
 
     def __str__(self) -> str:
         return self.first_name + ' ' + self.last_name

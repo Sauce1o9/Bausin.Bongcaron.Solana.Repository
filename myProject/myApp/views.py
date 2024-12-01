@@ -9,7 +9,14 @@ import os
 
 # Create your views here.
 def test(request):
-    return render(request, "myApp/test.html")
+    customer = None
+    if 'customer_id' in request.session:
+        try:
+            customer = Customer.objects.get(customer_id=request.session['customer_id'])
+        except Customer.DoesNotExist:
+            customer = None
+
+    return render(request, "myApp/test.html", {'customer': customer})
 
 def login(request):
     if request.method == 'POST':
@@ -43,6 +50,13 @@ def signup(request):
         email = request.POST['email']
         phone_number = request.POST['phone_number']
         address = request.POST['address']
+        user_type = request.POST['user_type']  # Get the user type from the form
+        customer_image = request.FILES.get('customer_image')  # Get the uploaded image
+
+        # Check if username already exists
+        if Customer.objects.filter(customer_id=customer_id).exists():
+            messages.error(request, 'Username already exists. Please choose a different username.')
+            return render(request, "myApp/signup.html")
 
         # Check if passwords match
         if password != password_confirm:
@@ -57,7 +71,9 @@ def signup(request):
             last_name=last_name,
             email=email,
             phone_number=phone_number,
-            address=address
+            address=address,
+            user_type=user_type,  # Set the user type
+            customer_image=customer_image  # Set the customer image
         )
         customer.save()
         messages.success(request, 'New user added')
