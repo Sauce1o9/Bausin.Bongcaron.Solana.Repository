@@ -667,3 +667,29 @@ def remove_driver(request, driver_id):
         messages.error(request, f'Error removing driver: {str(e)}')
     
     return redirect('Drivers')
+
+def delete_account(request):
+    if 'customer_id' not in request.session:
+        messages.error(request, 'You must be logged in to delete your account.')
+        return redirect('login')
+    
+    try:
+        customer = Customer.objects.get(customer_id=request.session['customer_id'])
+        
+        # Delete associated orders and checkouts
+        Orders.objects.filter(order_customer=customer.customer_id).delete()
+        Checkout.objects.filter(checkout_customer=customer.customer_id).delete()
+        
+        # Delete the customer
+        customer.delete()
+        
+        # Logout and clear session
+        auth_logout(request)
+        request.session.pop('customer_id', None)
+        
+        messages.success(request, 'Your account has been successfully deleted.')
+        return redirect('login')
+    
+    except Customer.DoesNotExist:
+        messages.error(request, 'Account not found.')
+        return redirect('login')

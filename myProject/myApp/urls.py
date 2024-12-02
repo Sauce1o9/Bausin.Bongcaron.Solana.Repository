@@ -61,6 +61,7 @@ urlpatterns = [
     path('complete-order/', views.complete_order, name='complete_order'),
     path('add-order/', views.add_order, name='add_order'),
     path('delete-order/<int:order_id>/', views.delete_order, name='delete_order'),
+    path('delete-account/', views.delete_account, name='delete_account'),
 ]
 
 if settings.DEBUG:
