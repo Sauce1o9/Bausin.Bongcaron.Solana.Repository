@@ -8,7 +8,7 @@ from django.http import Http404  # Add this import
 import os
 
 # Create your views here.
-def test(request):
+def Profile(request):
     customer = None
     if 'customer_id' in request.session:
         try:
@@ -16,7 +16,7 @@ def test(request):
         except Customer.DoesNotExist:
             customer = None
 
-    return render(request, "myApp/test.html", {'customer': customer})
+    return render(request, "myApp/Profile.html", {'customer': customer})
 
 def login(request):
     if request.method == 'POST':

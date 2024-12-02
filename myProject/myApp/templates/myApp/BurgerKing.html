@@ -380,6 +380,40 @@
                     justify-content: center;
                     margin-top: 15px;
                 }
+
+                .profile-button {
+                    width: 130px;
+                    background: linear-gradient(45deg, #0A0A29, #1a1a4f);
+                    color: white;
+                    padding: 10px 20px;
+                    border-radius: 25px;
+                    text-decoration: none;
+                    font-weight: 600;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 2px 10px rgba(10, 10, 41, 0.3);
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                }
+
+                .profile-button:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 15px rgba(10, 10, 41, 0.4);
+                    background: linear-gradient(45deg, #1a1a4f, #0A0A29);
+                    border-color: rgba(255, 255, 255, 0.2);
+                }
+
+                .profile-button i {
+                    font-size: 1.2em;
+                    color: rgba(255, 255, 255, 0.9);
+                }
+
+                .profile-button span {
+                    font-size: 1em;
+                    letter-spacing: 0.5px;
+                    color: rgba(255, 255, 255, 0.9);
+                }
         </style>
     </head>
     <body>
@@ -404,16 +438,16 @@
                     <img src="{% static 'img/Logo.png' %}" alt="Order Phil Logo" class="logo-img">
                 </div>
                 <ul class="nav-links">
-                    <li><a href="{% url 'home' %}">Home</a></li>
-                    <li><a href="{% url 'McDonalds' %}" class="active">Restaurants</a></li>
+                    <li><a href="{% url 'home' %}" class="active">Home</a></li>
+                    <li><a href="{% url 'McDonalds' %}">Restaurants</a></li>
                     <li><a href="{% url 'Orders' %}">Orders</a></li>
                     <li><a href="{% url 'Checkout' %}">Checkout</a></li>
                     <li><a href="{% url 'Drivers' %}">Delivery Drivers</a></li>
                 </ul>
                 {% if request.session.customer_id %}
-                    <a href="{% url 'logout' %}" class="auth-button">
-                        <i class="fas fa-sign-out-alt auth-icon"></i>
-                        Logout
+                    <a href="{% url 'Profile' %}" class="profile-button">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
                     </a>
                 {% else %}
                     <a href="{% url 'login' %}" class="auth-button">
