@@ -97,8 +97,8 @@ After these steps, the project should be running at http://127.0.0.1:8000/
 
 - [Gantt Chart](https://docs.google.com/spreadsheets/d/1r2Hc3QVcvjZk1iXVlI7qCWuh4ZX_0FhKnk6CzMDfyCk/edit?usp=sharing)
 
-- [ERD](wait sa)
+- [ERD](https://www.figma.com/design/EFj5iOjeI0E1B9Je8P52yf/Entity-Relationship-Diagram?node-id=0-1&t=9zG1u1OBo282v0Y8-1)
 
-- [Figma](https://www.figma.com/design/6vOxothoYyj1EuZEdI4g2O/Untitled?node-id=0-1&node-type=canvas&t=osrTp2l0xntU8vgo-0)
+- [UI/UX](https://www.figma.com/design/6vOxothoYyj1EuZEdI4g2O/Untitled?node-id=0-1&node-type=canvas&t=osrTp2l0xntU8vgo-0)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
