@@ -466,8 +466,6 @@
             animation-duration: 11s;
         }
 
-
-
         @keyframes animate {
 
             0%{
@@ -672,7 +670,11 @@
                             </div>
                             <div class="input-group">
                                 <i class="fas fa-lock"></i>
-                                <input type="password" name="password" placeholder="Password" required>
+                                <input type="password" id="password" name="password" placeholder="Password" required minlength="8" 
+                                       oninput="this.setCustomValidity(''); this.checkValidity();"
+                                       oninvalid="this.setCustomValidity('Password must be at least 8 characters long')"
+                                       pattern=".{8,}"
+                                       title="8 characters minimum">
                                 <i class="fas fa-eye-slash password-toggle" onclick="togglePassword(this)"></i>
                             </div>
                             <div class="input-group">
@@ -686,8 +688,8 @@
                             </div>
                             <div class="radio-group">
                                 <div class="radio-button">
-                                    <input type="radio" id="customer" name="user_type" value="Customer" checked>
-                                    <label for="customer">
+                                    <input type="radio" id="customerRadio" name="user_type" value="customer" checked>
+                                    <label for="customerRadio">
                                         <div class="icon-text">
                                             <i class="fas fa-user"></i>
                                             Customer
@@ -695,8 +697,8 @@
                                     </label>
                                 </div>
                                 <div class="radio-button">
-                                    <input type="radio" id="admin" name="user_type" value="Admin">
-                                    <label for="admin">
+                                    <input type="radio" id="adminRadio" name="user_type" value="admin">
+                                    <label for="adminRadio">
                                         <div class="icon-text">
                                             <i class="fas fa-user-shield"></i>
                                             Admin
@@ -729,7 +731,7 @@
                         </div>
                     </div>
                     <div class="container-footer">
-                        <button style="width: 50%; align-items: center;" type="submit">Create Account</button>
+                        <button id="createAccountBtn" style="width: 50%; align-items: center; font-size: 18px;" type="submit">Sign Up</button>
                         <p class="login-link">Already have an account? <a href="{% url 'login' %}">Login</a></p>
                     </div>
                 </form>
@@ -806,6 +808,21 @@
                             message.remove();
                         }, 3000);
                     });
+                });
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const customerRadio = document.getElementById('customerRadio');
+                    const adminRadio = document.getElementById('adminRadio');
+                    const createAccountBtn = document.getElementById('createAccountBtn');
+
+                    function updateButtonText() {
+                        createAccountBtn.textContent = adminRadio.checked ? 'Send Admin Application' : 'Create Account';
+                    }
+
+                    customerRadio.addEventListener('change', updateButtonText);
+                    adminRadio.addEventListener('change', updateButtonText);
                 });
             </script>
         </main>

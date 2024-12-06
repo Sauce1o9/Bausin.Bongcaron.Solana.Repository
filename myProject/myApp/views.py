@@ -25,8 +25,7 @@ def login(request):
         
         try:
             customer = Customer.objects.get(customer_id=customer_id, password=password)
-            request.session['customer_id'] = customer.customer_id  # Store customer_id in session
-            messages.success(request, 'Login successful')
+            request.session['customer_id'] = customer.customer_id  # St            request.session            messages.success(request, 'Login successful')
             return render(request, "myApp/home.html", {'customer': customer})
         except Customer.DoesNotExist:
             messages.error(request, 'Invalid username or password')
@@ -53,6 +52,11 @@ def signup(request):
         user_type = request.POST['user_type']  # Get the user type from the form
         customer_image = request.FILES.get('customer_image')  # Get the uploaded image
 
+        # Check password length
+        if len(password) < 8:
+            messages.error(request, 'Password must be at least 8 characters long')
+            return render(request, "myApp/signup.html")
+
         # Check if username already exists
         if Customer.objects.filter(customer_id=customer_id).exists():
             messages.error(request, 'Username already exists. Please choose a different username.')
@@ -77,7 +81,7 @@ def signup(request):
         )
         customer.save()
         messages.success(request, 'New user added')
-        return render(request, "myApp/signup.html")
+        return render(request, "myApp/login.html")
     return render(request, "myApp/signup.html")
 
 def add_order(request):
@@ -169,110 +173,128 @@ def checkout_view(request):
 
 def Drivers(request):
     customer = None
+    user_type = None
     if 'customer_id' in request.session:
         try:
             customer = Customer.objects.get(customer_id=request.session['customer_id'])
+            user_type = customer.user_type
         except Customer.DoesNotExist:
             customer = None
 
     drivers = Delivery_Driver.objects.all()  # Fetch all delivery drivers
-    context = {'drivers': drivers, 'customer': customer}
-    return render(request, "myApp/Drivers.html", context)  # Pass drivers to the template
+    context = {'drivers': drivers, 'customer': customer, 'user_type': user_type}
+    return render(request, "myApp/Drivers.html", context)
 
 def McDonalds(request):
     customer = None
+    user_type = None
     if 'customer_id' in request.session:
         try:
             customer = Customer.objects.get(customer_id=request.session['customer_id'])
+            user_type = customer.user_type
         except Customer.DoesNotExist:
             customer = None
 
     menu_items = Menu.objects.filter(restaurant_name2="McDonalds")
-    context = {'menu_items': menu_items, 'customer': customer}
+    context = {'menu_items': menu_items, 'customer': customer, 'user_type': user_type}
     return render(request, "myApp/McDonalds.html", context)
 
 def Jollibee(request):
     customer = None
+    user_type = None
     if 'customer_id' in request.session:
         try:
             customer = Customer.objects.get(customer_id=request.session['customer_id'])
+            user_type = customer.user_type
         except Customer.DoesNotExist:
             customer = None
 
     menu_items = Menu.objects.filter(restaurant_name2="Jollibee")
-    context = {'menu_items': menu_items, 'customer': customer}
+    context = {'menu_items': menu_items, 'customer': customer, 'user_type': user_type}
     return render(request, "myApp/Jollibee.html", context)
 
 def KFC(request):
     customer = None
+    user_type = None
     if 'customer_id' in request.session:
         try:
             customer = Customer.objects.get(customer_id=request.session['customer_id'])
+            user_type = customer.user_type
         except Customer.DoesNotExist:
             customer = None
 
     menu_items = Menu.objects.filter(restaurant_name2="KFC")
-    context = {'menu_items': menu_items, 'customer': customer}
+    context = {'menu_items': menu_items, 'customer': customer, 'user_type': user_type}
     return render(request, "myApp/KFC.html", context)
 
 def BurgerKing(request):
     customer = None
+    user_type = None
     if 'customer_id' in request.session:
         try:
             customer = Customer.objects.get(customer_id=request.session['customer_id'])
+            user_type = customer.user_type
         except Customer.DoesNotExist:
             customer = None
 
     menu_items = Menu.objects.filter(restaurant_name2="BurgerKing")
-    context = {'menu_items': menu_items, 'customer': customer}
+    context = {'menu_items': menu_items, 'customer': customer, 'user_type': user_type}
     return render(request, "myApp/BurgerKing.html", context)
 
 def Chowking(request):
     customer = None
+    user_type = None
     if 'customer_id' in request.session:
         try:
             customer = Customer.objects.get(customer_id=request.session['customer_id'])
+            user_type = customer.user_type
         except Customer.DoesNotExist:
             customer = None
 
     menu_items = Menu.objects.filter(restaurant_name2="Chowking")
-    context = {'menu_items': menu_items, 'customer': customer}
+    context = {'menu_items': menu_items, 'customer': customer, 'user_type': user_type}
     return render(request, "myApp/Chowking.html", context)
 
 def Greenwich(request):
     customer = None
+    user_type = None
     if 'customer_id' in request.session:
         try:
             customer = Customer.objects.get(customer_id=request.session['customer_id'])
+            user_type = customer.user_type
         except Customer.DoesNotExist:
             customer = None
 
     menu_items = Menu.objects.filter(restaurant_name2="Greenwich")
-    context = {'menu_items': menu_items, 'customer': customer}
+    context = {'menu_items': menu_items, 'customer': customer, 'user_type': user_type}
     return render(request, "myApp/Greenwich.html", context)
 
 def MangInasal(request):
     customer = None
+    user_type = None
     if 'customer_id' in request.session:
         try:
             customer = Customer.objects.get(customer_id=request.session['customer_id'])
+            user_type = customer.user_type
         except Customer.DoesNotExist:
             customer = None
 
     menu_items = Menu.objects.filter(restaurant_name2="MangInasal")
-    context = {'menu_items': menu_items, 'customer': customer}
+    context = {'menu_items': menu_items, 'customer': customer, 'user_type': user_type}
     return render(request, "myApp/MangInasal.html", context)
 
 def PizzaHut(request):
     customer = None
+    user_type = None
     if 'customer_id' in request.session:
         try:
             customer = Customer.objects.get(customer_id=request.session['customer_id'])
+            user_type = customer.user_type
         except Customer.DoesNotExist:
             customer = None
 
     menu_items = Menu.objects.filter(restaurant_name2="PizzaHut")
-    context = {'menu_items': menu_items, 'customer': customer}
+    context = {'menu_items': menu_items, 'customer': customer, 'user_type': user_type}
     return render(request, "myApp/PizzaHut.html", context)
 
 
@@ -692,4 +714,53 @@ def delete_account(request):
     
     except Customer.DoesNotExist:
         messages.error(request, 'Account not found.')
+        return redirect('login') 
+        # Delete associated orders and checkouts
+        Orders.objects.filter(order_customer=customer.customer_id).delete()
+        Checkout.objects.filter(checkout_customer=customer.customer_id).delete()
+        
+        # Delete the customer
+        customer.delete()
+        
+        # Logout and clear session
+        auth_logout(request)
+        request.session.pop('customer_id', None)
+        
+        messages.success(request, 'Your account has been successfully deleted.')
         return redirect('login')
+    
+    except Customer.DoesNotExist:
+        messages.error(request, 'Account not found.')
+        return redirect('login')
+
+def edit_profile(request):
+    if request.method == 'POST':
+        if 'customer_id' not in request.session:
+            messages.error(request, 'You must be logged in to edit your profile.')
+            return redirect('login')
+
+        try:
+            customer = Customer.objects.get(customer_id=request.session['customer_id'])
+            
+            # Update customer details
+            customer.first_name = request.POST.get('first_name')
+            customer.last_name = request.POST.get('last_name')
+            customer.email = request.POST.get('email')
+            customer.phone_number = request.POST.get('phone_number')
+            customer.address = request.POST.get('address')
+            
+            # Handle profile image upload
+            if 'customer_image' in request.FILES:
+                customer.customer_image = request.FILES['customer_image']
+            
+            customer.save()
+            
+            messages.success(request, 'Profile updated successfully!')
+            return redirect('Profile')
+        
+        except Customer.DoesNotExist:
+            messages.error(request, 'Customer not found.')
+            return redirect('login')
+    
+    # If not a POST request, redirect to profile
+    return redirect('Profile')

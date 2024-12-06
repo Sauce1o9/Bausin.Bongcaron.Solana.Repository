@@ -1519,16 +1519,22 @@
             <div class="container">
                 <div class="container-header">
                     <h2>Delivery Drivers</h2>
-                    <div class="action-buttons">
-                        <button class="action-button edit-button" onclick="openEditModal()">
-                            <i class="fas fa-edit"></i>
-                            Edit
-                        </button>
-                        <button class="action-button add-button" id="addDriverButton">
-                            <i class="fas fa-plus"></i>
-                            Add
-                        </button>
-                    </div>
+                    {% if request.session.customer_id %}
+                        {% with customer=customer %}
+                            {% if user_type == 'Admin' or user_type == 'admin' %}
+                                <div class="action-buttons">
+                                    <button class="action-button edit-button" onclick="openEditModal()">
+                                        <i class="fas fa-edit"></i>
+                                        Edit
+                                    </button>
+                                    <button class="action-button add-button" id="addDriverButton">
+                                        <i class="fas fa-plus"></i>
+                                        Add
+                                    </button>
+                                </div>
+                            {% endif %}
+                        {% endwith %}
+                    {% endif %}
                 </div>
                 <div class="drivers-list">
                     {% for driver in drivers %}

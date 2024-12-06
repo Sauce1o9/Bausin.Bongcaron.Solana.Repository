@@ -161,7 +161,7 @@
             right: 2.5rem;
             background-color: #ff8c00;
             color: white;
-            padding: 8px 20px;
+            padding: 10px 20px;
             border: none;
             border-radius: 25px;
             cursor: pointer;
@@ -173,6 +173,7 @@
             box-shadow: 0 4px 6px rgba(255, 140, 0, 0.2);
             margin-top: 15px;
             margin-right: 25px;
+            z-index: 5000;
         }
 
         .edit-profile-btn:hover {
@@ -750,10 +751,10 @@
         <main class="profile-container">
             {% if request.session.customer_id %}
                 {% with customer=customer %}
-                    <a href="#" class="edit-profile-btn" onclick="openEditModal()">
+                    <button class="edit-profile-btn" onclick="openEditModal()">
                         <i class="fas fa-edit"></i>
                         Edit Profile
-                    </a>
+                    </button>
 
                     <!-- Modal Overlay -->
                     <div class="modal-overlay" id="modalOverlay"></div>
@@ -764,7 +765,7 @@
                             <h2>Edit Profile</h2>
                             <button class="close-modal" onclick="closeEditModal()">&times;</button>
                         </div>
-                        <form method="post" enctype="multipart/form-data" id="editProfileForm">
+                        <form method="post" action="{% url 'edit_profile' %}" enctype="multipart/form-data" id="editProfileForm">
                             {% csrf_token %}
                             <div class="modal-content">
                                 <div class="modal-left">

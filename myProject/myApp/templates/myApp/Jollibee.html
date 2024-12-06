@@ -150,9 +150,9 @@
                 .delivery-info { display: flex; margin-top: 20px; }
                 .delivery-item { background: rgba(255,255,255,0.1); padding: 10px; margin-right: 10px; border-radius: 5px; }
                 .open-until { background: #ff8c00; color: white; padding: 10px 20px; display: inline-block; margin-top: 20px; border-radius: 5px; }
-                .rating { position: absolute; background: white; color: #333; left: 630px; margin-bottom: -200px; padding: 15px; border-radius: 10px; text-align: center; }
+                .rating { position: absolute; background: white; color: #333; left: 720px; top: 370px; margin-bottom: -200px; padding: 15px; border-radius: 10px; text-align: center; }
                 .stars { color: #ff8c00; }
-                .burger-image { width: 650px; height: auto; border-radius: 10px; }
+                .burger-image { width: 648px; height: 432px; border-radius: 10px; }
 
                 .offers-section {
                     max-width: 1200px;
@@ -460,14 +460,14 @@
         <main>
             <div class="hero">
                 <div class="hero-content">
-                    <p>I'm lovin' it!</p>
-                    <h1>McDonald's Cebu <span class="highlight">Southroad</span></h1>
+                    <p>Cryspylicious. Juicylicious.</p>
+                    <h1>Jollibee - Cebu <span class="highlight">Oriente</span></h1>
                     <div class="delivery-info">
                         <div class="delivery-item">
-                            <span>🚚</span> Delivery Fee: 18 Php
+                            <span>🚚</span> Delivery Fee: 29 Php
                         </div>
                         <div class="delivery-item">
-                            <span>🕒</span> Delivery in 20-25 Minutes
+                            <span>🕒</span> Delivery in 35-50 Minutes
                         </div>
                     </div>
                     <div class="open-until">
@@ -475,11 +475,11 @@
                     </div>
                 </div>
                 <div class="rating">
-                    <h2>4.0</h2>
+                    <h2>4.9</h2>
                     <div class="stars">★★★★☆</div>
-                    <p>1,217 reviews</p>
+                    <p>5,436 reviews</p>
                 </div>
-                <img src="{% static 'img/borger.png' %}" alt="McDonald's Burger Meal" class="burger-image">
+                <img src="{% static 'img/JollibeeBG.png' %}" alt="McDonald's Burger Meal" class="burger-image">
             </div>
 
             <section class="offers-section">
@@ -525,9 +525,11 @@
 
                 <div class="offers-header">
                     <h1>Menu</h1>
+                    {% if user_type == 'Admin' or user_type == 'admin' %}
                     <a href="{% url 'add_menu_jollibee' %}" class="edit-menu-btn add-menu-btn">
                         <i class="fas fa-plus btn-icon"></i>Add Menu
                     </a>
+                    {% endif %}
                 </div>
 
                 <div class="burgers-grid">
@@ -549,9 +551,11 @@
                                         <button class="add-button2" aria-label="Add to order" type="submit">+</button>
                                     </form>
                                 </div>
+                                {% if user_type == 'Admin' or user_type == 'admin' %}
                                 <a href="{% url 'edit_menu_jollibee' item.menu_id %}" class="edit-menu-btn">
                                     <i class="fas fa-edit btn-icon"></i>Edit Menu
                                 </a>
+                                {% endif %}
                             </div>
                         </div>
                     {% empty %}
