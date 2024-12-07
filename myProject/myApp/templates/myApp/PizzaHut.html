@@ -206,6 +206,13 @@
                     position: relative;
                     display: flex;
                     flex-direction: column;
+                    margin-top: 10px;
+                    transition: transform 0.3s ease;
+                }
+
+                .burger-card:hover {
+                    transform: translateY(-10px);
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
                 }
 
                 .burger-image2 {
@@ -438,8 +445,8 @@
                     <img src="{% static 'img/Logo.png' %}" alt="Order Phil Logo" class="logo-img">
                 </div>
                 <ul class="nav-links">
-                    <li><a href="{% url 'home' %}" class="active">Home</a></li>
-                    <li><a href="{% url 'McDonalds' %}">Restaurants</a></li>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'McDonalds' %}" class="active">Restaurants</a></li>
                     <li><a href="{% url 'Orders' %}">Orders</a></li>
                     <li><a href="{% url 'Checkout' %}">Checkout</a></li>
                     <li><a href="{% url 'Drivers' %}">Delivery Drivers</a></li>
@@ -460,14 +467,14 @@
         <main>
             <div class="hero">
                 <div class="hero-content">
-                    <p>I'm lovin' it!</p>
-                    <h1>McDonald's Cebu <span class="highlight">Southroad</span></h1>
+                    <p>Make it Great</p>
+                    <h1>Pizza Hut - Fuente <span class="highlight">Osmena</span></h1>
                     <div class="delivery-info">
                         <div class="delivery-item">
-                            <span>🚚</span> Delivery Fee: 18 Php
+                            <span>🚚</span> Delivery Fee: 29 Php
                         </div>
                         <div class="delivery-item">
-                            <span>🕒</span> Delivery in 20-25 Minutes
+                            <span>🕒</span> Delivery in 30-45 Minutes
                         </div>
                     </div>
                     <div class="open-until">
@@ -475,16 +482,16 @@
                     </div>
                 </div>
                 <div class="rating">
-                    <h2>4.0</h2>
-                    <div class="stars">★★★★☆</div>
-                    <p>1,217 reviews</p>
+                    <h2>5.0</h2>
+                    <div class="stars">★★★★★</div>
+                    <p>3,975 reviews</p>
                 </div>
                 <img src="{% static 'img/pizzahutBG.png' %}" alt="McDonald's Burger Meal" class="burger-image">
             </div>
 
             <section class="offers-section">
                 <div class="offers-header">
-                    <h2>All Offers from McDonald's Cebu Southroad</h2>
+                    <h2>All Offers from Pizza Hut - Fuente Osmena</h2>
                 </div>
                 <div class="categories">
                     <a class="category active">Browse Restaurants</a>
@@ -499,24 +506,24 @@
                 </div>
                 <div class="offers-grid">
                     <div class="offer-card">
-                        <img src="{% static 'img/first-order-discount.png' %}" alt="First Order Discount" class="offer-image">
+                        <img src="{% static 'img/pizzahutPIC1.png' %}" alt="First Order Discount" class="offer-image">
                         <div class="offer-details">
-                            <div class="offer-title">McDonald's Cebu Southroad</div>
-                            <div>First Order Discount</div>
+                            <div class="offer-title">Pizza Hut - Fuente Osmena</div>
+                            <div>Where there's pizza, there's happiness</div>
                         </div>
                     </div>
                     <div class="offer-card">
-                        <img src="{% static 'img/vegan-discount.png' %}" alt="Vegan Discount" class="offer-image">
+                        <img src="{% static 'img/pizzahutPIC2.png' %}" alt="Vegan Discount" class="offer-image">
                         <div class="offer-details">
-                            <div class="offer-title">McDonald's Cebu Southroad</div>
-                            <div>Vegan Discount</div>
+                            <div class="offer-title">Pizza Hut - Fuente Osmena</div>
+                            <div>The world's favorite pizza</div>
                         </div>
                     </div>
                     <div class="offer-card">
-                        <img src="{% static 'img/free-ice-cream.png' %}" alt="Free Ice Cream Offer" class="offer-image">
+                        <img src="{% static 'img/pizzahutPIC3.png' %}" alt="Free Ice Cream Offer" class="offer-image">
                         <div class="offer-details">
-                            <div class="offer-title">McDonald's Cebu Southroad</div>
-                            <div>Free Ice Cream Offer</div>
+                            <div class="offer-title">Pizza Hut - Fuente Osmena</div>
+                            <div>The Hut is the best place for pizza</div>
                         </div>
                     </div>
                 </div>

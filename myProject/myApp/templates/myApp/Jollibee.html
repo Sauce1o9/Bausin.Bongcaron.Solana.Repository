@@ -206,6 +206,13 @@
                     position: relative;
                     display: flex;
                     flex-direction: column;
+                    margin-top: 10px;
+                    transition: transform 0.3s ease;
+                }
+
+                .burger-card:hover {
+                    transform: translateY(-10px);
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
                 }
 
                 .burger-image2 {
@@ -438,8 +445,8 @@
                     <img src="{% static 'img/Logo.png' %}" alt="Order Phil Logo" class="logo-img">
                 </div>
                 <ul class="nav-links">
-                    <li><a href="{% url 'home' %}" class="active">Home</a></li>
-                    <li><a href="{% url 'McDonalds' %}">Restaurants</a></li>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'McDonalds' %}" class="active">Restaurants</a></li>
                     <li><a href="{% url 'Orders' %}">Orders</a></li>
                     <li><a href="{% url 'Checkout' %}">Checkout</a></li>
                     <li><a href="{% url 'Drivers' %}">Delivery Drivers</a></li>
@@ -484,7 +491,7 @@
 
             <section class="offers-section">
                 <div class="offers-header">
-                    <h2>All Offers from McDonald's Cebu Southroad</h2>
+                    <h2>All Offers from Jollibee - Cebu Oriente</h2>
                 </div>
                 <div class="categories">
                     <a class="category active">Browse Restaurants</a>
@@ -499,24 +506,24 @@
                 </div>
                 <div class="offers-grid">
                     <div class="offer-card">
-                        <img src="{% static 'img/first-order-discount.png' %}" alt="First Order Discount" class="offer-image">
+                        <img src="{% static 'img/jollibeePIC1.png' %}" alt="First Order Discount" class="offer-image">
                         <div class="offer-details">
-                            <div class="offer-title">McDonald's Cebu Southroad</div>
-                            <div>First Order Discount</div>
+                            <div class="offer-title">Jollibee - Cebu Oriente</div>
+                            <div>Kahit anong mangyari, Jollibee pa rin!</div>
                         </div>
                     </div>
                     <div class="offer-card">
-                        <img src="{% static 'img/vegan-discount.png' %}" alt="Vegan Discount" class="offer-image">
+                        <img src="{% static 'img/jollibeePIC2.png' %}" alt="Vegan Discount" class="offer-image">
                         <div class="offer-details">
-                            <div class="offer-title">McDonald's Cebu Southroad</div>
-                            <div>Vegan Discount</div>
+                            <div class="offer-title">Jollibee - Cebu Oriente</div>
+                            <div>Sarap ng bawat hapunan, Jollibee</div>
                         </div>
                     </div>
                     <div class="offer-card">
-                        <img src="{% static 'img/free-ice-cream.png' %}" alt="Free Ice Cream Offer" class="offer-image">
+                        <img src="{% static 'img/jollibeePIC3.png' %}" alt="Free Ice Cream Offer" class="offer-image">
                         <div class="offer-details">
-                            <div class="offer-title">McDonald's Cebu Southroad</div>
-                            <div>Free Ice Cream Offer</div>
+                            <div class="offer-title">Jollibee - Cebu Oriente</div>
+                            <div>Laging may saya, laging may Jollibee</div>
                         </div>
                     </div>
                 </div>
