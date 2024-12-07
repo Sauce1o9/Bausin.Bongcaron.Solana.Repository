@@ -64,7 +64,7 @@ For menu adn delivery driver data, you can import data from a CSV file.
 
 [Menu and Delivery Driver Data](https://drive.google.com/drive/folders/1161id5fbNPu5V76_lxQjw63xAlA12bRP?usp=sharing)
 
-<p align="left">(<a href="#Import-instructions">Import instructions</a>)</p>
+<p align="left"><a href="#Import-instructions">Import instructions</a></p>
 
 ## Important Notes
 
