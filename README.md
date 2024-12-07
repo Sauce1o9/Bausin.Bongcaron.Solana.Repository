@@ -59,6 +59,12 @@ To get a local copy up and running follow these simple example steps.
 
 After these steps, the project should be running at http://127.0.0.1:8000/
 
+## Menu and Delivery Driver Data Import
+For menu adn delivery driver data, you can import data from a CSV file.
+[Menu and Delivery Driver Data](https://drive.google.com/drive/folders/1161id5fbNPu5V76_lxQjw63xAlA12bRP?usp=sharing)
+
+<p align="left">(<a href="#Import-instructions">Import instructions</a>)</p>
+
 ## Important Notes
 
 1. Make sure to keep the virtual environment activated while viewing/editing on the project
@@ -103,6 +109,8 @@ After these steps, the project should be running at http://127.0.0.1:8000/
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+
+<a id="Import-instructions"></a>
 # Data Import Instructions
 
 ## Importing Data through Django Admin

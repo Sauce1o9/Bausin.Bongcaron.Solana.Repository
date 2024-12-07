@@ -35,11 +35,51 @@
         label { font-weight: bold; margin-bottom: 5px; display: block; }
         input, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: rgba(255, 255, 255, 0.1); backdrop-filter: blur(1px); }
         textarea { resize: vertical; }
-        .button-container { margin-top: 20px; text-align: center; }
-        .save-button { background-color: #ff8c00; color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; transition: background-color 0.3s ease; }
-        .save-button:hover { background-color: #e68a00; }
-        .cancel-button { margin-left: 10px; background-color: #ccc; color: #333; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; text-decoration: none;}
-        .cancel-button:hover { background-color: #bbb; }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .save-button, .cancel-button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            min-width: 120px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .save-button {
+            background-color: #ff8c00;
+            color: white;
+        }
+
+        .save-button:hover {
+            background-color: #e68a00;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .cancel-button {
+            background-color: #f8f9fa;
+            color: #444;
+            border: 1px solid #ddd;
+        }
+
+        .cancel-button:hover {
+            background-color: #e2e6ea;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
         .delete-button { position: absolute; top: 20px; right: 20px; background-color: #ff4d4d; color: white; border: none; padding: 10px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; }
         .delete-button:hover { background-color: #e63939; }
         .context {
@@ -178,6 +218,115 @@
                 border-radius: 50%;
             }
         }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.show {
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            transform: scale(0.7);
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .show .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .modal-icon {
+            color: #dc3545;
+            font-size: 40px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .modal h3 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .modal p {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 16px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .modal-button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            min-width: 120px;
+        }
+
+        .confirm-button {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .confirm-button:hover {
+            background-color: #c82333;
+        }
+
+        .cancel-button {
+            background-color: #f8f9fa;
+            color: #444;
+            border: 1px solid #ddd;
+        }
+
+        .cancel-button:hover {
+            background-color: #e2e6ea;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .modal-shake {
+            animation: shake 0.3s ease-in-out;
+        }
     </style>
 </head>
 <body>
@@ -215,11 +364,66 @@
                     <a href="{% url 'PizzaHut' %}" class="cancel-button">Cancel</a>
                 </div>
             </form>
-            <form method="POST" action="{% url 'delete_menu_pizzahut' menu_item.menu_id %}" style="display: inline;">
-                {% csrf_token %}
-                <button type="submit" class="delete-button" onclick="return confirm('Are you sure you want to delete this menu item?');">Delete Menu</button>
-            </form>
+            <button class="delete-button" onclick="showDeleteConfirmation()">Delete Item</button>
         </div>
     </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3>Delete Menu Item</h3>
+            <p>Are you sure you want to delete this menu item?</p>
+            <div class="modal-buttons">
+                <button class="modal-button cancel-button" onclick="hideDeleteModal()">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="modal-button confirm-button" onclick="confirmDelete()">
+                    <i class="fas fa-trash-alt"></i> Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <form id="deleteForm" method="POST" action="{% url 'delete_menu_pizzahut' menu_item.menu_id %}">
+        {% csrf_token %}
+    </form>
+
+    <script>
+        function showDeleteConfirmation() {
+            const modal = document.getElementById('deleteModal');
+            modal.style.display = 'flex';
+            void modal.offsetWidth;
+            modal.classList.add('show');
+        }
+
+        function hideDeleteModal() {
+            const modal = document.getElementById('deleteModal');
+            modal.classList.remove('show');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300); // Match transition duration
+        }
+
+        function confirmDelete() {
+            // Submit the delete form
+            document.getElementById('deleteForm').submit();
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('deleteModal');
+            if (event.target === modal) {
+                hideDeleteModal();
+            }
+        }
+
+        // Remove shake animation class after animation ends
+        document.querySelector('.modal-content').addEventListener('animationend', function() {
+            this.classList.remove('modal-shake');
+        });
+    </script>
 </body>
 </html>
