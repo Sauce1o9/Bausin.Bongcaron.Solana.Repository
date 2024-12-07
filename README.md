@@ -102,3 +102,65 @@ After these steps, the project should be running at http://127.0.0.1:8000/
 - [UI/UX](https://www.figma.com/design/6vOxothoYyj1EuZEdI4g2O/Untitled?node-id=0-1&node-type=canvas&t=osrTp2l0xntU8vgo-0)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+# Data Import Instructions
+
+## Importing Data through Django Admin
+
+Django-import-export has been configured for the Menu and Delivery Driver models. Here's how to import data:
+
+1. First, install the import-export package:
+   - Run the following command in your terminal:
+     ```bash
+     pip install django-import-export
+     ```
+
+2. Ensure you're logged into the Django admin interface:
+   - Go to `http://127.0.0.1:8000/admin/`
+   - Log in with your admin credentials
+
+3. Navigate to the model you want to import data for:
+   - For Menu data: Click on "Menus" in the admin interface
+   - For Delivery Drivers: Click on "Delivery drivers" in the admin interface
+
+4. Import Data:
+   - Look for the "Import" button in the top right corner
+   - Click on "Import"
+   - Choose your file format (CSV, XLS, XLSX, etc.)
+   - Upload your data file
+   - Click "Submit"
+
+5. Preview and Confirm:
+   - Review the preview of your data
+   - Make sure the columns match correctly
+   - If everything looks correct, click "Confirm import"
+
+## File Format Requirements
+
+### Menu Data Format
+Your CSV/Excel file should have these columns:
+- name
+- description
+- price
+- category
+- is_available
+
+### Delivery Driver Data Format
+Your CSV/Excel file should have these columns:
+- name
+- contact_number
+- vehicle_type
+- license_number
+- availability_status
+
+## Tips
+- Make sure your data file is properly formatted with headers matching the model fields
+- Use UTF-8 encoding for CSV files
+- For dates, use YYYY-MM-DD format
+- For boolean fields (like is_available), use True/False or 1/0
+
+## Troubleshooting
+If you encounter any issues:
+1. Check that your column names exactly match the model fields
+2. Verify your data format matches the expected format
+3. Make sure all required fields are included in your import file

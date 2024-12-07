@@ -1,0 +1,214 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Drivers Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --orange: #ff8c00;
+            --dark-blue: #0A0A29;
+            --white: #ffffff;
+        }
+        body {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .sidebar {
+            background-color: var(--dark-blue);
+            border-right: 1px solid var(--orange);
+            height: 100vh;
+            position: fixed;
+            padding: 2rem 1rem;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--orange);
+            margin-bottom: 1rem;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-header {
+            background-color: var(--orange);
+            color: var(--white);
+            font-weight: bold;
+        }
+        .stats-card {
+            background-color: rgba(255, 140, 0, 0.1);
+            border: 1px solid var(--orange);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        .table {
+            color: var(--white);
+        }
+        .table thead th {
+            background-color: var(--orange);
+            color: var(--white);
+            border: none;
+        }
+        .table tbody tr {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        .table tbody tr:hover {
+            background-color: rgba(255, 140, 0, 0.1);
+        }
+        .nav-link {
+            color: var(--white);
+            margin-bottom: 1rem;
+            transition: color 0.3s;
+        }
+        .nav-link:hover {
+            color: var(--orange);
+        }
+        .nav-link i {
+            margin-right: 10px;
+            color: var(--orange);
+        }
+        .search-bar {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--orange);
+            color: var(--white);
+        }
+        .search-bar:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            border-color: var(--orange);
+            box-shadow: 0 0 0 0.2rem rgba(255, 140, 0, 0.25);
+        }
+        .btn-orange {
+            background-color: var(--orange);
+            color: var(--white);
+            border: none;
+        }
+        .btn-orange:hover {
+            background-color: #e67e00;
+            color: var(--white);
+        }
+        .driver-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .vehicle-badge {
+            background-color: var(--orange);
+            color: var(--white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar">
+                <h3 class="text-white mb-4">Admin Panel</h3>
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="admin_page"><i class="fas fa-users"></i>Customers</a>
+                    <a class="nav-link" href="admin_menu"><i class="fas fa-utensils"></i>Menu</a>
+                    <a class="nav-link active" href="admin_drivers"><i class="fas fa-truck"></i>Drivers</a>
+                    <a class="nav-link" href="admin_orders"><i class="fas fa-shopping-cart"></i>Orders</a>
+                </nav>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-10 main-content">
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <h2><i class="fas fa-truck me-2" style="color: var(--orange);"></i>Delivery Drivers</h2>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="stats-card">
+                            <h4>Total Drivers</h4>
+                            <h2>{{ drivers.count }}</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <form method="GET" class="d-flex">
+                            <input type="text" class="form-control search-bar me-2" name="search" placeholder="Search drivers..." value="{{ search_query }}">
+                            <button type="submit" class="btn btn-orange"><i class="fas fa-search"></i></button>
+                            {% if search_query %}
+                                <a href="{% url 'admin_drivers' %}" class="btn btn-secondary ms-2" title="Clear search"><i class="fas fa-times"></i></a>
+                            {% endif %}
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Drivers Table -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Profile</th>
+                                        <th>Driver ID</th>
+                                        <th>Name</th>
+                                        <th>Phone Number</th>
+                                        <th>Vehicle Type</th>
+                                        <th>License Plate</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if drivers %}
+                                        {% for driver in drivers %}
+                                        <tr>
+                                            <td>
+                                                {% if driver.driver_image %}
+                                                    <img src="{{ driver.driver_image.url }}" alt="Driver" class="driver-img">
+                                                {% else %}
+                                                    <img src="{% static 'img/default-profile.png' %}" alt="Default Driver" class="driver-img">
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ driver.driver_id }}</td>
+                                            <td>{{ driver.driver_fname }} {{ driver.driver_lname }}</td>
+                                            <td>{{ driver.driver_phone_number }}</td>
+                                            <td><span class="vehicle-badge">{{ driver.vehicle_type }}</span></td>
+                                            <td>{{ driver.license_plate }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="6" class="text-center">
+                                                {% if search_query %}
+                                                    <p class="my-3">No drivers found matching "{{ search_query }}"</p>
+                                                {% else %}
+                                                    <p class="my-3">No drivers found</p>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

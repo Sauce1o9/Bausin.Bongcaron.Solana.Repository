@@ -5,6 +5,7 @@ from django.contrib import messages # type: ignore
 from .forms import MenuForm
 from .models import Orders, Customer, Delivery_Driver, Menu, Checkout
 from django.http import Http404  # Add this import
+from django.db.models import Q
 import os
 
 # Create your views here.
@@ -764,3 +765,158 @@ def edit_profile(request):
     
     # If not a POST request, redirect to profile
     return redirect('Profile')
+
+def admin_page(request):
+    # Get all customers from the database
+    customers = Customer.objects.all()
+    
+    # Get search query from request
+    search_query = request.GET.get('search', '')
+    
+    # If there's a search query, filter the customers
+    if search_query:
+        customers = customers.filter(
+            Q(customer_id__icontains=search_query) |
+            Q(first_name__icontains=search_query) |
+            Q(last_name__icontains=search_query) |
+            Q(email__icontains=search_query) |
+            Q(phone_number__icontains=search_query) |
+            Q(address__icontains=search_query)
+        )
+    
+    return render(request, "myApp/AdminPage.html", {
+        'customers': customers,
+        'search_query': search_query
+    })
+
+def edit_customer(request, customer_id):
+    customer = get_object_or_404(Customer, customer_id=customer_id)
+    
+    if request.method == 'POST':
+        customer.first_name = request.POST.get('first_name')
+        customer.last_name = request.POST.get('last_name')
+        customer.email = request.POST.get('email')
+        customer.phone_number = request.POST.get('phone_number')
+        customer.address = request.POST.get('address')
+        customer.user_type = request.POST.get('user_type')
+        
+        if 'customer_image' in request.FILES:
+            customer.customer_image = request.FILES['customer_image']
+            
+        customer.save()
+        messages.success(request, 'Customer updated successfully')
+        return redirect('admin_page')
+        
+    return render(request, "myApp/edit_customer.html", {'customer': customer})
+
+def delete_customer(request, customer_id):
+    customer = get_object_or_404(Customer, customer_id=customer_id)
+    if request.method == 'POST':
+        customer.delete()
+        messages.success(request, 'Customer deleted successfully')
+        return redirect('admin_page')
+    return render(request, "myApp/delete_customer.html", {'customer': customer})
+
+def add_customer(request):
+    if request.method == 'POST':
+        customer_id = request.POST.get('customer_id')
+        password = request.POST.get('password')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        phone_number = request.POST.get('phone_number')
+        address = request.POST.get('address')
+        customer_image = request.FILES.get('customer_image')
+
+        # Check if customer_id already exists
+        if Customer.objects.filter(customer_id=customer_id).exists():
+            messages.error(request, 'Customer ID already exists')
+            return render(request, "myApp/add_customer.html")
+
+        # Create new customer
+        customer = Customer(
+            customer_id=customer_id,
+            password=password,
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            phone_number=phone_number,
+            address=address,
+            customer_image=customer_image
+        )
+        customer.save()
+        messages.success(request, 'Customer added successfully')
+        return redirect('admin_page')
+
+    return render(request, "myApp/add_customer.html")
+
+def admin_menu(request):
+    # Get all menu items and order them by restaurant name
+    menu_items = Menu.objects.all().order_by('restaurant_name2')
+    
+    # Get search query from request
+    search_query = request.GET.get('search', '')
+    
+    # If there's a search query, filter the menu items
+    if search_query:
+        menu_items = menu_items.filter(
+            Q(item_name__icontains=search_query) |
+            Q(restaurant_name2__icontains=search_query) |
+            Q(item_description__icontains=search_query)
+        )
+    
+    return render(request, "myApp/AdminMenu.html", {
+        'menu_items': menu_items,
+        'search_query': search_query
+    })
+
+def admin_drivers(request):
+    # Get all drivers ordered by name
+    drivers = Delivery_Driver.objects.all().order_by('driver_fname', 'driver_lname')
+    
+    # Get search query from request
+    search_query = request.GET.get('search', '')
+    
+    # If there's a search query, filter the drivers
+    if search_query:
+        drivers = drivers.filter(
+            Q(driver_id__icontains=search_query) |
+            Q(driver_fname__icontains=search_query) |
+            Q(driver_lname__icontains=search_query) |
+            Q(driver_phone_number__icontains=search_query) |
+            Q(vehicle_type__icontains=search_query) |
+            Q(license_plate__icontains=search_query)
+        )
+    
+    return render(request, "myApp/AdminDrivers.html", {
+        'drivers': drivers,
+        'search_query': search_query
+    })
+
+def admin_orders(request):
+    # Get all orders ordered by ID (since there's no date field)
+    orders = Orders.objects.all().order_by('-order_id')
+    
+    # Calculate statistics
+    total_orders = orders.count()
+    total_revenue = sum(order.order_price for order in orders)
+    
+    # Get search query from request
+    search_query = request.GET.get('search', '')
+    
+    # If there's a search query, filter the orders
+    if search_query:
+        orders = orders.filter(
+            Q(order_id__icontains=search_query) |
+            Q(order_name__icontains=search_query) |
+            Q(order_description__icontains=search_query) |
+            Q(delivery_address__icontains=search_query) |
+            Q(order_customer__icontains=search_query)
+        )
+    
+    return render(request, "myApp/AdminOrders.html", {
+        'orders': orders,
+        'search_query': search_query,
+        'total_orders': total_orders,
+        'total_revenue': total_revenue
+    })
