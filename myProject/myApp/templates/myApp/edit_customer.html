@@ -42,6 +42,9 @@
             background-color: #e67e00;
             color: var(--white);
         }
+        .form-label {
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -50,7 +53,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="text-center mb-4">Edit Customer</h2>
+                        <h2 style="color: white;" class="text-center mb-4">Edit Customer</h2>
                         <form method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="mb-3">
