@@ -1,13 +1,15 @@
 <a id="readme-top"></a>
-# 🚚Food Ordering and Delivery System🚚
+# 🚚OrderPhil🚚
 
 ## About The Project
 
-The Food Ordering and Delivery System is a desktop-based application that streamlines the food ordering process between customers and restaurants. It provides a user-friendly interface where customers can browse menus and place orders, while restaurant owners can manage their menus and process orders efficiently. The system includes integrated payment processing to facilitate seamless transactions between all parties involved.
+The Food Ordering and Delivery System (OrderPhil) is a desktop-based application that streamlines the food ordering process between customers and restaurants. It provides a user-friendly interface where customers can browse menus and place orders, while restaurant owners can manage their menus and process orders efficiently. The system includes integrated payment processing to facilitate seamless transactions between all parties involved.
+
 
 ## 🙋‍♂️ Members:
 - Kent Jose F. Bausin
 - Raffy G. Solana
+- 
 
 ## 🔨 Built With:
 
@@ -17,10 +19,12 @@ The Food Ordering and Delivery System is a desktop-based application that stream
 - ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 - ![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
 
+
 ## Run Locally
 
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
+
 
 ### Installation
 
@@ -28,20 +32,21 @@ To get a local copy up and running follow these simple example steps.
    ```sh
    git clone https://github.com/username/Food_Ordering_and_Delivery_System.git
    ```
-2. Navigate into the project directory (In a Git Bash Terminal)
+2. Connect to the Virtual Environment (In a Git Bash Terminal)
    ```sh
-   cd Food_Ordering_and_Delivery_System
+   source Food_Ordering_and_Delivery_System/Scripts/activate  # On Windows using Git Bash
    ```
-3. Set Up Python Virtual Environment
-   ```sh
-   python -m venv venv
-   source venv/Scripts/activate  # On Windows using Git Bash
-   ```
-4. Install Dependencies
+3. Install Dependencies
    ```sh
    pip install django
    pip install pillow                 # For image handling
    pip install django-crispy-forms    # For better form rendering
+   pip install django-import-export   # For importing and exporting data
+   ```
+4. Navigate into the project directory
+   ```sh
+   cd myProject
+   ls
    ```
 5. Database Setup
    ```sh
@@ -59,12 +64,14 @@ To get a local copy up and running follow these simple example steps.
 
 After these steps, the project should be running at http://127.0.0.1:8000/
 
+
 ## Menu and Delivery Driver Data Import
 For menu adn delivery driver data, you can import data from a CSV file.
 
-[Menu and Delivery Driver Data](https://drive.google.com/drive/folders/1161id5fbNPu5V76_lxQjw63xAlA12bRP?usp=sharing)
+- [Menu and Delivery Driver Data](https://drive.google.com/drive/folders/1161id5fbNPu5V76_lxQjw63xAlA12bRP?usp=sharing)
 
 <p align="left"><a href="#Import-instructions">Import instructions</a></p>
+
 
 ## Important Notes
 
@@ -73,6 +80,7 @@ For menu adn delivery driver data, you can import data from a CSV file.
 3. If you encounter any permission issues in Git Bash, try running it as administrator
 4. The admin panel can be accessed at http://127.0.0.1:8000/admin
 5. Make sure all environment variables (if any) are properly set up
+
 
 ## Functional Requirement
 1. User Authentication
@@ -98,6 +106,7 @@ For menu adn delivery driver data, you can import data from a CSV file.
     Details:
      - Payment Confirmation: Customers can securely pay for their orders. Payments are processed only for confirmed orders.
 
+
 ## Links
 
 - [Functional Requirements](https://docs.google.com/document/d/1AthXtmaQ210Vcrmn-cGbGaN4lR0AdVr9Q6gzLmvgpcw/edit?usp=sharing)
@@ -109,6 +118,7 @@ For menu adn delivery driver data, you can import data from a CSV file.
 - [UI/UX](https://www.figma.com/design/6vOxothoYyj1EuZEdI4g2O/Untitled?node-id=0-1&node-type=canvas&t=osrTp2l0xntU8vgo-0)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 
 <a id="Import-instructions"></a>
@@ -143,6 +153,7 @@ Django-import-export has been configured for the Menu and Delivery Driver models
    - Review the preview of your data
    - Make sure the columns match correctly
    - If everything looks correct, click "Confirm import"
+
 
 ## File Format Requirements
 
